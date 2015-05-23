@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="RestServices">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="RestController-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RestController/RestController">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BusinessLogic-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BusinessLogic/BusinessLogic">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="RepositoryImpl-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RepositoryImpl/RepositoryImpl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Repository-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Repository/Repository">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Domain-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Domain/Domain">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="DataAccessImpl-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/DataAccessImpl/DataAccessImpl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="DataAccess-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/DataAccess/DataAccess">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BusinessLogicImpl-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BusinessLogicImpl/BusinessLogicImpl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Common-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Common/Common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/RestServices/target/classes"/>
+        <property name="context-root" value="restaurantServices"/>
+    </wb-module>
+</project-modules>

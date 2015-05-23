@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>pe.andromeda</groupId>
+  <artifactId>RestaurantProject</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>Restaurant Project</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<springframework-version>4.1.6.RELEASE</springframework-version>
+	<springdata-version>1.8.0.RELEASE</springdata-version>
+	<hibernate-version>4.3.9.Final</hibernate-version>
+	<org.slf4j-version>1.7.12</org.slf4j-version>
+	<log4j-version>1.2.17</log4j-version>
+  </properties>
+  <modules>
+  	<module>RestServices</module>
+  	<module>BusinessLogic</module>
+  	<module>BusinessLogicImpl</module>
+  	<module>DataAccess</module>
+  	<module>DataAccessImpl</module>
+  	<module>Repository</module>
+  	<module>RepositoryImpl</module>
+  	<module>Domain</module>
+  	<module>Common</module>
+  	<module>RestController</module>
+  </modules>
+</project>
