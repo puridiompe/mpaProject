@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.domain.persistence;
+package com.puridiompe.mpa.sistran.domain.persistence;
 
 import java.util.Date;
 
@@ -17,66 +17,66 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "TrEsp_PerOpe")
+@Table(name = "\"TrEsp_PerOpe\"")
 public class PermisoOperacionEspecial {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false, unique = true)
+	@Column(name = "\"id\"", nullable = false, unique = true)
 	private Integer id;
 	
-	@Column(name = "numeroPermisoOperacion")
-	private Integer numPerOpe;
+	@Column(name = "\"numPerOpe\"")
+	private Integer numeroPermisoOperacion;
 	
-	@Column(name = "flota")
+	@Column(name = "\"flota\"")
 	private Integer flota;
 	
-	@Column(name = "vehiculo", length = 6)
+	@Column(name = "\"vehiculo\"", length = 6)
 	private String vehiculo;
 	
-	@Column(name = "fecEmi")
+	@Column(name = "\"fecEmi\"")
 	private Date fechaEmision;
 	
-	@Column(name = "fecVen")
+	@Column(name = "\"fecVen\"")
 	private Date fechaVencimiento;
 	
-	@Column(name = "numRec")
+	@Column(name = "\"numRec\"")
 	private Integer numeroRecibo;
 	
-	@Column(name = "fecPag")
+	@Column(name = "\"fecPag\"")
 	private Date fechaPago;
 	
-	@Column(name = "numImp")
+	@Column(name = "\"numImp\"")
 	private Integer numeroImpuesto;
 	
-	@Column(name = "original")
+	@Column(name = "\"original\"")
 	private boolean original;
 	
-	@Column(name = "tipOpe", length = 1)
+	@Column(name = "\"tipOpe\"", length = 1)
 	private String tipoOperacion;
 	
-	@Column(name = "numExp")
+	@Column(name = "\"numExp\"")
 	private String numeroExpediente;
 	
-	@Column(name = "fecExp")
+	@Column(name = "\"fecExp\"")
 	private Date fechaExpiracion;
 	
-	@Column(name = "observaci")
+	@Column(name = "\"observaci\"")
 	private String observacion;
 	
-	@Column(name = "estado")
+	@Column(name = "\"estado\"")
 	private Integer estado;
 	
-	@Column(name = "hisVeh")
+	@Column(name = "\"hisVeh\"")
 	private Integer historiaVehiculo;
 	
-	@Column(name = "hisPro")
+	@Column(name = "\"hisPro\"")
 	private Integer historiaProceso;
 	
-	@Column(name = "usuario")
+	@Column(name = "\"usuario\"")
 	private String usuario;
 	
-	@Column(name = "fecAct")
+	@Column(name = "\"fecAct\"")
 	private Date fechaActivacion;
 	
 	
@@ -106,14 +106,15 @@ public class PermisoOperacionEspecial {
 
 
 
-	public Integer getNumPerOpe() {
-		return numPerOpe;
+	
+	public Integer getNumeroPermisoOperacion() {
+		return numeroPermisoOperacion;
 	}
 
 
 
-	public void setNumPerOpe(Integer numPerOpe) {
-		this.numPerOpe = numPerOpe;
+	public void setNumeroPermisoOperacion(Integer numeroPermisoOperacion) {
+		this.numeroPermisoOperacion = numeroPermisoOperacion;
 	}
 
 

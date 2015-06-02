@@ -1,12 +1,10 @@
-package com.puridiompe.mpa.domain.persistence;
+package com.puridiompe.mpa.sistran.domain.persistence;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,112 +16,111 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "TrGen_Vehiculo")
-public class VehiculoGeneral {
+@Table(name = "\"TrGen_Vehiculo\"")
+public class Vehiculo{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "placa", nullable = false, unique = true, length = 6)
+	@Column(name = "\"placa\"", nullable = false, unique = true, length = 6)
 	private String idPlaca;
 	
-	@Column(name = "numTarPro", length = 9)
+	@Column(name = "\"numTarPro\"", length = 9)
 	private String numeroTarjetaPropiedad;
 	
-	@Column(name = "departame")
+	@Column(name = "\"departame\"")
 	private Integer departamento;
 	
-	@Column(name = "numExp", length = 4)
+	@Column(name = "\"numExp\"", length = 4)
 	private String numeroExpediente;
 	
-	@Column(name = "fecIns")
+	@Column(name = "\"fecIns\"")
 	private Date fechaInscripcion;
 	
-	@Column(name = "fecPro")
+	@Column(name = "\"fecPro\"")
 	private Date fechaProceso;
 	
-	@Column(name = "categoria")
+	@Column(name = "\"categoria\"")
 	private Integer categoria;
 	
-	@Column(name = "claCat")
+	@Column(name = "\"claCat\"")
 	private Integer claseCategoria;
 	
-	@Column(name = "clase")
+	@Column(name = "\"clase\"")
 	private Integer clase;
 	
-	@Column(name = "marca")
+	@Column(name = "\"marca\"")
 	private Integer marca;
 	
-	@Column(name = "modelo")
+	@Column(name = "\"modelo\"")
 	private String modelo;
 	
-	@Column(name = "añoFab")
+	@Column(name = "\"añoFab\"")
 	private Integer añoFabricacion;
 	
-	@Column(name = "combustib")
+	@Column(name = "\"combustib\"")
 	private Integer combustible;
 	
-	@Column(name = "carroceri")
+	@Column(name = "\"carroceri\"")
 	private Integer carroceria;
 	
-	@Column(name = "ejes")
+	@Column(name = "\"ejes\"")
 	private Integer ejes;
 	
-	@Column(name = "numMot")
+	@Column(name = "\"numMot\"")
 	private String numeroMotor;
 	
-	@Column(name = "cilindros")
+	@Column(name = "\"cilindros\"")
 	private Integer cilindros;
 	
-	@Column(name = "numSer")
+	@Column(name = "\"numSer\"")
 	private String numeroSerie;
 	
-	@Column(name = "ruedas")
+	@Column(name = "\"ruedas\"")
 	private Integer ruedas;
 	
-	@Column(name = "pasajeros")
+	@Column(name = "\"pasajeros\"")
 	private Integer pasajeros;
 	
-	@Column(name = "asientos")
+	@Column(name = "\"asientos\"")
 	private Integer asientos;
 	
-	@Column(name = "pesoSec")
+	@Column(name = "\"pesSec\"")
 	private BigDecimal pesSec;
 	
-	@Column(name = "pesBru")
+	@Column(name = "\"pesBru\"")
 	private BigDecimal pesoBruto;
 	
-	@Column(name = "longitud")
+	@Column(name = "\"longitud\"")
 	private BigDecimal longitud;
 	
-	@Column(name = "altura")
+	@Column(name = "\"altura\"")
 	private BigDecimal altura;
 	
-	@Column(name = "ancho")
+	@Column(name = "\"ancho\"")
 	private BigDecimal ancho;
 	
-	@Column(name = "carUti")
+	@Column(name = "\"carUti\"")
 	private BigDecimal carUti;
 	
-	@Column(name = "observaci")
+	@Column(name = "\"observaci\"")
 	private String observacion;
 	
-	@Column(name = "estado")
+	@Column(name = "\"estado\"")
 	private Integer estado;
 	
-	@Column(name = "usuario")
+	@Column(name = "\"usuario\"")
 	private String usuario;
 	
-	@Column(name = "fecAct")
+	@Column(name = "\"fecAct\"")
 	private Date fechaActivacion;
 	
-	@Column(name = "placa_antigua")
+	@Column(name = "\"placa_antigua\"")
 	private String placaAntigua;
 	
 	
 	/**
 	 * Default Constructor
 	 */
-	public VehiculoGeneral() {
+	public Vehiculo() {
 	
 	}
 

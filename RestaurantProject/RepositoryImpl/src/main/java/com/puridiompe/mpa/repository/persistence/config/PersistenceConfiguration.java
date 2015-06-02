@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,19 +28,24 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
+//@PropertySource("classpath:application.properties")
 public class PersistenceConfiguration {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
-		em.setPackagesToScan(new String[] { "com.puridiompe.mpa.domain.persistence" });
+//		em.setPackagesToScan(new String[] { "com.puridiompe.mpa.domain.persistence" });
+//		em.setPackagesToScan(new String[] { "com.puridiompe.mpa.sistran.domain.persistence" });
+		em.setPackagesToScan(new String[] { "com.puridiompe.mpa.papeletas.domain.persistence" });
+//		em.setPackagesToScan(new String[] { "com.puridiompe.mpa.sistran.domain.persistence", "com.puridiompe.mpa.papeletas.domain.persistence"});
+		
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setShowSql(true);
 		vendorAdapter.setGenerateDdl(false);
-		vendorAdapter
-				.setDatabasePlatform("org.hibernate.dialect.MySQLInnoDBDialect");
+		//vendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQLInnoDBDialect");
+		vendorAdapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 
 		em.setJpaVendorAdapter(vendorAdapter);
 		em.setJpaProperties(additionalProperties());
@@ -50,16 +56,18 @@ public class PersistenceConfiguration {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/andro");
-		dataSource.setUsername("androuser");
-		dataSource.setPassword("androuserp");
+		//dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setDriverClassName("org.postgresql.Driver");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/testdb");
+//		dataSource.setUrl("jdbc:postgresql://localhost:5432/BDTransportes");
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/dbwebmuni");
+		dataSource.setUsername("postgres");
+		dataSource.setPassword("postgres");
 		return dataSource;
 	}
 
 	@Bean
-	public PlatformTransactionManager transactionManager(
-			EntityManagerFactory emf) {
+	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(emf);
 

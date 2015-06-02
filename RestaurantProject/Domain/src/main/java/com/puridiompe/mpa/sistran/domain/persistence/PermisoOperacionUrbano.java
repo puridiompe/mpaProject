@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.domain.persistence;
+package com.puridiompe.mpa.sistran.domain.persistence;
 
 import java.util.Date;
 
@@ -17,84 +17,84 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "TrEsp_PerOpe")
+@Table(name = "\"TrUrb_PerOpe\"")
 public class PermisoOperacionUrbano {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false, unique = true)
+	@Column(name = "\"id\"", nullable = false, unique = true)
 	private Integer id;
 	
-	@Column(name = "numero")
+	@Column(name = "\"numero\"")
 	private Integer numero;
 	
-	@Column(name = "liquidaci")
+	@Column(name = "\"liquidaci\"")
 	private Integer liquidacion;
 	
-	@Column(name = "detLiq")
+	@Column(name = "\"detLiq\"")
 	private Integer detalleLiquidacion;
 	
-	@Column(name = "flota")
+	@Column(name = "\"flota\"")
 	private Integer flota;
 	
-	@Column(name = "hisEmp")
+	@Column(name = "\"hisEmp\"")
 	private Integer historiaEmpresa;
 	
-	@Column(name = "colEmp")
+	@Column(name = "\"colEmp\"")
 	private String colorEmpresa;
 	
-	@Column(name = "hisSoc")
+	@Column(name = "\"hisSoc\"")
 	private Integer historicoSocial;
 	
-	@Column(name = "hisVeh")
+	@Column(name = "\"hisVeh\"")
 	private Integer historiaVehiculo;
 	
-	@Column(name = "hisPro")
+	@Column(name = "\"hisPro\"")
 	private Integer historiaProceso;
 	
-	@Column(name = "colVeh")
+	@Column(name = "\"colVeh\"")
 	private String colorVehiculo;
 	
-	@Column(name = "autorizac")
+	@Column(name = "\"autorizac\"")
 	private Integer autorizacion;
 	
-	@Column(name = "hisRut")
+	@Column(name = "\"hisRut\"")
 	private Integer historiaRuta;
 	
-	@Column(name = "cerConEmi")
+	@Column(name = "\"cerConEmi\"")
 	private Integer certificadoConducirEmitido;
 	
-	@Column(name = "fecEmi")
+	@Column(name = "\"fecEmi\"")
 	private Date fechaEmision;
 	
-	@Column(name = "fecIni")
+	@Column(name = "\"fecIni\"")
 	private Date fechaInicio;
 	
-	@Column(name = "fecVen")
+	@Column(name = "\"fecVen\"")
 	private Date fechaVencimiento;
 	
-	@Column(name = "numRec")
+	@Column(name = "\"numRec\"")
 	private String numeroRecibo;
 	
-	@Column(name = "fecPag")
+	@Column(name = "\"fecPag\"")
 	private Date fechaPago;
 	
-	@Column(name = "numImp")
+	@Column(name = "\"numImp\"")
 	private Integer numeroImpuesto;
 	
-	@Column(name = "original")
+	@Column(name = "\"original\"")
 	private boolean original;
 	
-	@Column(name = "observaci")
+	@Column(name = "\"observaci\"")
 	private String obsevacion;
 	
-	@Column(name = "estado")
+	@Column(name = "\"estado\"")
 	private Integer estado;
 	
-	@Column(name = "usuario")
+	@Column(name = "\"usuario\"")
 	private String usuario;
 	
-	@Column(name = "fecAct")
+	@Column(name = "\"fecAct\"")
 	private Date fechaActivacion;
 	
 	

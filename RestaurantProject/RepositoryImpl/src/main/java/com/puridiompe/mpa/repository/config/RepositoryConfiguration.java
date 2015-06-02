@@ -12,8 +12,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  */
 @Configuration
-@EnableJpaRepositories("com.puridiompe.mpa.repository")
-@ComponentScan(value = { "com.puridiompe.mpa.repository.persistence.impl" })
+//@EnableJpaRepositories("com.puridiompe.mpa.sistran.repository.persistence")
+@EnableJpaRepositories("com.puridiompe.mpa.papeletas.repository.persistence")
+//@EnableJpaRepositories(basePackages = {"com.puridiompe.mpa.sistran.repository.persistence", "com.puridiompe.mpa.papeletas.repository.persistence"})
+
+
+//@EnableJpaRepositories("com.puridiompe.mpa.repository")
+//@ComponentScan(value = { "com.puridiompe.mpa.repository.persistence.impl" })
+//@ComponentScan(value = { "com.puridiompe.mpa.repository.persistence.impl" })
 public class RepositoryConfiguration {
 
 }
