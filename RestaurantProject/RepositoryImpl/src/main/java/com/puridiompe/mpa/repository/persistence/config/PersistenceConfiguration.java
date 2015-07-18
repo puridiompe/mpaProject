@@ -62,7 +62,7 @@ public class PersistenceConfiguration {
 //		dataSource.setUrl("jdbc:postgresql://localhost:5432/BDTransportes");
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/dbwebmuni");
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("postgresp");
+		dataSource.setPassword("postgres");
 		return dataSource;
 	}
 
