@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>pe.andromeda</groupId>
-		<artifactId>RestaurantProject</artifactId>
+		<groupId>com.puridiompe.mpa</groupId>
+		<artifactId>MpaProject</artifactId>
 		<version>1.0</version>
 	</parent>
 	<artifactId>RepositoryImpl</artifactId>
@@ -24,6 +24,11 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework-version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -124,17 +129,17 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>Repository</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>Domain</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>Common</artifactId>
 			<version>1.0</version>
 		</dependency>

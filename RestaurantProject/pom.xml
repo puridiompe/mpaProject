@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>pe.andromeda</groupId>
-  <artifactId>RestaurantProject</artifactId>
+  <groupId>com.puridiompe.mpa</groupId>
+  <artifactId>MpaProject</artifactId>
   <version>1.0</version>
   <packaging>pom</packaging>
-  <name>Restaurant Project</name>
+  <name>Mpa Project</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<springframework-version>4.1.6.RELEASE</springframework-version>
@@ -13,7 +13,7 @@
 	<org.slf4j-version>1.7.12</org.slf4j-version>
 	<log4j-version>1.2.17</log4j-version>
 	
-	<postgresql-version>9.4-1201-jdbc41</postgresql-version>
+	<postgresql-version>9.4-1200-jdbc41</postgresql-version>
   </properties>
   <modules>
   	<module>RestServices</module>

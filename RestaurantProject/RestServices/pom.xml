@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>pe.andromeda</groupId>
-		<artifactId>RestaurantProject</artifactId>
+		<groupId>com.puridiompe.mpa</groupId>
+		<artifactId>MpaProject</artifactId>
 		<version>1.0</version>
 	</parent>
 	<artifactId>RestServices</artifactId>
@@ -87,27 +87,27 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>RestController</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>RepositoryImpl</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>DataAccessImpl</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>BusinessLogicImpl</artifactId>
 			<version>1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>pe.andromeda</groupId>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>Common</artifactId>
 			<version>1.0</version>
 		</dependency>
