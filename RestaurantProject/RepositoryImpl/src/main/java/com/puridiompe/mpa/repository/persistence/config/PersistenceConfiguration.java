@@ -60,7 +60,7 @@ public class PersistenceConfiguration {
 		dataSource.setDriverClassName("org.postgresql.Driver");
 //		dataSource.setUrl("jdbc:mysql://localhost:3306/testdb");
 //		dataSource.setUrl("jdbc:postgresql://localhost:5432/BDTransportes");
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/dbwebmuni");
+		dataSource.setUrl("jdbc:postgresql://192.168.1.65:5432/dbwebmuni");
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("postgres");
 		return dataSource;
