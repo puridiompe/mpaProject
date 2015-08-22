@@ -24,7 +24,6 @@ public class PropietarioVehiculoRepositoryTest {
 		String propietarioVehiculoRepositoryEntries = propietarioVehiculoRepository.findByVehiculo("FH5534").getVehiculo();
 
 		assertEquals(propietarioVehiculoRepositoryEntries, "FH5534");
-		int i=0;
 
 	}
 
