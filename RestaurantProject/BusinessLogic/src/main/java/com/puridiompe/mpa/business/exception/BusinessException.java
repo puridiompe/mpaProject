@@ -1,9 +1,9 @@
 /**
  * 
  */
-package pe.andromeda.restaurant.business.exception;
+package com.puridiompe.mpa.business.exception;
 
-import pe.andromeda.restaurant.common.exception.HandledException;
+import com.puridiompe.mpa.common.exception.HandledException;
 
 /**
  * @author Puridiom-PE
