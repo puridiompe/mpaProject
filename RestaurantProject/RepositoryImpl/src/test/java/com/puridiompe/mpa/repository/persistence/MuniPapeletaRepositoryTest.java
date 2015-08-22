@@ -1,6 +1,6 @@
 package com.puridiompe.mpa.repository.persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,24 +9,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.puridiompe.mpa.papeletas.repository.persistence.MuniPapeletaRepository;
-import com.puridiompe.mpa.repository.config.RepositoryConfiguration;
-import com.puridiompe.mpa.repository.persistence.config.PersistenceConfiguration;
-
+import com.puridiompe.mpa.repository.config.PapeletasRepositoryConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {RepositoryConfiguration.class, PersistenceConfiguration.class})
+@ContextConfiguration(classes = { PapeletasRepositoryConfiguration.class })
 public class MuniPapeletaRepositoryTest {
 
 	@Autowired
 	private MuniPapeletaRepository muniPapeletaRepository;
-	
+
 	@Test
-    public void testFindByPlaca() {
-		
-		String muniPapeletaRepositoryEntries = muniPapeletaRepository.findByPlaca("UH1602").getNumeroPapeleta();
-        
-        assertEquals(muniPapeletaRepositoryEntries, "set     ");
-        
-    }
+	public void testFindByPlaca() {
+
+		String muniPapeletaRepositoryEntries = muniPapeletaRepository
+				.findByPlaca("UH1602").getNumeroPapeleta();
+
+		assertEquals(muniPapeletaRepositoryEntries, "set     ");
+
+	}
 
 }
