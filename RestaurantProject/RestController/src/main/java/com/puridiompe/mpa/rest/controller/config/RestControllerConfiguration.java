@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.puridiompe.infracciones.rest.controller.config;
+package com.puridiompe.mpa.rest.controller.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  *
  */
 @Configuration
-@EnableWebMvc
-@ComponentScan(basePackages = "com.puridiompe.infracciones.rest.controller")
-public class RestServicesConfiguration {
+@ComponentScan(basePackages = "com.puridiompe.mpa.rest.controller")
+public class RestControllerConfiguration {
 
 }

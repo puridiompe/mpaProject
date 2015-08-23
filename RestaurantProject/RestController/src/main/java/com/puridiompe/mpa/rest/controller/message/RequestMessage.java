@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.puridiompe.infracciones.rest.controller.message;
+package com.puridiompe.mpa.rest.controller.message;
 
 /**
  * @author Puridiom-PE
