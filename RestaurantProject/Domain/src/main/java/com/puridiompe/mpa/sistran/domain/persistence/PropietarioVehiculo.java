@@ -86,7 +86,7 @@ public class PropietarioVehiculo{
 	}
 
 
-	public void setVehiculoPropietario(String vehiculo) {
+	public void setVehiculo(String vehiculo) {
 		this.vehiculo = vehiculo;
 	}
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package pe.andromeda.restaurant.domain.persistence.utility;
+package com.puridiompe.mpa.domain.persistence.utility;
 
 import java.util.Date;
 
