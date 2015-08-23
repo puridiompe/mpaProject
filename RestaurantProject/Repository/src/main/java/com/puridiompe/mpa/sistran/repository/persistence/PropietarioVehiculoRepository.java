@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.sistran.repository.persistence;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,6 +16,6 @@ public interface PropietarioVehiculoRepository extends JpaRepository<Propietario
 	 * @return
 	 */
 	@Query("from PropietarioVehiculo p where p.vehiculo = ?1")
-	public PropietarioVehiculo findByVehiculo(String vehiculo);
+	public List<PropietarioVehiculo> findByVehiculo(String vehiculo);
 	
 }
