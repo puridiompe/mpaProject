@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.repository.persistence;
+package com.puridiompe.mpa.sistran.repository.persistence;
 
 import static org.junit.Assert.assertEquals;
 

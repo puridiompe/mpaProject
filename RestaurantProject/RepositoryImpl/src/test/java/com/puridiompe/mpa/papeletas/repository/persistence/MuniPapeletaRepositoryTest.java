@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.repository.persistence;
+package com.puridiompe.mpa.papeletas.repository.persistence;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,25 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.puridiompe.mpa.papeletas.repository.persistence.MuniConductorRepository;
+import com.puridiompe.mpa.papeletas.repository.persistence.MuniPapeletaRepository;
 import com.puridiompe.mpa.repository.config.PapeletasRepositoryConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { PapeletasRepositoryConfiguration.class })
-public class MuniConductorRepositoryTest {
+public class MuniPapeletaRepositoryTest {
 
 	@Autowired
-	private MuniConductorRepository muniConductorRepository;
+	private MuniPapeletaRepository muniPapeletaRepository;
 
 	@Test
 	public void testFindByPlaca() {
 
-		String muniConductorRepositoryEntries = muniConductorRepository
-				.findByPlaca("RH3839", "220334P").getDescripcionInfraccion();
+		String muniPapeletaRepositoryEntries = muniPapeletaRepository
+				.findByPlaca("UH1602").getNumeroPapeleta();
 
-		assertEquals(
-				muniConductorRepositoryEntries,
-				"CONDUCIR VEHICULOS CON LICENCIA CUYA CATEGORIA NO CORRESPONDA AL VEHI.QUE CONDUZCA        ");
+		assertEquals(muniPapeletaRepositoryEntries, "set     ");
 
 	}
 
