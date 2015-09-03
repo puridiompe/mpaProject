@@ -1,11 +1,11 @@
 package com.puridiompe.mpa.sistran.repository.persistence;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.puridiompe.mpa.domain.persistence.Infraction;
 import com.puridiompe.mpa.sistran.domain.persistence.PermisoOperacionEspecial;
 
 public interface PermisoOperacionEspecialRepository extends JpaRepository<PermisoOperacionEspecial, Integer>{
@@ -25,8 +25,8 @@ public interface PermisoOperacionEspecialRepository extends JpaRepository<Permis
 	 * @param flota
 	 * @return
 	 */
-	@Query("from PermisoOperacionEspecial p where p.flota = ?1")
-	public PermisoOperacionEspecial findByFlota(Integer flota);
+	@Query("from PermisoOperacionEspecial p where p.flota = ?1 order by p.id desc")
+	public List<PermisoOperacionEspecial> findByFlota(Integer flota);
 	
 	/**
 	 * find infracciones by vehiculo

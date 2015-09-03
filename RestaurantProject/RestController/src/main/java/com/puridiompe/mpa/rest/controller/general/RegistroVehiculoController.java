@@ -38,6 +38,8 @@ public class RegistroVehiculoController extends BaseController {
 
 	@Autowired
 	private GetVehiculoValidator getVehiculoValidator;
+	
+	
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -64,4 +66,5 @@ public class RegistroVehiculoController extends BaseController {
 
 		return response;
 	}
+	
 }
