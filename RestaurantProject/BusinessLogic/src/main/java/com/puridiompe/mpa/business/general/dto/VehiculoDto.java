@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.puridiompe.mpa.business.general.dto;
 
 import java.math.BigDecimal;
