@@ -46,6 +46,7 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		FlotaDto flotaObject = new FlotaDto();
 		
 		PermisoGeneralDto permisoGeneralObject = new PermisoGeneralDto();
+		
 		PermisoOperacionEspecialDto permisoEspecialObject = new PermisoOperacionEspecialDto();
 		PermisoOperacionEscolarDto permisoEscolarObject = new PermisoOperacionEscolarDto();
 		PermisoOperacionTurismoDto permisoTurismoObject = new PermisoOperacionTurismoDto();
@@ -53,30 +54,51 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		Flota flota = flotaRepository.findByVehiculo(placa);
 		if(flota != null){
 			BeanUtils.copyProperties(flota, flotaObject);
+			List<PermisoOperacionEspecial> permisoEspecial = permisoEspecialRepository.findByFlota(flota.getId());
+			if(permisoEspecial != null){
+				
+				BeanUtils.copyProperties(permisoEspecial.get(0), permisoEspecialObject);
+				permisoGeneralObject.setPermisoEspecial(permisoEspecialObject);
+				permisoGeneralObject.setVehiculo(placa);
+				permisoGeneralObject.getFechaEmision().add(permisoEspecial.get(0).getFechaEmision());
+				permisoGeneralObject.getFechaVencimiento().add(permisoEspecial.get(0).getFechaVencimiento());
+				permisoGeneralObject.getObservacion().add(permisoEspecial.get(0).getObservacion());
+				permisoGeneralObject.getFechaEmision().add(permisoEspecial.get(0).getFechaEmision());
+				permisoGeneralObject.getNumeroExpediente().add(permisoEspecial.get(0).getNumeroExpediente());
+				permisoGeneralObject.getFechaExpediente().add(permisoEspecial.get(0).getFechaExpiracion());
+				permisoGeneralObject.getTipoPermiso().add("SETARE"); // traer de la base de datos
+				
+			}
 		}
 		
-		List<PermisoOperacionEspecial> permisoEspecial = permisoEspecialRepository.findByFlota(flota.getId());
 		
 		PermisoOperacionEscolar permisoEscolar = permisoEscolarRepository.findByVehiculo(placa);
 		PermisoOperacionTurismo permisoTurismo = permisoTurismoRepository.findByVehiculo(placa);
-		
-		if(permisoEspecial != null){
-			
-			BeanUtils.copyProperties(permisoEspecial.get(0), permisoEspecialObject);
-			permisoGeneralObject.setPermisoEspecial(permisoEspecialObject);
-			permisoGeneralObject.setVehiculo(placa);
-		}
 		
 		if(permisoEscolar != null){
 			BeanUtils.copyProperties(permisoEscolar, permisoEscolarObject);
 			permisoGeneralObject.setPermisoEscolar(permisoEscolarObject);
 			permisoGeneralObject.setVehiculo(placa);
+			permisoGeneralObject.getFechaEmision().add(permisoEscolar.getFechaEmision());
+			permisoGeneralObject.getFechaVencimiento().add(permisoEscolar.getFechaVencimiento());
+			permisoGeneralObject.getObservacion().add(permisoEscolar.getObservacion());
+			permisoGeneralObject.getFechaEmision().add(permisoEscolar.getFechaEmision());
+			permisoGeneralObject.getNumeroExpediente().add(permisoEscolar.getNumeroExpediente());
+			permisoGeneralObject.getFechaExpediente().add(permisoEscolar.getFechaExpiracion());
+			permisoGeneralObject.getTipoPermiso().add("Permiso para transporte Escolar"); // traer de la base de datos
 		}
 		
 		if(permisoTurismo != null){
 			BeanUtils.copyProperties(permisoTurismo, permisoTurismoObject);
 			permisoGeneralObject.setPermisoTurismo(permisoTurismoObject);
 			permisoGeneralObject.setVehiculo(placa);
+			permisoGeneralObject.getFechaEmision().add(permisoTurismo.getFechaEmision());
+			permisoGeneralObject.getFechaVencimiento().add(permisoTurismo.getFechaVencimiento());
+			permisoGeneralObject.getObservacion().add(permisoTurismo.getObservacion());
+			permisoGeneralObject.getFechaEmision().add(permisoTurismo.getFechaEmision());
+			permisoGeneralObject.getNumeroExpediente().add(permisoTurismo.getNumeroExpediente());
+			permisoGeneralObject.getFechaExpediente().add(permisoTurismo.getFechaExpiracion());
+			permisoGeneralObject.getTipoPermiso().add("Permiso para transporte Turismo"); // traer de la base de datos
 		}
 		
 		if(permisoGeneralObject != null)
