@@ -6,6 +6,31 @@ import java.util.List;
 
 public class PermisoGeneralDto {
 
+	private List<PermisosDto> listPermiso;
+	private String vehiculo;
+	
+	public PermisoGeneralDto(){
+		this.listPermiso = new ArrayList<PermisosDto>();
+	}
+
+	public List<PermisosDto> getListPermiso() {
+		return listPermiso;
+	}
+
+	public void setListPermiso(List<PermisosDto> listPermiso) {
+		this.listPermiso = listPermiso;
+	}
+	
+	public String getVehiculo() {
+		return vehiculo;
+	}
+
+	public void setVehiculo(String vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+	
+	
+	/*
 	private String vehiculo;
 	private List<Date> fechaEmision;
 	private List<Date> fechaVencimiento;
@@ -27,11 +52,7 @@ public class PermisoGeneralDto {
 		this.tipoPermiso = new ArrayList<String>();
 	}
 	
-	/**
-	 * Getters and Setters
-	 * 
-	 * @return
-	 */
+
 	
 	public String getVehiculo() {
 		return vehiculo;
@@ -64,7 +85,7 @@ public class PermisoGeneralDto {
 	public void setPermisoTrabajador(PermisoOperacionTrabajadorDto permisoTrabajador) {
 		this.permisoTrabajador = permisoTrabajador;
 	}
-*/
+
 	public PermisoOperacionTurismoDto getPermisoTurismo() {
 		return permisoTurismo;
 	}
@@ -121,6 +142,6 @@ public class PermisoGeneralDto {
 		this.tipoPermiso = tipoPermiso;
 	}
 
-	
+	*/
 			
 }
