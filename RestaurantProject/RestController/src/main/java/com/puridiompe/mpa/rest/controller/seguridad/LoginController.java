@@ -1,6 +1,7 @@
 package com.puridiompe.mpa.rest.controller.seguridad;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
@@ -10,15 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarUsuarioBusiness;
 import com.puridiompe.mpa.business.general.dto.UsuarioDto;
+import com.puridiompe.mpa.common.rest.message.RequestMessage;
+import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetUsuarioRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetUsuarioResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetUsuarioValidator;
-import com.puridiompe.mpa.rest.controller.message.RequestMessage;
-import com.puridiompe.mpa.rest.controller.message.ResponseMessage;
 
 @RestController
 @RequestMapping("/transportes/login")
@@ -27,6 +29,7 @@ public class LoginController {
 	@Autowired
 	private GestionarUsuarioBusiness gestionarUsuarioBusiness;
 	
+	//
 	//@Autowired
 	//private GetUsuarioValidator getUsuarioValidator;
 	
@@ -63,7 +66,7 @@ public class LoginController {
 		GetUsuarioRequest usuarioRequest = request.getBody();
 
 		UsuarioDto usuarioObject = gestionarUsuarioBusiness
-				.validateUsuario(usuarioRequest.getUsuario().getIdUsuario(), 
+				.validateUsuario(usuarioRequest.getUsuario().getUsername(), 
 						          usuarioRequest.getUsuario().getPassword());
 
 		//UsuarioDto usuarioObject = gestionarUsuarioBusiness
