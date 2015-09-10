@@ -1,22 +1,22 @@
 /**
  * 
  */
-package com.puridiompe.mpa.rest.controller.message;
+package com.puridiompe.mpa.common.rest.message;
 
 /**
  * @author Puridiom-PE
  *
  */
-public class RequestMessage<T extends RequestBody> {
+public class ResponseMessage<T extends ResponseBody> {
 
-	private RequestHeader header;
+	private ResponseHeader header;
 
 	private T body;
 
 	/**
 	 * @return the header
 	 */
-	public RequestHeader getHeader() {
+	public ResponseHeader getHeader() {
 		return header;
 	}
 
@@ -24,7 +24,7 @@ public class RequestMessage<T extends RequestBody> {
 	 * @param header
 	 *            the header to set
 	 */
-	public void setHeader(RequestHeader header) {
+	public void setHeader(ResponseHeader header) {
 		this.header = header;
 	}
 

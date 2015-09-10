@@ -2,7 +2,7 @@ package com.puridiompe.mpa.rest.controller.general.message;
 
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionEspecialDto;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
-import com.puridiompe.mpa.rest.controller.message.RequestBody;
+import com.puridiompe.mpa.common.rest.message.RequestBody;
 
 public class GetPerOperEspRequest extends RequestBody{
 

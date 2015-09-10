@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarVehiculoBusiness;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
+import com.puridiompe.mpa.common.rest.message.RequestMessage;
+import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetVehiculoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetVehiculoResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetVehiculoValidator;
-import com.puridiompe.mpa.rest.controller.message.RequestMessage;
-import com.puridiompe.mpa.rest.controller.message.ResponseMessage;
 
 /**
  * @author Johnny

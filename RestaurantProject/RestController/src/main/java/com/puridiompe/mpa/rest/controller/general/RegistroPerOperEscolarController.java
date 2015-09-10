@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarPermisoOperacionEscolarBusiness;
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionEscolarDto;
+import com.puridiompe.mpa.common.rest.message.RequestMessage;
+import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetPerOperEscolarRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetPerOperEscolarResponse;
-import com.puridiompe.mpa.rest.controller.message.RequestMessage;
-import com.puridiompe.mpa.rest.controller.message.ResponseMessage;
 
 @RestController
 @RequestMapping("/transportes/permisoEscolar")
