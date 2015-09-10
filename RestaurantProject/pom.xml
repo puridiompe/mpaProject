@@ -27,5 +27,6 @@
   	<module>Common</module>
   	<module>RestController</module>
 <!--   	<module>RestSecurity</module> -->
+  	<module>RestSecurity</module>
   </modules>
 </project>

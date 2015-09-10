@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.puridiompe.mpa.rest.controller.message;
+package com.puridiompe.mpa.common.rest.message;
 
 /**
  * @author Puridiom-PE

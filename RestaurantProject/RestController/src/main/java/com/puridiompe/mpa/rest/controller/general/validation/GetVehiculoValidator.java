@@ -8,8 +8,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.rest.controller.general.message.GetVehiculoRequest;
-import com.puridiompe.mpa.rest.controller.message.RequestMessage;
 
 /**
  * @author Johnny

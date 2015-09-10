@@ -4,10 +4,13 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="RestController-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RestController/RestController">
+        <dependent-module archiveName="RestSecurity-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RestSecurity/RestSecurity">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="BusinessLogic-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BusinessLogic/BusinessLogic">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="RestController-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RestController/RestController">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="RepositoryImpl-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RepositoryImpl/RepositoryImpl">

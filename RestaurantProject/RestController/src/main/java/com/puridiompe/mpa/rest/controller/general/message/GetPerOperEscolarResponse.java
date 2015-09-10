@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionEscolarDto;
-import com.puridiompe.mpa.rest.controller.message.ResponseBody;
+import com.puridiompe.mpa.common.rest.message.ResponseBody;
 
 @RestController
 @RequestMapping("/transportes/permisoEscolar")

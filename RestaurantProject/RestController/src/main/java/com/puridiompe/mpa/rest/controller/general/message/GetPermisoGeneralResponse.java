@@ -1,7 +1,7 @@
 package com.puridiompe.mpa.rest.controller.general.message;
 
 import com.puridiompe.mpa.business.general.dto.PermisoGeneralDto;
-import com.puridiompe.mpa.rest.controller.message.ResponseBody;
+import com.puridiompe.mpa.common.rest.message.ResponseBody;
 
 public class GetPermisoGeneralResponse extends ResponseBody{
 

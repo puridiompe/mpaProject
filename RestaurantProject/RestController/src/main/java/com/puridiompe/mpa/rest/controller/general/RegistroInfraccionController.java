@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarInfraccionBusiness;
 import com.puridiompe.mpa.business.general.dto.InfraccionDto;
+import com.puridiompe.mpa.common.rest.message.RequestMessage;
+import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetInfraccionValidator;
-import com.puridiompe.mpa.rest.controller.message.RequestMessage;
-import com.puridiompe.mpa.rest.controller.message.ResponseMessage;
 
 /**
  * @author Lucho
