@@ -24,7 +24,7 @@ public class Infraccion {
 	 private Integer idInfraccion;
 	 
 	 @Column(name = "\"codigo\"", length = 7)
-	 private String codigoInfraccion;
+	 private String codigo;
 	 
 	 @Column(name = "\"descripcion\"")	 
 	 private String descripcion;
@@ -68,12 +68,12 @@ public class Infraccion {
 		this.idInfraccion = idInfraccion;
 	}
 
-	public String getCodigoInfraccion() {
-		return codigoInfraccion;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCodigoInfraccion(String codigoInfraccion) {
-		this.codigoInfraccion = codigoInfraccion;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescripcion() {
