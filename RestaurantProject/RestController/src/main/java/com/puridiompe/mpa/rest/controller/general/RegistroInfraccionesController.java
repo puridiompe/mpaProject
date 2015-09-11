@@ -23,9 +23,9 @@ import com.puridiompe.mpa.business.general.dto.InfraccionDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
-import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionRequest;
-import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionResponse;
-import com.puridiompe.mpa.rest.controller.general.validation.GetInfraccionValidator;
+import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionesRequest;
+import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionesResponse;
+import com.puridiompe.mpa.rest.controller.general.validation.GetInfraccionesValidator;
 
 
 /**
@@ -34,47 +34,39 @@ import com.puridiompe.mpa.rest.controller.general.validation.GetInfraccionValida
  */
 
 @RestController
-@RequestMapping("/transportes/infraccion")
-public class RegistroInfraccionController extends BaseController {
+@RequestMapping("/transportes/infracciones")
+public class RegistroInfraccionesController extends BaseController {
 	
 	@Autowired
 	private GestionarInfraccionBusiness gestionarInfraccionBusiness;
 	
 	@Autowired
-	private GetInfraccionValidator getInfraccionValidator;
+	private GetInfraccionesValidator getInfraccionesValidator;
 	
 	@InitBinder
 	protected void InitBinder(WebDataBinder binder){
-		binder.setValidator(getInfraccionValidator);
+		binder.setValidator(getInfraccionesValidator);
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetInfraccionResponse> getInfraccion(
-			@RequestBody @Valid RequestMessage<GetInfraccionRequest> request)
+	public @ResponseBody ResponseMessage<GetInfraccionesResponse> findAll(
+			@RequestBody @Valid RequestMessage<GetInfraccionesRequest> request)
 			throws BusinessException {
 		
-		GetInfraccionRequest infraccionRequest = request.getBody();
+		GetInfraccionesRequest infraccionesRequest = request.getBody();
 		
-		InfraccionDto infraccionObject = gestionarInfraccionBusiness.getInfraccionByCodigo(infraccionRequest.getInfraccion().getCodigo());
+		List<InfraccionDto> infraccionesObject = gestionarInfraccionBusiness.findAll();
+//		List<InfraccionDto> infraccionesObject = null;
 		
-		ResponseMessage<GetInfraccionResponse> response = new ResponseMessage<GetInfraccionResponse>();
+		ResponseMessage<GetInfraccionesResponse> response = new ResponseMessage<GetInfraccionesResponse>();
 		
-		GetInfraccionResponse infraccionResponse = new GetInfraccionResponse();
+		GetInfraccionesResponse infraccionesResponse = new GetInfraccionesResponse();
 		
-		infraccionResponse.setInfraccion(infraccionObject);
+		infraccionesResponse.setInfracciones(infraccionesObject);
 		
-		response.setBody(infraccionResponse);
+		response.setBody(infraccionesResponse);
 		
-		return response;		
-	}
-	
-	@RequestMapping(value = "/showAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<InfraccionDto>findAll()			
-			throws BusinessException {		
+		return response;
 		
-		List<InfraccionDto> infraccionObject = gestionarInfraccionBusiness.findAll();
-		
-	
-		return infraccionObject;		
 	}
 }
