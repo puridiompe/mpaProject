@@ -68,13 +68,13 @@ public class RegistroInfraccionController extends BaseController {
 		return response;		
 	}
 	
-	@RequestMapping(value = "/showAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<InfraccionDto>findAll()			
-			throws BusinessException {		
-		
-		List<InfraccionDto> infraccionObject = gestionarInfraccionBusiness.findAll();
-		
-	
-		return infraccionObject;		
-	}
+//	@RequestMapping(value = "/showAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<InfraccionDto>findAll()			
+//			throws BusinessException {		
+//		
+//		List<InfraccionDto> infraccionObject = gestionarInfraccionBusiness.findAll();
+//		
+//	
+//		return infraccionObject;		
+//	}
 }
