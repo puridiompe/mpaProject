@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.dataaccess;
 
+import java.util.List;
+
 import com.puridiompe.mpa.business.general.dto.InfraccionDto;
 
 /**
@@ -8,9 +10,11 @@ import com.puridiompe.mpa.business.general.dto.InfraccionDto;
  *
  */
 
-public interface InfraccionDao {
+public interface InfraccionDao {	
 	
-	public InfraccionDto getInfraccionById(Integer id);
+	public InfraccionDto getInfraccionByCodigo(String codigo);
+
+	public List<InfraccionDto> findAll();
 	
 	public InfraccionDto getInfraccionByDescripcion(String descripcion);
 

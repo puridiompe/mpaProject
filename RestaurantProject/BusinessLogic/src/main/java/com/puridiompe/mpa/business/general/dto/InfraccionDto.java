@@ -13,7 +13,7 @@ public class InfraccionDto {
 	
 	 private Integer idInfraccion;
 
-	 private String codigoInfraccion;	 
+	 private String codigo;	 
 
 	 private String descripcion;
 	 
@@ -41,12 +41,12 @@ public class InfraccionDto {
 		this.idInfraccion = idInfraccion;
 	}
 
-	public String getCodigoInfraccion() {
-		return codigoInfraccion;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCodigoInfraccion(String codigoInfraccion) {
-		this.codigoInfraccion = codigoInfraccion;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getDescripcion() {

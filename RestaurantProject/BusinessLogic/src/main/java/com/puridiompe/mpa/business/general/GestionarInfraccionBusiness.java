@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.business.general;
 
+import java.util.List;
+
 import com.puridiompe.mpa.business.general.dto.InfraccionDto;
 
 /**
@@ -10,6 +12,11 @@ import com.puridiompe.mpa.business.general.dto.InfraccionDto;
 
 public interface GestionarInfraccionBusiness {
 	
-	public InfraccionDto getInfraccion(Integer id);
+	public InfraccionDto getInfraccionByCodigo(String codigo);
+	
+	public InfraccionDto getInfraccionbyDescripcion(String descripcion);
+
+	public List<InfraccionDto> findAll();	
+	
 
 }

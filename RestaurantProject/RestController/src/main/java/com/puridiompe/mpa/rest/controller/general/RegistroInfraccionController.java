@@ -3,6 +3,8 @@
  */
 package com.puridiompe.mpa.rest.controller.general;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetInfraccionValidator;
+
 
 /**
  * @author Lucho
@@ -52,7 +55,7 @@ public class RegistroInfraccionController extends BaseController {
 		
 		GetInfraccionRequest infraccionRequest = request.getBody();
 		
-		InfraccionDto infraccionObject = gestionarInfraccionBusiness.getInfraccion(infraccionRequest.getInfraccion().getIdInfraccion());
+		InfraccionDto infraccionObject = gestionarInfraccionBusiness.getInfraccionByCodigo(infraccionRequest.getInfraccion().getCodigo());
 		
 		ResponseMessage<GetInfraccionResponse> response = new ResponseMessage<GetInfraccionResponse>();
 		
@@ -62,7 +65,16 @@ public class RegistroInfraccionController extends BaseController {
 		
 		response.setBody(infraccionResponse);
 		
-		return response;
-		
+		return response;		
 	}
+	
+//	@RequestMapping(value = "/showAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody List<InfraccionDto>findAll()			
+//			throws BusinessException {		
+//		
+//		List<InfraccionDto> infraccionObject = gestionarInfraccionBusiness.findAll();
+//		
+//	
+//		return infraccionObject;		
+//	}
 }

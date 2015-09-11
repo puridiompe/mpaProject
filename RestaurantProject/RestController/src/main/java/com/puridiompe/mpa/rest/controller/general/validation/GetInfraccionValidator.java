@@ -27,7 +27,7 @@ public class GetInfraccionValidator implements Validator{
 		RequestMessage<GetInfraccionRequest> request = (RequestMessage<GetInfraccionRequest>) target;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-							"body.infraccion.id",
+							"body.infraccion.codigo",
 							"validation.request.pedidos.comentario.required");
 		
 	}
