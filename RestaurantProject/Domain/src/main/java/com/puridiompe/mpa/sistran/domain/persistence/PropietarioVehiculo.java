@@ -66,7 +66,6 @@ public class PropietarioVehiculo{
 	
 	}
 	
-	
 	/**
 	 * Getters and Setters
 	 * @return

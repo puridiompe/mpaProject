@@ -1,14 +1,21 @@
 package com.puridiompe.mpa.business.general.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsuarioDto {
 	private String idUsuario;
-	private String email;
+	private String username;
 	private String password;
 	private String apellidoPaterno;
-	private String apellidoMaterno;
+	private String apellidoMaterno; 
 	private String nombres;
-	private String rol;
+	private List<RolDto> roles;
+
 	
+	public UsuarioDto(){
+		roles = new ArrayList<>();
+	}
 	
 	public String getIdUsuario() {
 		return idUsuario;
@@ -16,11 +23,11 @@ public class UsuarioDto {
 	public void setIdUsuario(String idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public String getEmail() {
-		return email;
+	public String getUsername() {
+		return username;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;
@@ -46,12 +53,14 @@ public class UsuarioDto {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-	public String getRol() {
-		return rol;
+
+	public List<RolDto> getRoles() {
+		return roles;
 	}
-	public void setRol(String rol) {
-		this.rol = rol;
+
+	public void setRoles(List<RolDto> roles) {
+		this.roles = roles;
 	}
 	
-	
+
 }

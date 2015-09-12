@@ -16,10 +16,16 @@ import com.puridiompe.mpa.common.security.SystemRole;
 @SuppressWarnings("serial")
 public class PerfilDto implements GrantedAuthority {
 
-	private final SystemRole rolSistema;
+	private Integer IdRol;
+	
+	private String rol;
+	
+	private  SystemRole rolSistema; // final 
 
-	private final Date fechaActualizacion;
-
+	private  Date fechaActualizacion; // final 
+	
+	public PerfilDto(){}
+	
 	public PerfilDto(final String rolSistema, final Date fechaActualizacion)
 			throws Exception {
 		this.rolSistema = SystemRole.getValue(rolSistema);
@@ -29,7 +35,7 @@ public class PerfilDto implements GrantedAuthority {
 	/**
 	 * @return the perfil
 	 */
-	public SystemRole getRol() {
+	public SystemRole getRolSistema() {
 		return rolSistema;
 	}
 
@@ -44,6 +50,22 @@ public class PerfilDto implements GrantedAuthority {
 	public String getAuthority() {
 		// TODO Auto-generated method stub
 		return rolSistema.toString();
+	}
+
+	public Integer getIdRol() {
+		return IdRol;
+	}
+
+	public void setIdRol(Integer idRol) {
+		IdRol = idRol;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 }

@@ -3,6 +3,7 @@
  */
 package com.puridiompe.mpa.business.security.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,11 +15,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 @SuppressWarnings("serial")
 public class UsuarioDto implements UserDetails {
 
+	private Integer IdUsuario;
+	
 	private String username;
 
 	private String password;
 
 	private List<PerfilDto> perfiles;
+	
+	public UsuarioDto(){
+		perfiles = new ArrayList<>();
+	}
 
 	public UsuarioDto(String username, String password, List<PerfilDto> perfiles) {
 		this.username = username;
@@ -67,5 +74,31 @@ public class UsuarioDto implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public List<PerfilDto> getPerfiles() {
+		return perfiles;
+	}
+
+	public void setPerfiles(List<PerfilDto> perfiles) {
+		this.perfiles = perfiles;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Integer getIdUsuario() {
+		return IdUsuario;
+	}
+
+	public void setIdUsuario(Integer idUsuario) {
+		IdUsuario = idUsuario;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 
 }

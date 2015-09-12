@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.sistran.domain.persistence;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,11 +19,11 @@ import javax.persistence.Table;
 
 public class Usuario {
 	@Id
-	@Column(name = "\"login\"", nullable = false, unique = true, length = 50)
-	private String idUsuario;
+	@Column(name = "\"idUsuario\"", nullable = false, unique = true)
+	private Integer idUsuario;
 	
-	@Column(name = "\"email\"", nullable = false,length = 100)
-	private String email;
+	@Column(name = "\"username\"", nullable = false,length = 100)
+	private String username;
 	
 	@Column(name = "\"password\"", nullable = false,length = 100)
 	private String password;
@@ -35,14 +37,22 @@ public class Usuario {
 	@Column(name = "\"nombres\"", nullable = false,length = 100)
 	private String nombres;
 	
+	@Column(name = "\"estado\"", nullable = false)
+	private Boolean  estado;
+	
+	@Column(name = "\"fecCre\"", nullable = false)
+	private Date fecCre;
+	
+	@Column(name = "\"fecMod\"", nullable = true)
+	private Date fecMod;
 	
 	public Usuario(){}
 	
-	public void setIdUsuario(String idUsuario){
+	public void setIdUsuario(Integer idUsuario){
 		this.idUsuario = idUsuario;
 	}
-	public void setEmail(String email){
-		this.email=email;
+	public void setUsername(String email){
+		this.username=email;
 	}
 	
 	public void setPassword(String password){
@@ -61,12 +71,12 @@ public class Usuario {
 		this.nombres= nombres;
 	}
 	
-	public String getIdUsuario(){
+	public Integer getIdUsuario(){
 		return this.idUsuario;
 	}
 	
-	public String getEmail(){
-		return this.email;
+	public String getUsername(){
+		return this.username;
 	}
 	
 	public String getPassword(){
@@ -83,6 +93,30 @@ public class Usuario {
 	
 	public String getNombres(){
 		return this.nombres;
+	}
+
+	public Boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
+
+	public Date getFecCre() {
+		return fecCre;
+	}
+
+	public void setFecCre(Date fecCre) {
+		this.fecCre = fecCre;
+	}
+
+	public Date getFecMod() {
+		return fecMod;
+	}
+
+	public void setFecMod(Date fecMod) {
+		this.fecMod = fecMod;
 	}
 	
 }

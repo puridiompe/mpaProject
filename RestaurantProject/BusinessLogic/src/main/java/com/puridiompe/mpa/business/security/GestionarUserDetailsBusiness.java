@@ -3,7 +3,10 @@
  */
 package com.puridiompe.mpa.business.security;
 
+
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 
 /**
  * @author
@@ -11,4 +14,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface GestionarUserDetailsBusiness extends UserDetailsService {
 
+	
 }
