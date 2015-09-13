@@ -2,6 +2,7 @@ package com.puridiompe.mpa.business.general.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.puridiompe.mpa.business.general.dto.RolDto;
 
 public class UsuarioDto {
 	private String idUsuario;

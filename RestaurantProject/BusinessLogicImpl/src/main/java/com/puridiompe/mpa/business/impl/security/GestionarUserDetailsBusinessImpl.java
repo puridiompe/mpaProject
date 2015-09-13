@@ -28,6 +28,17 @@ public class GestionarUserDetailsBusinessImpl implements
 			throws UsernameNotFoundException {
 		return usuarioDao.getUsuarioByUsername(username);
 	}
+
+	@Override
+	public UsuarioDto getUsuario(String username) {
+		return usuarioDao.getUsuarioByUsername(username);
+	}
+
+	@Override
+	public UsuarioDto validateUsuario(String username, String password) {
+		// TODO Auto-generated method stub
+		return usuarioDao.getUsuarioByUsername(username);
+	}
 	
 
 }

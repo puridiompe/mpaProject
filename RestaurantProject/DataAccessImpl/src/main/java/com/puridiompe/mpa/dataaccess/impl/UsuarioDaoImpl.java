@@ -48,11 +48,6 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		if (usuario != null) {
 			BeanUtils.copyProperties(usuario, usuarioObject);
 			rolUsu = rolUsuarioRepository.findByIdUsuario(usuario.getIdUsuario());
-			System.out.println("--"+usuario.getIdUsuario());
-			System.out.println("--"+usuario.getUsername());
-			System.out.println("--"+usuarioObject.getIdUsuario());
-			System.out.println("--"+usuarioObject.getUsername());
-	
 			if(!rolUsu.isEmpty()){
 		
 				for(RolUsuario r : rolUsu){
@@ -85,8 +80,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		if (usuario != null) {
 			BeanUtils.copyProperties(usuario, usuarioObject);
 			rolUsu= rolUsuarioRepository.findByIdUsuario(usuario.getIdUsuario());
-			System.out.println("--"+usuario.getIdUsuario());
-	
+			
 			if(!rolUsu.isEmpty()){
 				
 				for(RolUsuario r : rolUsu){

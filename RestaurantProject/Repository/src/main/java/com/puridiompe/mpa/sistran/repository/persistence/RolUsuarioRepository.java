@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.puridiompe.mpa.sistran.domain.persistence.RolUsuario;
 
 
-public interface RolUsuarioRepository  extends JpaRepository<RolUsuario, String> {
+public interface RolUsuarioRepository  extends JpaRepository<RolUsuario, Integer> {
 
 	@Query("from  RolUsuario p where p.idUsuario = ?1")
-	public RolUsuario findByIdUsuario(String idUsuario);
+	public List<RolUsuario> findByIdUsuario(Integer idUsuario);
 	
 }

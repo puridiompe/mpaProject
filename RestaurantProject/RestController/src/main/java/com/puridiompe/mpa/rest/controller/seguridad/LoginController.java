@@ -1,3 +1,4 @@
+
 package com.puridiompe.mpa.rest.controller.seguridad;
 
 import javax.validation.Valid;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
-import com.puridiompe.mpa.business.general.GestionarUsuarioBusiness;
-import com.puridiompe.mpa.business.general.dto.UsuarioDto;
+import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
+import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
@@ -27,7 +28,7 @@ import com.puridiompe.mpa.rest.controller.general.validation.GetUsuarioValidator
 public class LoginController {
 	
 	@Autowired
-	private GestionarUsuarioBusiness gestionarUsuarioBusiness;
+	private GestionarUserDetailsBusiness gestionarUsuarioBusiness;
 	
 	//
 	//@Autowired
@@ -46,7 +47,7 @@ public class LoginController {
 		GetUsuarioRequest usuarioRequest = request.getBody();
 
 		UsuarioDto usuarioObject = gestionarUsuarioBusiness
-				.getUsuario(usuarioRequest.getUsuario().getIdUsuario());
+				.getUsuario(usuarioRequest.getUsuario().getUsername());
 
 		ResponseMessage<GetUsuarioResponse> response = new ResponseMessage<GetUsuarioResponse>();
 

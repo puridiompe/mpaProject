@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
 
 
-public interface UsuarioRepository extends JpaRepository<Usuario, String>{
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
 	/**
 	 * find Usuario by idUsuario
@@ -13,10 +13,16 @@ public interface UsuarioRepository extends JpaRepository<Usuario, String>{
 	 * @param idUsuario
 	 * @return
 	 */
-	@Query("from Usuario p where p.idUsuario= ?1")
-	public Usuario findByIdUsuario(String idUsuario);
 	
-	@Query("from Usuario p where p.idUsuario= ?1 and p.password= ?2")
-	public Usuario validateUsuario(String idUsuario,String Password);
+	@Query("from Usuario p where p.username= ?1")
+	public Usuario findByUsername(String username);
+	
+	@Query("from Usuario p where p.idUsuario= ?1")
+	public Usuario findByIdUsuario(Integer idUsuario);
+	
+	@Query("from Usuario p where p.username= ?1 and p.password= ?2")
+	public Usuario validateUsuario(String username,String Password);
+	
+	
 
 }

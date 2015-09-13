@@ -1,6 +1,6 @@
 package com.puridiompe.mpa.rest.controller.general.message;
 
-import com.puridiompe.mpa.business.general.dto.UsuarioDto;
+import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.common.rest.message.ResponseBody;
 
 public class GetUsuarioResponse extends ResponseBody  {
