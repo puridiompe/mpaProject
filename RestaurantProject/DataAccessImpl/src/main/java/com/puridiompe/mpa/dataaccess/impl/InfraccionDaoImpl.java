@@ -70,19 +70,26 @@ public class InfraccionDaoImpl implements InfraccionDao{
 	@Override
 	public List<InfraccionDto> findAll() {
 		
-		List<InfraccionDto> infraccionObject = new ArrayList<InfraccionDto>();
+		List<InfraccionDto> infraccionesObject = new ArrayList<InfraccionDto>();
 		
 		List<Infraccion> infracciones = infraccionRepository.findAll();
 		
-		if(infracciones != null){
+		if(infracciones != null){		
 			
-			BeanUtils.copyProperties(infracciones, infraccionObject);
+			for(int i = 0; i < infracciones.size(); i++ ){
+				
+				InfraccionDto infraccionDtoTmp = new InfraccionDto();
+				
+				BeanUtils.copyProperties(infracciones.get(i), infraccionDtoTmp);
+				
+				infraccionesObject.add(infraccionDtoTmp);				
+			}			
 			
 		}else{
 			return null;
 		}		
 		
-		return infraccionObject;
+		return infraccionesObject;
 	}
 	
 

@@ -32,7 +32,7 @@ public class GestionarInfraccionBusinessImpl implements GestionarInfraccionBusin
 	}
 
 	@Override
-	public List<InfraccionDto> findAll() {
+	public List<InfraccionDto> getAll() {
 		return infraccionDao.findAll();
 	}
 	

@@ -16,7 +16,7 @@ public interface GestionarInfraccionBusiness {
 	
 	public InfraccionDto getInfraccionbyDescripcion(String descripcion);
 
-	public List<InfraccionDto> findAll();	
+	public List<InfraccionDto> getAll();	
 	
 
 }

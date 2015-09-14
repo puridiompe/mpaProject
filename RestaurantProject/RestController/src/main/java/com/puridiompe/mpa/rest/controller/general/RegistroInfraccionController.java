@@ -25,6 +25,7 @@ import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetInfraccionesResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetInfraccionValidator;
 
 
@@ -66,15 +67,24 @@ public class RegistroInfraccionController extends BaseController {
 		response.setBody(infraccionResponse);
 		
 		return response;		
-	}
+	}	
 	
-//	@RequestMapping(value = "/showAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody List<InfraccionDto>findAll()			
-//			throws BusinessException {		
-//		
-//		List<InfraccionDto> infraccionObject = gestionarInfraccionBusiness.findAll();
-//		
-//	
-//		return infraccionObject;		
-//	}
+	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetInfraccionesResponse> getInfracciones()			
+			throws BusinessException {		
+		
+		
+		List<InfraccionDto> infraccionesObject = gestionarInfraccionBusiness.getAll();
+		
+		ResponseMessage<GetInfraccionesResponse> response = new ResponseMessage<GetInfraccionesResponse>();
+		
+		GetInfraccionesResponse infraccionesResponse = new GetInfraccionesResponse();
+		
+		infraccionesResponse.setInfracciones(infraccionesObject);
+		
+		response.setBody(infraccionesResponse);
+		
+		return response;		
+	}	
+
 }

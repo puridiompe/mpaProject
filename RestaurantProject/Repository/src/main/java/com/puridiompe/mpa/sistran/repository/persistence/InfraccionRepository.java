@@ -29,13 +29,5 @@ public interface InfraccionRepository extends JpaRepository<Infraccion, String>{
 	 */
 	@Query("from Infraccion i where i.descripcion = ?1")
 	public Infraccion findByDescripcion(String descripcion);
-	
-	/**
-	 * findAll InfraccionRepository 
-	 * @param
-	 * @return
-	 */
-	@Query("from Infraccion i")
-	public List<Infraccion> findAll();
 
 }
