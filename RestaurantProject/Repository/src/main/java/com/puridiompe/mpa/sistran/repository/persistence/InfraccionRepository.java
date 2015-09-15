@@ -1,7 +1,5 @@
 package com.puridiompe.mpa.sistran.repository.persistence;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import com.puridiompe.mpa.sistran.domain.persistence.Infraccion;
@@ -12,7 +10,7 @@ import com.puridiompe.mpa.sistran.domain.persistence.Infraccion;
  *
  */
 
-public interface InfraccionRepository extends JpaRepository<Infraccion, String>{
+public interface InfraccionRepository extends JpaRepository<Infraccion, Integer>{
 	  
 	/**
 	 * find InfraccionRepository by codigo
