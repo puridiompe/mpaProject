@@ -12,7 +12,7 @@ import com.puridiompe.mpa.business.general.dto.DeviceDto;
 
 public interface DeviceDao {	
 	
-	public DeviceDto getDeviceByCodigo(String codigo);
+	public DeviceDto getDeviceByImei(String codigo);
 
 	public List<DeviceDto> findAll();	
 

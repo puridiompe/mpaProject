@@ -29,11 +29,11 @@ public class DeviceDaoImpl implements DeviceDao{
 
 	@Transactional(value = "sistranTransactionManager", readOnly = true)
 	@Override
-	public DeviceDto getDeviceByCodigo(String codigo) {
+	public DeviceDto getDeviceByImei(String imei) {
 		
 		DeviceDto infraccionObject = new DeviceDto();
 		
-		Device infraccion = deviceRepository.findByCodigo(codigo);
+		Device infraccion = deviceRepository.findByImei(imei);
 		
 		if(infraccion != null){
 			

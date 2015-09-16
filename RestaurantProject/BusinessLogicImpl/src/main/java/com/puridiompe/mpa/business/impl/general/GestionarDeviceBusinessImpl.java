@@ -22,8 +22,8 @@ public class GestionarDeviceBusinessImpl implements GestionarDeviceBusiness{
 	private DeviceDao deviceDao;
 	
 	@Override
-	public DeviceDto getDeviceByCodigo(String codigo) {		
-		return deviceDao.getDeviceByCodigo(codigo);
+	public DeviceDto getDeviceByImei(String imei) {		
+		return deviceDao.getDeviceByImei(imei);
 	}
 
 	@Override

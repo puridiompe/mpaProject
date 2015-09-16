@@ -49,25 +49,43 @@ public class RegistroGpsController extends BaseController {
 		binder.setValidator(getGpsValidator);
 	}
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody boolean addGps(
+	@RequestMapping(value = "/add", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody void addGps(
 			@RequestBody @Valid RequestMessage<GetGpsRequest> request)
-			throws BusinessException {
+			throws BusinessException {		
 		
-		GetGpsRequest gpsRequest = request.getBody();
-		
-		return gestionarGpsBusiness.addGps(request.getBody().getGps());	
+		gestionarGpsBusiness.addGps(request.getBody().getGps());	
 				
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetGpsResponse> getGps(
+	public @ResponseBody ResponseMessage<GetGpssResponse> getGps(
 			@RequestBody @Valid RequestMessage<GetGpsRequest> request)
 			throws BusinessException {
 		
 		GetGpsRequest gpsRequest = request.getBody();
 		
-		GpsDto gpsObject = gestionarGpsBusiness.getGpsByImei(gpsRequest.getGps().getImei());
+		List<GpsDto> gpsObject = gestionarGpsBusiness.getGpsByImei(gpsRequest.getGps().getImei());
+		
+		ResponseMessage<GetGpssResponse> response = new ResponseMessage<GetGpssResponse>();
+		
+		GetGpssResponse gpsResponse = new GetGpssResponse();
+		
+		gpsResponse.setGpss(gpsObject);
+		
+		response.setBody(gpsResponse);
+		
+		return response;		
+	}	
+	
+	@RequestMapping(value = "/getLast", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetGpsResponse> getLastGps(
+			@RequestBody @Valid RequestMessage<GetGpsRequest> request)
+			throws BusinessException {
+		
+		GetGpsRequest gpsRequest = request.getBody();
+		
+		GpsDto gpsObject = gestionarGpsBusiness.getLastGpsByImei(gpsRequest.getGps().getImei());
 		
 		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
 		
@@ -78,7 +96,7 @@ public class RegistroGpsController extends BaseController {
 		response.setBody(gpsResponse);
 		
 		return response;		
-	}	
+	}
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetGpssResponse> getGpss()			

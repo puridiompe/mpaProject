@@ -11,7 +11,7 @@ public class DeviceDto {
 	
 	 private Integer idDevice;	 
 	 
-	 private String codigo;
+	 private String imei;
 	 
 	 private String name;
 	 	 
@@ -21,7 +21,9 @@ public class DeviceDto {
 	 	 
 	 private String active;
 	 	 
-	 private Float latitudeUser;
+	 private String latitudeUser;
+	 
+	 private Integer usuarioId;
 	 
 	 
 	 public DeviceDto(){
@@ -39,13 +41,13 @@ public class DeviceDto {
 	}
 
 
-	public String getCodigo() {
-		return codigo;
+	public String getImei() {
+		return imei;
 	}
 
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 
 
@@ -89,13 +91,23 @@ public class DeviceDto {
 	}
 
 
-	public Float getLatitudeUser() {
+	public String getLatitudeUser() {
 		return latitudeUser;
 	}
 
 
-	public void setLatitudeUser(Float latitudeUser) {
+	public void setLatitudeUser(String latitudeUser) {
 		this.latitudeUser = latitudeUser;
 	}
+	
+	public Integer getUsuarioId() {
+		return usuarioId;
+	}
+
+
+	public void setUsuarioId(Integer usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
 
 }

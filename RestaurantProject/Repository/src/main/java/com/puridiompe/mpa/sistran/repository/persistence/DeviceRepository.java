@@ -10,14 +10,14 @@ import com.puridiompe.mpa.sistran.domain.persistence.Device;
  *
  */
 
-public interface DeviceRepository extends JpaRepository<Device, String>{
+public interface DeviceRepository extends JpaRepository<Device, Integer>{
 	  
 	/**
-	 * find InfraccionRepository by codigo
-	 * @param codigo
+	 * find InfraccionRepository by imei
+	 * @param imei
 	 * @return
 	 */
-	@Query("from Infraccion i where i.codigo = ?1")
-	public Device findByCodigo(String codigo);	
+	@Query("from Device i where i.imei = ?1")
+	public Device findByImei(String imei);	
 
 }

@@ -1,14 +1,21 @@
 package com.puridiompe.mpa.sistran.domain.persistence;
 
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
 import org.jboss.logging.annotations.Field;
+import org.springframework.data.jpa.repository.Temporal;
 
 /**
  * 
@@ -22,42 +29,45 @@ public class Gps {
 	
 	 @Id
 	 @Column(name = "\"txn_id\"", nullable = false)
+	 @GenericGenerator(name = "generator", strategy = "increment")
+	 @GeneratedValue(generator = "generator")
 	 private Integer idGps;
 	 
 	 @Column(name = "\"imei\"", length = 20, unique = true)
 	 private String imei;
 	 
-	 @Column(name = "\"txn_utc_time\"", length = 50)	 
+	 @Column(name = "\"txn_utc_time\"", length = 50, nullable = true)	 
 	 private String txnUtcTime;
 	 
-	 @Column(name = "\"active_void_indicator\"", length = 50)
+	 @Column(name = "\"active_void_indicator\"", length = 50, nullable = true)
 	 private String activeVoidIndicator;
 	 
-	 @Column(name = "\"latitude\"")
+	 @Column(name = "\"latitude\"", nullable = false, updatable = false)
 	 private Float latitude;
 	 
-	 @Column(name = "\"longitude\"")
+	 @Column(name = "\"longitude\"", nullable = false, updatable = false)
 	 private Float longitude;
 	 
-	 @Column(name = "\"speed\"", length = 50)
+	 @Column(name = "\"speed\"", length = 50, nullable = true)
 	 private String speed;
 	 
-	 @Column(name = "\"track_angle\"", length = 50)
+	 @Column(name = "\"track_angle\"", length = 50, nullable = true)
 	 private String trackAngle;
 	 
-	 @Column(name = "\"txn_date\"", length = 50)
-	 private String date;
+	 @Generated(GenerationTime.INSERT)	 
+	 @Column(name = "\"txn_date\"", nullable = true, updatable = false)
+	 private Calendar date;
 	 
-	 @Column(name = "\"magnetic_variation\"", length = 50)
+	 @Column(name = "\"magnetic_variation\"", length = 50, nullable = true)
 	 private String magneticVariarion;
 	 
-	 @Column(name = "\"checksum\"", length = 50)
+	 @Column(name = "\"checksum\"", length = 50, nullable = true)
 	 private String checksum;
 	 
-	 @Column(name = "\"timestamp\"")
+	 @Column(name = "\"timestamp\"", nullable = true)
 	 private BigInteger timestamp;
 	 
-	 @Column(name = "\"estimate\"")
+	 @Column(name = "\"estimate\"", nullable = true)
 	 private Integer estimate;
 	 
 	 /**
@@ -137,11 +147,11 @@ public class Gps {
 		this.trackAngle = trackAngle;
 	}
 
-	public String getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 

@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.sistran.repository.persistence;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import com.puridiompe.mpa.sistran.domain.persistence.Gps;
@@ -17,7 +19,11 @@ public interface GpsRepository extends JpaRepository<Gps, Integer>{
 	 * @param imei	 
 	 * @return
 	 */
-	@Query("from gps g where g.imei = ?1")
-	public Gps findByImei(String imei);	
+	@Query("from Gps g where g.imei = ?1")
+	public List<Gps> findByImei(String imei);
+	
+	@Query("from Gps g where g.imei = ?1 order by txn_id desc")
+//	@Query("from Gps g where g.imei = ?1 limit 1")
+	public List<Gps> findLastByImei(String imei);
 
 }

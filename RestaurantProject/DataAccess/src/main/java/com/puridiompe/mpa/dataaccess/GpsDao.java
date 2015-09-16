@@ -14,7 +14,9 @@ public interface GpsDao {
 	
 	public boolean addGps(GpsDto gps);
 	
-	public GpsDto getGpsByImei(String imei);
+	public List<GpsDto> getGpsByImei(String imei);
+	
+	public GpsDto getLastGpsByImei(String imei);
 
 	public List<GpsDto> findAll();	
 

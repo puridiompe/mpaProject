@@ -1,6 +1,7 @@
 package com.puridiompe.mpa.business.general.dto;
 
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -22,7 +23,7 @@ public class GpsDto {
 	 	 
 	 private String trackAngle;
 	 	 
-	 private String date;
+	 private Calendar date;
 	 	 
 	 private String magneticVariarion;
 	 	 
@@ -102,11 +103,11 @@ public class GpsDto {
 		this.trackAngle = trackAngle;
 	}
 
-	public String getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 

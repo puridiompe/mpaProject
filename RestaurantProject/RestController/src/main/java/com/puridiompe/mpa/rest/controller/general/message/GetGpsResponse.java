@@ -3,6 +3,8 @@
  */
 package com.puridiompe.mpa.rest.controller.general.message;
 
+import java.util.List;
+
 import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.common.rest.message.ResponseBody;
 

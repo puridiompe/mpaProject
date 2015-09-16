@@ -27,7 +27,12 @@ public class GestionarGpsBusinessImpl implements GestionarGpsBusiness{
 	}
 	
 	@Override
-	public GpsDto getGpsByImei(String imei) {		
+	public GpsDto getLastGpsByImei(String imei){
+		return gpsDao.getLastGpsByImei(imei);
+	}
+	
+	@Override
+	public List<GpsDto> getGpsByImei(String imei) {		
 		return gpsDao.getGpsByImei(imei);
 	}
 

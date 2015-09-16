@@ -45,18 +45,44 @@ public class GpsDaoImpl implements GpsDao{
 		
 	}
 	
-
 	@Transactional(value = "sistranTransactionManager", readOnly = true)
 	@Override
-	public GpsDto getGpsByImei(String imei) {
+	public GpsDto getLastGpsByImei(String imei) {
 		
 		GpsDto gpsObject = new GpsDto();
 		
-		Gps gps = gpsRepository.findByImei(imei);
+		List<Gps> gps = gpsRepository.findLastByImei(imei);
+		
+		if(gps != null){		
+			
+			BeanUtils.copyProperties(gps.get(0), gpsObject);
+			
+		}else{
+			return null;
+		}
+		
+		return gpsObject;
+	}
+	
+
+	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Override
+	public List<GpsDto> getGpsByImei(String imei) {
+		
+		List<GpsDto> gpsObject = new ArrayList<GpsDto>();
+		
+		List<Gps> gps = gpsRepository.findByImei(imei);
 		
 		if(gps != null){
 			
-			BeanUtils.copyProperties(gps, gpsObject);
+			for(int i = 0; i < gps.size(); i++ ){
+				
+				GpsDto gpsDtoTmp = new GpsDto();
+				
+				BeanUtils.copyProperties(gps.get(i), gpsDtoTmp);
+				
+				gpsObject.add(gpsDtoTmp);				
+			}	
 			
 			
 		}else{

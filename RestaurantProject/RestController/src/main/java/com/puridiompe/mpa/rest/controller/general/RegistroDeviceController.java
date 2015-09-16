@@ -35,7 +35,7 @@ import com.puridiompe.mpa.rest.controller.general.validation.GetDeviceValidator;
  */
 
 @RestController
-@RequestMapping("/transportes/infraccion")
+@RequestMapping("/transportes/device")
 public class RegistroDeviceController extends BaseController {
 	
 	@Autowired
@@ -56,7 +56,7 @@ public class RegistroDeviceController extends BaseController {
 		
 		GetDeviceRequest deviceRequest = request.getBody();
 		
-		DeviceDto deviceObject = gestionarDeviceBusiness.getDeviceByCodigo(deviceRequest.getDevice().getCodigo());
+		DeviceDto deviceObject = gestionarDeviceBusiness.getDeviceByImei(deviceRequest.getDevice().getImei());
 		
 		ResponseMessage<GetDeviceResponse> response = new ResponseMessage<GetDeviceResponse>();
 		

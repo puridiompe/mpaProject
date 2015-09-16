@@ -21,23 +21,26 @@ public class Device {
 	 @Column(name = "\"device_id\"", nullable = false)
 	 private Integer idDevice;
 	 
-	 @Column(name = "\"imei\"", length = 20, unique = true)
+	 @Column(name = "\"imei\"", length = 20, unique = true, nullable = false)
 	 private String imei;
 	 
-	 @Column(name = "\"name\"", length = 255)	 
+	 @Column(name = "\"name\"", length = 255, nullable = true)	 
 	 private String name;
 	 
-	 @Column(name = "\"mobile_number\"", length = 20)
+	 @Column(name = "\"mobile_number\"", length = 20, nullable = true)
 	 private String mobileNumber;
 	 
-	 @Column(name = "\"sim_number\"", length = 20)
+	 @Column(name = "\"sim_number\"", length = 20, nullable = true)
 	 private String simNumber;
 	 
-	 @Column(name = "\"active\"", length = 1)
+	 @Column(name = "\"active\"", length = 1, nullable = true)
 	 private String active;
 	 
-	 @Column(name = "\"latitude_user\"", length = 6)
-	 private Float latitudeUser;
+	 @Column(name = "\"latitude_user\"", length = 30, nullable = true)
+	 private String latitudeUser;
+	 
+	 @Column(name = "\"usuario_id\"", length = 30, nullable = true)
+	 private Integer usuarioId;
 	 
 	 /**
 	  * default constructor
@@ -99,13 +102,20 @@ public class Device {
 		this.active = active;
 	}
 
-	public Float getLatitudeUser() {
+	public String getLatitudeUser() {
 		return latitudeUser;
 	}
 
-	public void setLatitudeUser(Float latitudeUser) {
+	public void setLatitudeUser(String latitudeUser) {
 		this.latitudeUser = latitudeUser;
 	}	 
-	 
+	
+	public Integer getUsarioId() {
+		return usuarioId;
+	}
+
+	public void setUsarioId(Integer usarioId) {
+		this.usuarioId = usarioId;
+	}
 
 }
