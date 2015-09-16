@@ -4,6 +4,7 @@
 package com.puridiompe.mpa.business.security.dto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +18,19 @@ public class UsuarioDto implements UserDetails {
 
 	private Integer IdUsuario;
 	
+	private String apellidoPaterno;
+	
+	private String apellidoMaterno; 
+	
+	private String nombres;
+	
 	private String username;
 
 	private String password;
 
 	private List<PerfilDto> perfiles;
+	
+	private Date lastLogin;
 	
 	public UsuarioDto(){
 		perfiles = new ArrayList<>();
@@ -74,11 +83,15 @@ public class UsuarioDto implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-	public List<PerfilDto> getPerfiles() {
-		return perfiles;
+	
+	public Integer getIdUsuario() {
+		return IdUsuario;
 	}
 
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+	
 	public void setPerfiles(List<PerfilDto> perfiles) {
 		this.perfiles = perfiles;
 	}
@@ -87,9 +100,7 @@ public class UsuarioDto implements UserDetails {
 		this.username = username;
 	}
 
-	public Integer getIdUsuario() {
-		return IdUsuario;
-	}
+	
 
 	public void setIdUsuario(Integer idUsuario) {
 		IdUsuario = idUsuario;
@@ -98,6 +109,39 @@ public class UsuarioDto implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+	
+	
+	
 	
 	
 

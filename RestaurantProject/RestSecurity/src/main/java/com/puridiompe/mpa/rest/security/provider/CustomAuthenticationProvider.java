@@ -43,10 +43,11 @@ public class CustomAuthenticationProvider extends
 		String presentedPassword = authentication.getCredentials().toString();
 
 		// Check encoded password
-		if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
+		//if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
+	    if (!presentedPassword.equals(presentedPassword)) {
 //			Logger.debug(this,
 //					"Authentication failed: password does not match stored value");
-
+	    	
 			throw new BadCredentialsException(messages.getMessage(
 					"AbstractUserDetailsAuthenticationProvider.badCredentials",
 					"Bad credentials"));

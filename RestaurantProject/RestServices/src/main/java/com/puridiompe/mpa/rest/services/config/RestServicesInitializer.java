@@ -34,7 +34,8 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext rootCtx = new AnnotationConfigWebApplicationContext();
 		
 //		SecurityConfiguration.class, 
-		rootCtx.register(BusinessConfiguration.class,
+		rootCtx.register(SecurityConfiguration.class, BusinessConfiguration.class,		
+	//	rootCtx.register(BusinessConfiguration.class, // --->> 
 				DataAccessConfiguration.class,
 				SistranRepositoryConfiguration.class,
 				PapeletasRepositoryConfiguration.class);
@@ -42,9 +43,9 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 		// Manage the lifecycle of the root application context
 		context.addListener(new ContextLoaderListener(rootCtx));
 
-//		 context.addFilter("securityFilter",
-//		 new DelegatingFilterProxy("springSecurityFilterChain"))
-//		 .addMappingForUrlPatterns(null, false, "/*");
+		 context.addFilter("securityFilter",		 				// --->> 
+		 new DelegatingFilterProxy("springSecurityFilterChain"))  	// --->>
+		 .addMappingForUrlPatterns(null, false, "/*");  			// --->>
 
 		// Create the dispatcher servlet's Spring application context
 		AnnotationConfigWebApplicationContext dispatcherServlet = new AnnotationConfigWebApplicationContext();

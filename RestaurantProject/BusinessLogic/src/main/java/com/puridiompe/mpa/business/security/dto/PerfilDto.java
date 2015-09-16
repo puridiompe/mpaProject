@@ -42,9 +42,9 @@ public class PerfilDto implements GrantedAuthority {
 	/**
 	 * @return the fechaActualizacion
 	 */
-	public Date getFechaActualizacion() {
-		return fechaActualizacion;
-	}
+//	public Date getFechaActualizacion() {
+//		return fechaActualizacion;
+//	}
 
 	@Override
 	public String getAuthority() {
@@ -60,9 +60,9 @@ public class PerfilDto implements GrantedAuthority {
 		IdRol = idRol;
 	}
 
-	public String getRol() {
-		return rol;
-	}
+//	public String getRol() {
+//		return rol;
+//	}
 
 	public void setRol(String rol) {
 		this.rol = rol;

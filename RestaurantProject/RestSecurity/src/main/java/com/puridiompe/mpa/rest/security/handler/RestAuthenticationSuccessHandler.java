@@ -58,14 +58,22 @@ public class RestAuthenticationSuccessHandler extends
 
 		String username = ((UsuarioDto) authentication.getPrincipal())
 				.getUsername();
+		
+		UsuarioDto user = ((UsuarioDto) authentication.getPrincipal());
+				
 
 		headerAuthenticationHandler.addHeader(response, username);
 		// response.setHeader(arg0, token);
 
 		loginResponse.setUsername(authentication.getName());
 		loginResponse.setStatus("OK");
-		loginResponse.setLastLogin(new Date());
-
+		//loginResponse.setLastLogin(new Date());
+		loginResponse.setLastLogin(user.getLastLogin());
+		loginResponse.setNombres(user.getNombres());
+		loginResponse.setApellidoPaterno(user.getApellidoPaterno());
+		loginResponse.setApellidoMaterno(user.getApellidoMaterno());
+		loginResponse.setPerfil(user.getAuthorities());
+		
 		ResponseMessage<LoginResponse> responseMessage = new ResponseMessage<LoginResponse>();
 		responseMessage.setBody(loginResponse);
 
