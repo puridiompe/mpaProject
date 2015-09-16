@@ -26,6 +26,25 @@ public class GpsDaoImpl implements GpsDao{
 	
 	@Autowired
 	private GpsRepository gpsRepository;
+	
+	@Transactional(value = "sistranTransactionManager")
+	@Override
+	public boolean addGps(GpsDto gps){
+		
+		Gps gpsToSave = new Gps();
+		
+		if(gps != null){
+			BeanUtils.copyProperties(gps, gpsToSave);
+			
+			gpsRepository.save(gpsToSave);
+			
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
 
 	@Transactional(value = "sistranTransactionManager", readOnly = true)
 	@Override

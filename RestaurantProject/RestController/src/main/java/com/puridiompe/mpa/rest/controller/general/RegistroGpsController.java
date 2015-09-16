@@ -49,6 +49,17 @@ public class RegistroGpsController extends BaseController {
 		binder.setValidator(getGpsValidator);
 	}
 	
+	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean addGps(
+			@RequestBody @Valid RequestMessage<GetGpsRequest> request)
+			throws BusinessException {
+		
+		GetGpsRequest gpsRequest = request.getBody();
+		
+		return gestionarGpsBusiness.addGps(request.getBody().getGps());	
+				
+	}
+	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetGpsResponse> getGps(
 			@RequestBody @Valid RequestMessage<GetGpsRequest> request)

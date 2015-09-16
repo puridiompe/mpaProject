@@ -12,6 +12,8 @@ import com.puridiompe.mpa.business.general.dto.GpsDto;
 
 public interface GpsDao {	
 	
+	public boolean addGps(GpsDto gps);
+	
 	public GpsDto getGpsByImei(String imei);
 
 	public List<GpsDto> findAll();	
