@@ -5,8 +5,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,10 +16,9 @@ import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
-import com.puridiompe.mpa.rest.controller.BaseController;
+import com.puridiompe.mpa.rest.controller.general.message.GetDeviceRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetUsuarioRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetUsuarioResponse;
-import com.puridiompe.mpa.rest.controller.general.validation.GetUsuarioValidator;
 
 @RestController
 @RequestMapping("/transportes/login")
@@ -69,10 +66,6 @@ public class LoginController {
 		UsuarioDto usuarioObject = gestionarUsuarioBusiness
 				.validateUsuario(usuarioRequest.getUsuario().getUsername(), 
 						          usuarioRequest.getUsuario().getPassword());
-
-		//UsuarioDto usuarioObject = gestionarUsuarioBusiness
-			//	.getUsuario(usuarioRequest.getUsuario().getIdUsuario());
-		
 		ResponseMessage<GetUsuarioResponse> response = new ResponseMessage<GetUsuarioResponse>();
 
 		GetUsuarioResponse usuarioResponse = new GetUsuarioResponse();
@@ -81,5 +74,27 @@ public class LoginController {
 		
 		return response;
 	}
+
+	/*
+	@RequestMapping(value = "/device", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetUsuarioResponse> setCurrenDevice(
+			@RequestBody @Valid RequestMessage<GetDeviceRequest> request)
+			throws BusinessException {
+
+		GetDeviceRequest deviceRequest = request.getBody();
+	
+		 gestionarUsuarioBusiness.setCurrentDevice(, )
+				.setCurrentDevice(deviceRequest.getDevice().getImei(),
+						deviceRequest.getDevice().getUsuarioId()
+						          );
+		ResponseMessage<GetUsuarioResponse> response = new ResponseMessage<GetUsuarioResponse>();
+
+		GetUsuarioResponse usuarioResponse = new GetUsuarioResponse();
+		usuarioResponse.setUsuario(usuarioObject);
+		response.setBody(usuarioResponse);
+		
+		return response;
+	}
+	*/
 
 }

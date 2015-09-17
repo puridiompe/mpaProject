@@ -1,6 +1,7 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -8,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.puridiompe.mpa.business.general.dto.LoginHistorialDto;
 import com.puridiompe.mpa.business.security.dto.PerfilDto;
 //import com.puridiompe.mpa.business.general.dto.RolDto;
 //import com.puridiompe.mpa.business.general.dto.UsuarioDto;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.dataaccess.UsuarioDao;
+import com.puridiompe.mpa.sistran.domain.persistence.Device;
 import com.puridiompe.mpa.sistran.domain.persistence.LoginHistorial;
 import com.puridiompe.mpa.sistran.domain.persistence.Rol;
 import com.puridiompe.mpa.sistran.domain.persistence.RolUsuario;
 import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
+import com.puridiompe.mpa.sistran.repository.persistence.DeviceRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.LoginHistorialRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.RolRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.RolUsuarioRepository;
@@ -34,6 +38,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	
 	@Autowired
 	private RolRepository rolRepository;
+	
+	@Autowired
+	private DeviceRepository deviceRepository;
 	
 	@Autowired
 	 private LoginHistorialRepository loginHistorialRepository;
@@ -109,6 +116,53 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return null;
 		}
 		return usuarioObject;
+	}
+
+	@Transactional(value = "sistranTransactionManager")
+	@Override
+	public Boolean setCurrentDevice(String username,String imei) {
+		
+		UsuarioDto usuarioObject = new UsuarioDto();
+		Usuario usuario = usuarioRepository.findByUsername(username);
+		
+		// Verificar y Borrar 
+		if (usuario != null) {
+			BeanUtils.copyProperties(usuario, usuarioObject);
+			List<Device> devices = new ArrayList<>();
+			devices = deviceRepository.findByUserId(usuarioObject.getIdUsuario());
+			
+				for (Device d : devices){
+					d.setUsarioId(null);
+					deviceRepository.save(d);
+				}
+			Device newDevice = deviceRepository.findByImei(imei);
+			newDevice.setUsarioId(usuarioObject.getIdUsuario());
+			deviceRepository.save(newDevice);
+			
+			return true;
+			
+		}else 
+			return false;
+	}
+	
+	@Transactional(value = "sistranTransactionManager")
+	@Override
+	public Boolean setLastLogin(String username) {
+		
+		Usuario usuario = usuarioRepository.findByUsername(username);
+
+		if (usuario != null) {
+			
+			LoginHistorial loginHistorial = new LoginHistorial() ;
+			loginHistorial.setIdUsuario(usuario.getIdUsuario());
+			loginHistorial.setEstado(true);
+			//System.out.println("****************"+loginHistorial.getEstado());
+			loginHistorial.setFechaHora(new Date());
+			loginHistorialRepository.save(loginHistorial);
+			return true;
+		}
+		else 
+			return false;
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 
@@ -19,8 +20,7 @@ import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
  * @author Johnny
  *
  */
-public class CustomAuthenticationProvider extends
-		AbstractUserDetailsAuthenticationProvider {
+public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
 	@Autowired
 	private GestionarUserDetailsBusiness gestionarUserDetailsBusiness;
@@ -30,52 +30,53 @@ public class CustomAuthenticationProvider extends
 
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
-			UsernamePasswordAuthenticationToken authentication)
-			throws AuthenticationException {
+			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 		if (authentication.getCredentials() == null) {
-//			Logger.debug(this, "Authentication failed: no credentials provided");
+			// Logger.debug(this, "Authentication failed: no credentials
+			// provided");
 
-			throw new BadCredentialsException(messages.getMessage(
-					"AbstractUserDetailsAuthenticationProvider.badCredentials",
-					"Bad credentials"));
+			throw new BadCredentialsException(
+					messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
 		}
 
 		String presentedPassword = authentication.getCredentials().toString();
-
+		
 		// Check encoded password
-		//if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
-	    if (!presentedPassword.equals(userDetails.getPassword())) {
-//			Logger.debug(this,
-//					"Authentication failed: password does not match stored value");
-	    	
-			throw new BadCredentialsException(messages.getMessage(
-					"AbstractUserDetailsAuthenticationProvider.badCredentials",
-					"Bad credentials"));
-		}
+		// if (!passwordEncoder.matches(presentedPassword,userDetails.getPassword())) {
+		if (!presentedPassword.equals(userDetails.getPassword())) {
+			// Logger.debug(this,
+			// "Authentication failed: password does not match stored value");
 
+			throw new BadCredentialsException(
+					messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
+		}
+		
+		// invocar funcion  actualizar el device  userdaetail
+		
+		 gestionarUserDetailsBusiness.setCurrentDevice(userDetails.getUsername(),"69htc");
+		
+			//gestionarUserDetailsBusiness.setLastLogin(userDetails.getUsername());
 	}
 
 	@Override
-	protected UserDetails retrieveUser(String username,
-			UsernamePasswordAuthenticationToken authentication)
+	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
 		UserDetails user = null;
 
 		try {
 			user = gestionarUserDetailsBusiness.loadUserByUsername(username);
 		} catch (UsernameNotFoundException notFound) {
-//			Logger.error(this, notFound);
+			// Logger.error(this, notFound);
 
 			throw notFound;
 		} catch (Exception repositoryProblem) {
-//			Logger.error(this, repositoryProblem);
+			// Logger.error(this, repositoryProblem);
 
-			throw new InternalAuthenticationServiceException(
-					repositoryProblem.getMessage(), repositoryProblem);
+			throw new InternalAuthenticationServiceException(repositoryProblem.getMessage(), repositoryProblem);
 		}
 
 		if (user == null) {
-//			Logger.error(this, "GestionarUserDetailsBusiness returned null");
+			// Logger.error(this, "GestionarUserDetailsBusiness returned null");
 
 			throw new InternalAuthenticationServiceException(
 					"UserDetailsService returned null, an user is required for authentication");

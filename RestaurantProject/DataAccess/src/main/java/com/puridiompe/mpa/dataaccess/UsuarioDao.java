@@ -10,4 +10,9 @@ public interface UsuarioDao {
 	public UsuarioDto getUsuarioByUsername(String username);
 	
 	public UsuarioDto validateUsuario(String username,String password);
+	
+	public Boolean setCurrentDevice(String username,String imei);
+	
+	public Boolean setLastLogin(String username);
+	
 }

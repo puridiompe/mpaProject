@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.dataaccess.UsuarioDao;
@@ -39,6 +38,15 @@ public class GestionarUserDetailsBusinessImpl implements
 		// TODO Auto-generated method stub
 		return usuarioDao.getUsuarioByUsername(username);
 	}
-	
+
+	@Override
+	public boolean setLastLogin(String username) {
+		return usuarioDao.setLastLogin(username);
+	}
+
+	@Override
+	public boolean setCurrentDevice(String username,String imei) {
+		return usuarioDao.setCurrentDevice(username, imei);
+	}
 
 }
