@@ -44,7 +44,7 @@ public class CustomAuthenticationProvider extends
 
 		// Check encoded password
 		//if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
-	    if (!presentedPassword.equals(presentedPassword)) {
+	    if (!presentedPassword.equals(userDetails.getPassword())) {
 //			Logger.debug(this,
 //					"Authentication failed: password does not match stored value");
 	    	
