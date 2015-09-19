@@ -1,7 +1,7 @@
 package com.puridiompe.mpa.sistran.domain.persistence;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,13 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
-import org.jboss.logging.annotations.Field;
-import org.springframework.data.jpa.repository.Temporal;
 
 /**
  * 
@@ -43,10 +38,10 @@ public class Gps {
 	 private String activeVoidIndicator;
 	 
 	 @Column(name = "\"latitude\"", nullable = false, updatable = false)
-	 private Float latitude;
+	 private BigDecimal latitude;
 	 
 	 @Column(name = "\"longitude\"", nullable = false, updatable = false)
-	 private Float longitude;
+	 private BigDecimal longitude;
 	 
 	 @Column(name = "\"speed\"", length = 50, nullable = true)
 	 private String speed;
@@ -54,9 +49,9 @@ public class Gps {
 	 @Column(name = "\"track_angle\"", length = 50, nullable = true)
 	 private String trackAngle;
 	 
-	 @Generated(GenerationTime.INSERT)	 
-	 @Column(name = "\"txn_date\"", nullable = true, updatable = false)
-	 private Calendar date;
+//	 @Generated(GenerationTime.INSERT)	 
+	 @Column(name = "\"txn_date\"", nullable = false, updatable = false)
+	 private Date date;
 	 
 	 @Column(name = "\"magnetic_variation\"", length = 50, nullable = true)
 	 private String magneticVariarion;
@@ -69,6 +64,9 @@ public class Gps {
 	 
 	 @Column(name = "\"estimate\"", nullable = true)
 	 private Integer estimate;
+	 
+	 @Column(name = "\"usuario_id\"", nullable = false)
+	 private Integer usuarioId;
 	 
 	 /**
 	  * default constructor
@@ -115,19 +113,19 @@ public class Gps {
 		this.activeVoidIndicator = activeVoidIndicator;
 	}
 
-	public Float getLatitude() {
+	public BigDecimal getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Float latitude) {
+	public void setLatitude(BigDecimal latitude) {
 		this.latitude = latitude;
 	}
 
-	public Float getLongitude() {
+	public BigDecimal getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Float longitude) {
+	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
 
@@ -147,11 +145,11 @@ public class Gps {
 		this.trackAngle = trackAngle;
 	}
 
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -185,6 +183,14 @@ public class Gps {
 
 	public void setEstimate(Integer estimate) {
 		this.estimate = estimate;
+	}
+
+	public Integer getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(Integer usuarioId) {
+		this.usuarioId = usuarioId;
 	} 
 
 

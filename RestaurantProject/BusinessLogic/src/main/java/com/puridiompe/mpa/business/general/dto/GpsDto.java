@@ -1,9 +1,9 @@
 package com.puridiompe.mpa.business.general.dto;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Calendar;
-import java.util.Date;
 
+import com.puridiompe.mpa.common.type.Datetime;
 
 public class GpsDto {
 	
@@ -15,15 +15,15 @@ public class GpsDto {
 	 	 
 	 private String activeVoidIndicator;
 	 	 
-	 private Float latitude;
+	 private BigDecimal latitude;
 	 	 
-	 private Float longitude;
+	 private BigDecimal longitude;
 	 	 
 	 private String speed;
 	 	 
 	 private String trackAngle;
 	 	 
-	 private Calendar date;
+	 private Datetime date;
 	 	 
 	 private String magneticVariarion;
 	 	 
@@ -33,8 +33,13 @@ public class GpsDto {
 	 	 
 	 private Integer estimate;
 	 
+	 private Integer usuarioId;
+	 
+	 private GpsInspectorDto gpsInspector;
+	 
 	 
 	 public GpsDto(){
+		 gpsInspector = new GpsInspectorDto();
 		 
 	 }
 	 
@@ -71,19 +76,19 @@ public class GpsDto {
 		this.activeVoidIndicator = activeVoidIndicator;
 	}
 
-	public Float getLatitude() {
+	public BigDecimal getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Float latitude) {
+	public void setLatitude(BigDecimal latitude) {
 		this.latitude = latitude;
 	}
 
-	public Float getLongitude() {
+	public BigDecimal getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Float longitude) {
+	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
 
@@ -103,11 +108,11 @@ public class GpsDto {
 		this.trackAngle = trackAngle;
 	}
 
-	public Calendar getDate() {
+	public Datetime getDate() {
 		return date;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Datetime date) {
 		this.date = date;
 	}
 
@@ -142,5 +147,26 @@ public class GpsDto {
 	public void setEstimate(Integer estimate) {
 		this.estimate = estimate;
 	}
+
+
+	public Integer getUsuarioId() {
+		return usuarioId;
+	}
+
+
+	public void setUsuarioId(Integer usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
+
+	public GpsInspectorDto getGpsInspector() {
+		return gpsInspector;
+	}
+
+
+	public void setGpsInspector(GpsInspectorDto gpsInspector) {
+		this.gpsInspector = gpsInspector;
+	}
+
 
 }

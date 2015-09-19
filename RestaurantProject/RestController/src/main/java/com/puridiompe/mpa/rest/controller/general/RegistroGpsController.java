@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarGpsBusiness;
 import com.puridiompe.mpa.business.general.dto.GpsDto;
+import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
+import com.puridiompe.mpa.rest.controller.general.message.GetGpsInspectorResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpssResponse;
@@ -112,6 +114,24 @@ public class RegistroGpsController extends BaseController {
 		gpssResponse.setGpss(gpssObject);
 		
 		response.setBody(gpssResponse);
+		
+		return response;		
+	}
+	
+	@RequestMapping(value = "/getLastPositions", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetGpsInspectorResponse> getlastPositions()			
+			throws BusinessException {		
+		
+		
+		List<GpsInspectorDto> gpsInspectorObject = gestionarGpsBusiness.getLastGpsInspector();
+		
+		ResponseMessage<GetGpsInspectorResponse> response = new ResponseMessage<GetGpsInspectorResponse>();
+		
+		GetGpsInspectorResponse gpsInspectorResponse = new GetGpsInspectorResponse();
+		
+		gpsInspectorResponse.setGpsInspectors(gpsInspectorObject);
+		
+		response.setBody(gpsInspectorResponse);
 		
 		return response;		
 	}	

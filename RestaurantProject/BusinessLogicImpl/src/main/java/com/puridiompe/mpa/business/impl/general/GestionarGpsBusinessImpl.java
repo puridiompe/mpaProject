@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarGpsBusiness;
 import com.puridiompe.mpa.business.general.dto.GpsDto;
+import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 import com.puridiompe.mpa.dataaccess.GpsDao;
 
 /**
@@ -35,7 +36,11 @@ public class GestionarGpsBusinessImpl implements GestionarGpsBusiness{
 	public List<GpsDto> getGpsByImei(String imei) {		
 		return gpsDao.getGpsByImei(imei);
 	}
-
+	
+	@Override
+	public List<GpsInspectorDto> getLastGpsInspector(){
+		return gpsDao.getLastPositions();
+	}
 
 	@Override
 	public List<GpsDto> getAll() {
