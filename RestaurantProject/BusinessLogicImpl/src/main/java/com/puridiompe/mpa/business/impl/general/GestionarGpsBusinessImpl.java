@@ -28,6 +28,11 @@ public class GestionarGpsBusinessImpl implements GestionarGpsBusiness{
 	}
 	
 	@Override
+	public GpsDto addBatchGps(List<GpsDto> gps) {
+		return gpsDao.addBatchGps(gps);
+	}
+	
+	@Override
 	public GpsDto getLastGpsByImei(String imei){
 		return gpsDao.getLastGpsByImei(imei);
 	}

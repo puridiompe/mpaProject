@@ -15,6 +15,8 @@ public interface GpsDao {
 	
 	public GpsDto addGps(GpsDto gps);
 	
+	public GpsDto addBatchGps(List<GpsDto> gps);
+	
 	public List<GpsDto> getGpsByImei(String imei);
 	
 	public GpsDto getLastGpsByImei(String imei);

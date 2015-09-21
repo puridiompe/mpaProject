@@ -23,12 +23,11 @@ import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
-import com.puridiompe.mpa.common.security.SystemRole;
-import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsInspectorResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetGpssRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpssResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetGpsValidator;
 
@@ -59,6 +58,25 @@ public class RegistroGpsController extends BaseController {
 			throws BusinessException {		
 		
 		GpsDto forResponse = gestionarGpsBusiness.addGps(request.getBody().getGps());				
+		
+		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
+		
+		GetGpsResponse gpsResponse = new GetGpsResponse();
+		
+		gpsResponse.setGps(forResponse);
+		
+		response.setBody(gpsResponse);		
+		
+		return response;
+				
+	}
+	
+	@RequestMapping(value = "/addBatch", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetGpsResponse> addBatchGps(
+			@RequestBody RequestMessage<GetGpssRequest> request)
+			throws BusinessException {		
+		
+		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(request.getBody().getGpss());				
 		
 		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
 		

@@ -53,11 +53,43 @@ public class GpsDaoImpl implements GpsDao {
 			BeanUtils.copyProperties(gps, gpsToSave);
 
 			gpsToSave.setDate(new Date());
-			gps.setDate(new Datetime(gpsToSave.getDate()));;
+			gps.setDate(new Datetime(gpsToSave.getDate()));
 
 			gpsRepository.save(gpsToSave);
 
 			return gps;
+		} else {
+			return null;
+		}
+
+	}
+	
+	@Transactional(value = "sistranTransactionManager")
+	@Override
+	public GpsDto addBatchGps(List<GpsDto> gps) {
+		
+		GpsDto lastSavedGps = new GpsDto();
+
+		if (gps != null) {
+			
+			for(int i = 0; i < gps.size(); i++){
+				
+				Gps gpsToSave = new Gps();
+				
+				//En caso se envien las fechas dentro del JSON en formato GpsDto
+				//Caso contrario conversar con Luis Martinez para agregar campos
+				//y validar aquí las diferencias temporales
+				BeanUtils.copyProperties(gps.get(i), gpsToSave);				
+				
+				gpsRepository.save(gpsToSave);
+				
+				if(i == gps.size()-1){
+					BeanUtils.copyProperties(gps.get(i), lastSavedGps);
+				}
+				
+			}		
+
+			return lastSavedGps;
 		} else {
 			return null;
 		}
