@@ -35,11 +35,11 @@ public class GpsDto {
 	 
 	 private Integer usuarioId;
 	 
-	 private GpsInspectorDto gpsInspector;
+//	 private GpsInspectorDto gpsInspector;
 	 
 	 
 	 public GpsDto(){
-		 gpsInspector = new GpsInspectorDto();
+//		 gpsInspector = new GpsInspectorDto();
 		 
 	 }
 	 
@@ -159,14 +159,14 @@ public class GpsDto {
 	}
 
 
-	public GpsInspectorDto getGpsInspector() {
-		return gpsInspector;
-	}
-
-
-	public void setGpsInspector(GpsInspectorDto gpsInspector) {
-		this.gpsInspector = gpsInspector;
-	}
+//	public GpsInspectorDto getGpsInspector() {
+//		return gpsInspector;
+//	}
+//
+//
+//	public void setGpsInspector(GpsInspectorDto gpsInspector) {
+//		this.gpsInspector = gpsInspector;
+//	}
 
 
 }

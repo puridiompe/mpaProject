@@ -23,6 +23,8 @@ import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
+import com.puridiompe.mpa.common.security.SystemRole;
+import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsInspectorResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsRequest;
@@ -52,11 +54,21 @@ public class RegistroGpsController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody void addGps(
+	public @ResponseBody ResponseMessage<GetGpsResponse> addGps(
 			@RequestBody @Valid RequestMessage<GetGpsRequest> request)
 			throws BusinessException {		
 		
-		gestionarGpsBusiness.addGps(request.getBody().getGps());	
+		GpsDto forResponse = gestionarGpsBusiness.addGps(request.getBody().getGps());				
+		
+		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
+		
+		GetGpsResponse gpsResponse = new GetGpsResponse();
+		
+		gpsResponse.setGps(forResponse);
+		
+		response.setBody(gpsResponse);		
+		
+		return response;
 				
 	}
 	

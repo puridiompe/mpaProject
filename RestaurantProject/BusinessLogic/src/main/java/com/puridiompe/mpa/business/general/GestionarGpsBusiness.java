@@ -13,7 +13,7 @@ import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 
 public interface GestionarGpsBusiness {
 	
-	public boolean addGps(GpsDto gps);
+	public GpsDto addGps(GpsDto gps);
 	
 	public GpsDto getLastGpsByImei(String imei);	
 	

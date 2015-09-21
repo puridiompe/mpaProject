@@ -13,6 +13,9 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.puridiompe.mpa.common.json.DatetimeDeserializer;
+import com.puridiompe.mpa.common.json.DatetimeSerializer;
+import com.puridiompe.mpa.common.type.Datetime;
 
 /**
  * @author Johnny
@@ -50,8 +53,8 @@ public class RestCommonConfiguration {
 		builder.serializationInclusion(Include.NON_NULL);
 		// builder.propertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
 
-//		builder.deserializerByType(Datetime.class, new DatetimeDeserializer());
-//		builder.serializerByType(Datetime.class, new DatetimeSerializer());
+		builder.deserializerByType(Datetime.class, new DatetimeDeserializer());
+		builder.serializerByType(Datetime.class, new DatetimeSerializer());
 		builder.indentOutput(true).failOnUnknownProperties(true)
 				.dateFormat(new SimpleDateFormat("dd-MM-yyyy"));
 		

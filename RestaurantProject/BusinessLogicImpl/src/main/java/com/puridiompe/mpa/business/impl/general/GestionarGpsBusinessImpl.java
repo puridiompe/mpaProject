@@ -23,7 +23,7 @@ public class GestionarGpsBusinessImpl implements GestionarGpsBusiness{
 	private GpsDao gpsDao;
 	
 	@Override
-	public boolean addGps(GpsDto gps) {
+	public GpsDto addGps(GpsDto gps) {
 		return gpsDao.addGps(gps);
 	}
 	
