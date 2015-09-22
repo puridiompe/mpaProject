@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "\"TrGen_LastPerInsp\"")
+@Table(name = "\"TrPpe_LastPerUser\"")
 public class GpsInspector{
 	
 	 @Id
@@ -27,6 +27,9 @@ public class GpsInspector{
 	 
 	 @Column(name = "\"idUsuario\"")	 
 	 private Integer idUsuario;
+	 
+	 @Column(name = "\"rol\"")
+	 private String rol;
 	 
 	 @Column(name = "\"username\"")
 	 private String username;

@@ -53,9 +53,8 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 		
 		// invocar funcion  actualizar el device  userdaetail
 		
-		 gestionarUserDetailsBusiness.setCurrentDevice(userDetails.getUsername(),"69htc");
-		
-			//gestionarUserDetailsBusiness.setLastLogin(userDetails.getUsername());
+		 gestionarUserDetailsBusiness.setCurrentDevice(userDetails.getUsername(),"101htc");
+		 gestionarUserDetailsBusiness.setLastLogin(userDetails.getUsername());
 	}
 
 	@Override

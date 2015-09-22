@@ -15,13 +15,9 @@ import org.hibernate.annotations.GenericGenerator;
 public class LoginHistorial {
 
 	@Id
-	@Column(name = "\"idLogHist\"", nullable = false, unique = true,columnDefinition = "serial")
+	@Column(name = "\"idloghist\"")
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")
-	//@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
-	//@GeneratedValue(strategy=GenerationType.AUTO)
-	//@Column(columnDefinition = "serial")
 	private Integer idLogHist;
 	
 	@Column(name = "\"idUsuario\"", nullable = false)
