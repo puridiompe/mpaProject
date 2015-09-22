@@ -32,6 +32,8 @@ public class UsuarioDto implements UserDetails {
 	
 	private Date lastLogin;
 	
+	private String imei;
+	
 	public UsuarioDto(){
 		perfiles = new ArrayList<>();
 	}
@@ -139,10 +141,13 @@ public class UsuarioDto implements UserDetails {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-	
-	
-	
-	
-	
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
 
 }

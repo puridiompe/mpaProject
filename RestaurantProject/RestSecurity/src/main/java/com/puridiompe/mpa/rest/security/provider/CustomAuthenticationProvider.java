@@ -12,9 +12,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
+import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
 
 /**
  * @author Johnny
@@ -52,8 +52,9 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 		}
 		
 		// invocar funcion  actualizar el device  userdaetail
+		String imei = ((LoginAuthenticationToken) authentication).getImei(); 
 		
-		 gestionarUserDetailsBusiness.setCurrentDevice(userDetails.getUsername(),"69htc");
+		 gestionarUserDetailsBusiness.setCurrentDevice(userDetails, imei);
 		
 			//gestionarUserDetailsBusiness.setLastLogin(userDetails.getUsername());
 	}

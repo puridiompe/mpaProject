@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.dataaccess.UsuarioDao;
@@ -25,7 +26,9 @@ public class GestionarUserDetailsBusinessImpl implements
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		return usuarioDao.getUsuarioByUsername(username);
+		UsuarioDto userObject =  usuarioDao.getUsuarioByUsername(username);
+		
+		return userObject;
 	}
 
 	@Override
@@ -45,8 +48,12 @@ public class GestionarUserDetailsBusinessImpl implements
 	}
 
 	@Override
-	public boolean setCurrentDevice(String username,String imei) {
-		return usuarioDao.setCurrentDevice(username, imei);
+	public boolean setCurrentDevice(UserDetails user,String imei) {
+		UsuarioDto userObject = (UsuarioDto) user;
+		
+		userObject.setImei(imei);
+		
+		return usuarioDao.setCurrentDevice(userObject.getUsername(), imei);
 	}
 
 }

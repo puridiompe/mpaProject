@@ -57,6 +57,18 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		if (usuario != null) {
 			BeanUtils.copyProperties(usuario, usuarioObject);
 			rolUsu = rolUsuarioRepository.findByIdUsuario(usuario.getIdUsuario());
+			
+			// Get devices by user and set imei in object
+			List<Device> devices = deviceRepository.findByUserId(usuario.getIdUsuario());
+			
+			if (devices != null && devices.size() > 0) {
+				
+				for (Device device : devices) {
+					usuarioObject.setImei(device.getImei());
+					break;
+				}
+			}
+			
 			loginHistorial = loginHistorialRepository.findByIdUsuario(usuario.getIdUsuario());
 			
 			if(loginHistorial.size()>0){
@@ -117,7 +129,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		}
 		return usuarioObject;
 	}
-
+	
 	@Transactional(value = "sistranTransactionManager")
 	@Override
 	public Boolean setCurrentDevice(String username,String imei) {

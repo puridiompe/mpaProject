@@ -56,13 +56,13 @@ public class RestAuthenticationSuccessHandler extends
 
 		LoginResponse loginResponse = new LoginResponse();
 
-		String username = ((UsuarioDto) authentication.getPrincipal())
-				.getUsername();
+//		String username = ((UsuarioDto) authentication.getPrincipal())
+//				.getUsername();
 		
 		UsuarioDto user = ((UsuarioDto) authentication.getPrincipal());
 				
 
-		headerAuthenticationHandler.addHeader(response, username);
+		headerAuthenticationHandler.addHeader(response, user.getUsername(), user.getImei());
 		// response.setHeader(arg0, token);
 
 		loginResponse.setUsername(authentication.getName());

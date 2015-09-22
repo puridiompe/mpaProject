@@ -12,7 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.rest.security.handler.HeaderAuthenticationHandler;
+import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
 
 /**
  * @author Johnny
@@ -47,10 +48,11 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 							.isAuthenticated()) {
 //				String userName = (String) contextBeforeChainExecution
 //						.getAuthentication().getPrincipal();
-				UserDetails usuario = (UserDetails) contextBeforeChainExecution
+				UsuarioDto usuario = (UsuarioDto) contextBeforeChainExecution
 						.getAuthentication().getPrincipal();
 				String userName = usuario.getUsername();
-				authenticationHandler.addHeader((HttpServletResponse) response, userName);
+				String imei = usuario.getImei();
+				authenticationHandler.addHeader((HttpServletResponse) response, userName, imei);
 			}
 			filterChain.doFilter(request, response);
 		} finally {
@@ -71,9 +73,9 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 //			Authentication authentication = new UsernamePasswordAuthenticationToken(
 //					userDetails.getUsername(), userDetails.getPassword(),
 //					userDetails.getAuthorities());
-			Authentication authentication = new UsernamePasswordAuthenticationToken(
+			Authentication authentication = new LoginAuthenticationToken(
 					userDetails, null,
-					userDetails.getAuthorities());
+					userDetails.getAuthorities(), ((UsuarioDto)userDetails).getImei());
 			securityContext.setAuthentication(authentication);
 			return securityContext;
 		}

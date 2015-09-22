@@ -61,7 +61,8 @@ public class HeaderAuthenticationHandler {
             String decryptedValue = encryptionUtil.decrypt(value, seed);
             String[] split = decryptedValue.split("\\|");
             String username = split[0];
-            DateTime timestamp =  new DateTime(Long.parseLong(split[1]));
+            String imei = split[1]; 
+            DateTime timestamp =  new DateTime(Long.parseLong(split[2]));
             if (timestamp.isAfter(DateTime.now().minus(sessionMaxAge))) {
                 return username;
             }
@@ -71,17 +72,17 @@ public class HeaderAuthenticationHandler {
         return null;
     }
 
-    public void addHeader(HttpServletResponse response, String userName) {
+    public void addHeader(HttpServletResponse response, String userName, String imei) {
         try {
-            String encryptedValue = createAuthToken(userName);
+            String encryptedValue = createAuthToken(userName, imei);
             response.setHeader(HEADER_NAME, encryptedValue);
         } catch (IOException | GeneralSecurityException e) {
 //            Logger.error(this, "Unable to encrypt header" + e);
         }
     }
 
-    public String createAuthToken(String userName) throws IOException, GeneralSecurityException {
-        String value = userName + "|" + System.currentTimeMillis();
+    public String createAuthToken(String userName, String imei) throws IOException, GeneralSecurityException {
+        String value = userName + "|" + imei + "|" +System.currentTimeMillis();
         return encryptionUtil.encrypt(value, seed);
     }
 

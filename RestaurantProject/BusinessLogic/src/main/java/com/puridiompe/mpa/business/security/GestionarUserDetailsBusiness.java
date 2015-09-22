@@ -3,9 +3,9 @@
  */
 package com.puridiompe.mpa.business.security;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.puridiompe.mpa.business.general.dto.LoginHistorialDto;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 
 /**
@@ -20,5 +20,5 @@ public interface GestionarUserDetailsBusiness extends UserDetailsService {
 	
 	public boolean setLastLogin(String username);
 	
-	public boolean setCurrentDevice(String username,String imei);
+	public boolean setCurrentDevice(UserDetails user, String imei);
 }
