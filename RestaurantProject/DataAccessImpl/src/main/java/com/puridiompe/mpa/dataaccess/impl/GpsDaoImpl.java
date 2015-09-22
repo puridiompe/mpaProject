@@ -24,7 +24,7 @@ import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
 import com.puridiompe.mpa.sistran.repository.persistence.GpsInspectorRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.GpsRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.UsuarioRepository;
-
+import com.puridiompe.mpa.common.security.SystemRole;
 /**
  * @author Lucho
  *
@@ -188,9 +188,9 @@ public class GpsDaoImpl implements GpsDao {
 	public List<GpsInspectorDto> getLastPositions() {
 
 		List<GpsInspectorDto> gpsInspectorObject = new ArrayList<GpsInspectorDto>();
-
-		List<GpsInspector> gpsInspector = gpsInspectorRepository.findAll();		
-
+		
+		List<GpsInspector> gpsInspector = gpsInspectorRepository.findByRol(SystemRole.INSPECTOR.toString());
+		
 		if (gpsInspector != null) {
 
 			for (int i = 0; i < gpsInspector.size(); i++) {

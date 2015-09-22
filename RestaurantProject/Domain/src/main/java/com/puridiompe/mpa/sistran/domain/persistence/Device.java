@@ -2,10 +2,12 @@ package com.puridiompe.mpa.sistran.domain.persistence;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.jboss.logging.annotations.Field;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 
@@ -18,7 +20,9 @@ import org.jboss.logging.annotations.Field;
 public class Device {
 	
 	 @Id
-	 @Column(name = "\"device_id\"", nullable = false)
+	 @Column(name = "\"device_id\"")
+	 @GenericGenerator(name = "generator", strategy = "increment")
+	 @GeneratedValue(generator = "generator")
 	 private Integer idDevice;
 	 
 	 @Column(name = "\"imei\"", length = 20, unique = true, nullable = false)

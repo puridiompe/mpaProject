@@ -147,9 +147,18 @@ public class UsuarioDaoImpl implements UsuarioDao {
 					d.setUsarioId(null);
 					deviceRepository.save(d);
 				}
+				
 			Device newDevice = deviceRepository.findByImei(imei);
-			newDevice.setUsarioId(usuarioObject.getIdUsuario());
-			deviceRepository.save(newDevice);
+			if(newDevice!=null){
+				newDevice.setUsarioId(usuarioObject.getIdUsuario());
+				deviceRepository.save(newDevice);
+			}else {
+				newDevice = new Device();
+				newDevice.setImei(imei);
+				newDevice.setActive("N");
+				newDevice.setUsarioId(usuarioObject.getIdUsuario());
+				deviceRepository.save(newDevice);
+			}
 			
 			return true;
 			
@@ -162,13 +171,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public Boolean setLastLogin(String username) {
 		
 		Usuario usuario = usuarioRepository.findByUsername(username);
-
 		if (usuario != null) {
 			
 			LoginHistorial loginHistorial = new LoginHistorial() ;
 			loginHistorial.setIdUsuario(usuario.getIdUsuario());
 			loginHistorial.setEstado(true);
-			//System.out.println("****************"+loginHistorial.getEstado());
 			loginHistorial.setFechaHora(new Date());
 			loginHistorialRepository.save(loginHistorial);
 			return true;
