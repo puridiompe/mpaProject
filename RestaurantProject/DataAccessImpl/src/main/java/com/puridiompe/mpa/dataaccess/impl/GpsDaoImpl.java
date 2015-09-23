@@ -73,9 +73,15 @@ public class GpsDaoImpl implements GpsDao {
 	public GpsDto addBatchGps(List<GpsDto> gps) {				
 
 		if (gps != null) {	
-		
 			
-			Date lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();
+			Object gpsInspector = gpsInspectorRepository.findLastByImei(gps.get(0).getImei());
+			
+            Date lastOnlineDatetime  = new Date();
+            
+            if(gpsInspector != null){
+            	
+                lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();
+            }
 			
 			GpsDto lastSavedGps = new GpsDto();
 			
