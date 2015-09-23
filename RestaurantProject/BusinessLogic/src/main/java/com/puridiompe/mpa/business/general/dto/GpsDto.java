@@ -163,14 +163,15 @@ public class GpsDto {
 	}
 
 
-	public Long getMinOffline() {
+	public Long getOfflineTime() {
 		return offlineTime;
 	}
 
 
-	public void setMinOffline(Long offlineTime) {
+	public void setOfflineTime(Long offlineTime) {
 		this.offlineTime = offlineTime;
 	}
+
 
 
 //	public GpsInspectorDto getGpsInspector() {

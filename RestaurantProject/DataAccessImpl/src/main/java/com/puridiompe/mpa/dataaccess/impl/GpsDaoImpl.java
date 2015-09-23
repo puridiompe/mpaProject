@@ -57,7 +57,7 @@ public class GpsDaoImpl implements GpsDao {
 
 			gpsRepository.save(gpsToSave);
 			
-			gps.setMinOffline(null);
+			gps.setOfflineTime(null);
 			
 			return gps;
 			
@@ -97,7 +97,7 @@ public class GpsDaoImpl implements GpsDao {
 					
 					Date tmpToInsert = new Date();
 					
-					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getMinOffline());
+					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getOfflineTime());
 					
 					gpsToSave.setDate(tmpToInsert);
 					
@@ -106,7 +106,7 @@ public class GpsDaoImpl implements GpsDao {
 					if(i == gps.size()-1){						
 						
 						BeanUtils.copyProperties(gpsToSave, lastSavedGps);
-						lastSavedGps.setMinOffline(null);
+						lastSavedGps.setOfflineTime(null);
 						lastSavedGps.setIdGps(null);
 						lastSavedGps.setDate(new Datetime(tmpToInsert));
 						
