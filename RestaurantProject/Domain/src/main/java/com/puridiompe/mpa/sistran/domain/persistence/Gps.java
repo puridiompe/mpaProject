@@ -7,7 +7,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -22,10 +24,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "\"gps_txn\"")
 public class Gps {
 	
+
 	 @Id
-	 @Column(name = "\"txn_id\"", nullable = false)
-	 @GenericGenerator(name = "generator", strategy = "increment")
-	 @GeneratedValue(generator = "generator")
+	 @Column(name = "\"txn_id\"", unique=true, nullable = false)
+	 @SequenceGenerator(name = "gps_sequence", sequenceName = "gps_txn_txn_id_seq", allocationSize = 1)
+	 @GeneratedValue(strategy = GenerationType.AUTO, generator = "gps_sequence")
 	 private Integer idGps;
 	 
 	 @Column(name = "\"imei\"", length = 20, unique = true)

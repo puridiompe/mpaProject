@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -19,10 +20,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "\"device\"")
 public class Device {
 	
+
 	 @Id
-	 @Column(name = "\"device_id\"")
-	 @GenericGenerator(name = "generator", strategy = "increment")
-	 @GeneratedValue(generator = "generator")
+	 @Column(name = "\"device_id\"", unique=true, nullable = false)
+	 @SequenceGenerator(name = "device_sequence", sequenceName = "device_device_id_seq", allocationSize = 1)
+	 @GeneratedValue(strategy = GenerationType.AUTO, generator = "device_sequence")
 	 private Integer idDevice;
 	 
 	 @Column(name = "\"imei\"", length = 20, unique = true, nullable = false)
