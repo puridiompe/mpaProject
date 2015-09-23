@@ -16,6 +16,7 @@ import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 import com.puridiompe.mpa.business.general.dto.UsuarioDto;
 import com.puridiompe.mpa.common.security.SystemRole;
+import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.dataaccess.GpsDao;
 import com.puridiompe.mpa.sistran.domain.persistence.Gps;
@@ -24,7 +25,6 @@ import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
 import com.puridiompe.mpa.sistran.repository.persistence.GpsInspectorRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.GpsRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.UsuarioRepository;
-import com.puridiompe.mpa.common.security.SystemRole;
 /**
  * @author Lucho
  *
@@ -56,9 +56,13 @@ public class GpsDaoImpl implements GpsDao {
 			gps.setDate(new Datetime(gpsToSave.getDate()));
 
 			gpsRepository.save(gpsToSave);
-
+			
+			gps.setMinOffline(null);
+			
 			return gps;
+			
 		} else {
+			
 			return null;
 		}
 
@@ -66,31 +70,55 @@ public class GpsDaoImpl implements GpsDao {
 	
 	@Transactional(value = "sistranTransactionManager")
 	@Override
-	public GpsDto addBatchGps(List<GpsDto> gps) {
-		
-		GpsDto lastSavedGps = new GpsDto();
+	public GpsDto addBatchGps(List<GpsDto> gps) {				
 
-		if (gps != null) {
+		if (gps != null) {	
+		
 			
-			for(int i = 0; i < gps.size(); i++){
+			Date lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();
+			
+			GpsDto lastSavedGps = new GpsDto();
+			
+			if(lastOnlineDatetime == null){
 				
-				Gps gpsToSave = new Gps();
+				return null;
 				
-				//En caso se envien las fechas dentro del JSON en formato GpsDto
-				//Caso contrario conversar con Luis Martinez para agregar campos
-				//y validar aquí las diferencias temporales
-				BeanUtils.copyProperties(gps.get(i), gpsToSave);				
+			}else{				
+						
+				for(int i = 0; i < gps.size(); i++){
+					
+					Gps gpsToSave = new Gps();
 				
-				gpsRepository.save(gpsToSave);
+					GpsDto listTmp = gps.get(i);
 				
-				if(i == gps.size()-1){
-					BeanUtils.copyProperties(gps.get(i), lastSavedGps);
-				}
-				
-			}		
+					BeanUtils.copyProperties(listTmp, gpsToSave);
+					
+	//				long tmpLong = lastOnlineDatetime.getTime() + (long)listTmp.getMinOffline();
+					
+					Date tmpToInsert = new Date();
+					
+					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getMinOffline());
+					
+					gpsToSave.setDate(tmpToInsert);
+					
+					gpsRepository.save(gpsToSave);
+					
+					if(i == gps.size()-1){						
+						
+						BeanUtils.copyProperties(gpsToSave, lastSavedGps);
+						lastSavedGps.setMinOffline(null);
+						lastSavedGps.setIdGps(null);
+						lastSavedGps.setDate(new Datetime(tmpToInsert));
+						
+					}
+					
+				}	
+			}
 
 			return lastSavedGps;
+			
 		} else {
+			
 			return null;
 		}
 

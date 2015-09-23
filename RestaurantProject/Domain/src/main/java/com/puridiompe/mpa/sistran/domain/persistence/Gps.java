@@ -66,7 +66,7 @@ public class Gps {
 	 private Integer estimate;
 	 
 	 @Column(name = "\"usuario_id\"", nullable = false)
-	 private Integer usuarioId;
+	 private Integer usuarioId;	 
 	 
 	 /**
 	  * default constructor
@@ -191,7 +191,6 @@ public class Gps {
 
 	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
-	} 
-
+	}
 
 }

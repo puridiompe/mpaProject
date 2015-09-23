@@ -35,11 +35,15 @@ public class GpsDto {
 	 
 	 private Integer usuarioId;
 	 
+	 private Long offlineTime;
+	 
 //	 private GpsInspectorDto gpsInspector;
 	 
 	 
 	 public GpsDto(){
 //		 gpsInspector = new GpsInspectorDto();
+		 
+		 offlineTime = new Long(0);
 		 
 	 }
 	 
@@ -156,6 +160,16 @@ public class GpsDto {
 
 	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
+	}
+
+
+	public Long getMinOffline() {
+		return offlineTime;
+	}
+
+
+	public void setMinOffline(Long offlineTime) {
+		this.offlineTime = offlineTime;
 	}
 
 
