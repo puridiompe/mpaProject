@@ -43,7 +43,7 @@
         </encoder>
     </appender>
  
-	<logger name="org.springframework.web" level="debug" additivity="false">
+	<logger name="org.springframework.web" level="error" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
  
