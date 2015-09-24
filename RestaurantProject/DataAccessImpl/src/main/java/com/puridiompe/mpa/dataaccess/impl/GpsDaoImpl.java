@@ -72,61 +72,188 @@ public class GpsDaoImpl implements GpsDao {
 	@Override
 	public GpsDto addBatchGps(List<GpsDto> gps) {				
 
-		if (gps != null) {	
+		if (gps != null) {
 			
-			Object gpsInspector = gpsInspectorRepository.findLastByImei(gps.get(0).getImei());
-			
-            Date lastOnlineDatetime  = new Date();
-            
-            if(gpsInspector != null){
-            	
-                lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();
-            }
-			
-			GpsDto lastSavedGps = new GpsDto();
-			
-			if(lastOnlineDatetime == null){
-				
-				return null;
-				
-			}else{				
+			GpsInspector gpsInspector = gpsInspectorRepository.findLastByImei(gps.get(0).getImei());
+			Integer arraySize = gps.size();
 						
-				for(int i = 0; i < gps.size(); i++){
+			//One member array - offline and online cases
+			if(arraySize == 1){
+				if(gps.get(0).getOfflineTime() == 0){
 					
-					Gps gpsToSave = new Gps();
+					return this.addGps(gps.get(0));
+				}
 				
-					GpsDto listTmp = gps.get(i);
-				
-					BeanUtils.copyProperties(listTmp, gpsToSave);
+				if(gps.get(0).getOfflineTime() > 0 && gpsInspector != null){
 					
-	//				long tmpLong = lastOnlineDatetime.getTime() + (long)listTmp.getMinOffline();
+					Date lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();
+					Date tmpToInsert = new Date();				
+					Gps gpsToSave = new Gps();                
+	                GpsDto listTmp = gps.get(0);                
+	                BeanUtils.copyProperties(listTmp, gpsToSave);                
 					
-					Date tmpToInsert = new Date();
-					
-					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getOfflineTime());
-					
-					gpsToSave.setDate(tmpToInsert);
+					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getOfflineTime());				
+					gpsToSave.setDate(tmpToInsert);	
 					
 					gpsRepository.save(gpsToSave);
 					
-					if(i == gps.size()-1){						
+					listTmp.setIdGps(null);
+					listTmp.setOfflineTime(null);
+					listTmp.setDate(new Datetime(tmpToInsert));
+					
+					return listTmp;
+				}
+				
+				if(gps.get(0).getOfflineTime() > 0 && gpsInspector == null){
+					
+					return this.addGps(gps.get(0));			
+				}
+			}		
+			
+			//add in batch with last datetime found
+			//cases: array with only members for batch save and with last one online
+			//special case: init offline
+			if(arraySize > 1 && gpsInspector != null){
+				
+			Date lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();				
+				
+				
+			if(gps.get(arraySize-1).getOfflineTime() > 0){
+				
+				for(int i = 0; i < arraySize; i++){
 						
+					Gps gpsToSave = new Gps();				
+					GpsDto listTmp = gps.get(i);				
+					BeanUtils.copyProperties(listTmp, gpsToSave);					
+					Date tmpToInsert = new Date();
+						
+					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getOfflineTime());					
+					gpsToSave.setDate(tmpToInsert);
+						
+					gpsRepository.save(gpsToSave);
+						
+					if(i == arraySize-1){
+							
+						GpsDto lastSavedGps = new GpsDto();
+							
 						BeanUtils.copyProperties(gpsToSave, lastSavedGps);
 						lastSavedGps.setOfflineTime(null);
 						lastSavedGps.setIdGps(null);
 						lastSavedGps.setDate(new Datetime(tmpToInsert));
-						
+							
+						return lastSavedGps;
+							
 					}
-					
-				}	
+				}
 			}
-
-			return lastSavedGps;
+			if(gps.get(arraySize-1).getOfflineTime() == 0){
+					
+				for(int i = 0; i < arraySize-1; i++){
+						
+					Gps gpsToSave = new Gps();				
+					GpsDto listTmp = gps.get(i);				
+					BeanUtils.copyProperties(listTmp, gpsToSave);					
+					Date tmpToInsert = new Date();
+						
+					tmpToInsert.setTime(lastOnlineDatetime.getTime() + listTmp.getOfflineTime());					
+					gpsToSave.setDate(tmpToInsert);
+						
+					gpsRepository.save(gpsToSave);
+						
+				}
+				Gps lastGpsToSave = new Gps();
+				GpsDto lastSavedGps = new GpsDto();
+				Date tmpToInsert = new Date();
+					
+				lastSavedGps = gps.get(arraySize-1);
+				BeanUtils.copyProperties(lastSavedGps, lastGpsToSave);
+				tmpToInsert.setTime(lastOnlineDatetime.getTime() + (arraySize * gps.get(0).getOfflineTime()));
+				lastGpsToSave.setDate(tmpToInsert);
+				
+				gpsRepository.save(lastGpsToSave);					
+				
+				lastSavedGps.setOfflineTime(null);
+				lastSavedGps.setIdGps(null);
+				lastSavedGps.setDate(new Datetime(tmpToInsert));
+					
+				return lastSavedGps;					
+			}
+			}			
+			if(arraySize > 1 && gpsInspector == null){
+				
+				if(gps.get(arraySize-1).getOfflineTime() > 0){
+					
+					Long minusTime = gps.get(0).getOfflineTime();
+					Long initTime = new Date().getTime();
+					
+					for(int i = 0; i < arraySize; i++){
+							
+						Gps gpsToSave = new Gps();				
+						GpsDto listTmp = gps.get(i);				
+						BeanUtils.copyProperties(listTmp, gpsToSave);					
+						Date tmpToInsert = new Date();
+							
+						tmpToInsert.setTime(initTime + listTmp.getOfflineTime() - minusTime);					
+						gpsToSave.setDate(tmpToInsert);
+							
+						gpsRepository.save(gpsToSave);
+							
+						if(i == arraySize-1){
+								
+							GpsDto lastSavedGps = new GpsDto();
+								
+							BeanUtils.copyProperties(gpsToSave, lastSavedGps);
+							lastSavedGps.setOfflineTime(null);
+							lastSavedGps.setIdGps(null);
+							lastSavedGps.setDate(new Datetime(tmpToInsert));
+								
+							return lastSavedGps;
+								
+						}
+					}
+				}
+				if(gps.get(arraySize-1).getOfflineTime() == 0){
+					
+					Long minusTime = gps.get(0).getOfflineTime();
+					Long initTime = new Date().getTime();
+						
+					for(int i = 0; i < arraySize-1; i++){
+							
+						Gps gpsToSave = new Gps();				
+						GpsDto listTmp = gps.get(i);				
+						BeanUtils.copyProperties(listTmp, gpsToSave);					
+						Date tmpToInsert = new Date();
+							
+						tmpToInsert.setTime(initTime + listTmp.getOfflineTime() - minusTime);					
+						gpsToSave.setDate(tmpToInsert);
+							
+						gpsRepository.save(gpsToSave);
+							
+					}
+					Gps lastGpsToSave = new Gps();
+					GpsDto lastSavedGps = new GpsDto();
+					Date tmpToInsert = new Date();
+						
+					lastSavedGps = gps.get(arraySize-1);
+					BeanUtils.copyProperties(lastSavedGps, lastGpsToSave);
+					tmpToInsert.setTime(initTime + (arraySize * gps.get(0).getOfflineTime()) - minusTime);
+					lastGpsToSave.setDate(tmpToInsert);
+					
+					gpsRepository.save(lastGpsToSave);					
+					
+					lastSavedGps.setOfflineTime(null);
+					lastSavedGps.setIdGps(null);
+					lastSavedGps.setDate(new Datetime(tmpToInsert));
+						
+					return lastSavedGps;					
+				}				
+			}
 			
 		} else {
 			
 			return null;
 		}
+		return null;
 
 	}
 
