@@ -9,6 +9,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,7 @@ import com.puridiompe.mpa.rest.controller.general.message.GetGpsResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpssRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpssResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetGpsValidator;
+import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
 
 
 /**
@@ -74,9 +77,23 @@ public class RegistroGpsController extends BaseController {
 	@RequestMapping(value = "/addBatch", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetGpsResponse> addBatchGps(
 			@RequestBody RequestMessage<GetGpssRequest> request)
-			throws BusinessException {		
+			throws BusinessException {
 		
-		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(request.getBody().getGpss());				
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		
+		List<GpsDto> gpsCollection = request.getBody().getGpss();
+		
+		if (authentication != null && gpsCollection != null) {
+			
+			String currentImei = ((LoginAuthenticationToken) authentication).getImei();
+					
+			for (GpsDto gps : gpsCollection) {
+				gps.setImei(currentImei);
+			}
+		}
+		
+		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(gpsCollection);				
 		
 		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
 		
