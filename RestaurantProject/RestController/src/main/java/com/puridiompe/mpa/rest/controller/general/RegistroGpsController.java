@@ -87,9 +87,12 @@ public class RegistroGpsController extends BaseController {
 		if (authentication != null && gpsCollection != null) {
 			
 			String currentImei = ((LoginAuthenticationToken) authentication).getImei();
-					
+			String currentUsername = ((LoginAuthenticationToken) authentication).getName();
+			System.out.print("====================== "+currentUsername );
+			
 			for (GpsDto gps : gpsCollection) {
 				gps.setImei(currentImei);
+				gps.setUsuarioId(currentUsername);
 			}
 		}
 		

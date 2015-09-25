@@ -33,7 +33,7 @@ public class GpsDto {
 	 	 
 	 private Integer estimate;
 	 
-	 private Integer usuarioId;
+	 private String usuarioId;
 	 
 	 private Long offlineTime;
 	 
@@ -153,12 +153,12 @@ public class GpsDto {
 	}
 
 
-	public Integer getUsuarioId() {
+	public String getUsuarioId() {
 		return usuarioId;
 	}
 
 
-	public void setUsuarioId(Integer usuarioId) {
+	public void setUsuarioId(String usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 

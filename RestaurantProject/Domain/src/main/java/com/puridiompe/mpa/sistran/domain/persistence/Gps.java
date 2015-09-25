@@ -69,7 +69,7 @@ public class Gps {
 	 private Integer estimate;
 	 
 	 @Column(name = "\"usuario_id\"", nullable = false)
-	 private Integer usuarioId;	 
+	 private String usuarioId;	 
 	 
 	 /**
 	  * default constructor
@@ -188,11 +188,11 @@ public class Gps {
 		this.estimate = estimate;
 	}
 
-	public Integer getUsuarioId() {
+	public String getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(Integer usuarioId) {
+	public void setUsuarioId(String usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 

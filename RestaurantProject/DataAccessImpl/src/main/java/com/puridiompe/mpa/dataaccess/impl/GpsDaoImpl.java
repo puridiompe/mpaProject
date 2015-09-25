@@ -271,7 +271,8 @@ public class GpsDaoImpl implements GpsDao {
 
 			UsuarioDto usuarioObject = new UsuarioDto();
 
-			usuario = usuarioRepository.findByIdUsuario(gps.get(0).getUsuarioId());
+			//usuario = usuarioRepository.findByIdUsuario(gps.get(0).getUsuarioId());
+			usuario = usuarioRepository.findByUsername(gps.get(0).getUsuarioId());
 
 			BeanUtils.copyProperties(usuario, usuarioObject);
 
@@ -304,7 +305,8 @@ public class GpsDaoImpl implements GpsDao {
 
 				BeanUtils.copyProperties(gps.get(i), gpsDtoTmp);
 
-				usuario = usuarioRepository.findByIdUsuario(gps.get(i).getUsuarioId());
+				//usuario = usuarioRepository.findByIdUsuario(gps.get(i).getUsuarioId());
+				usuario = usuarioRepository.findByUsername(gps.get(i).getUsuarioId());
 
 				BeanUtils.copyProperties(usuario, usuarioObject);
 
