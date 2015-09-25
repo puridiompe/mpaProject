@@ -16,11 +16,11 @@
 	</appender>
 	
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logFile.log</file>
+        <file>/usr/local/mpa/logs/mpaLogFile.log</file>
 <!--         <file>c:/mkyongapp.log</file> -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/usr/local/mpa/logs/mpaLogFile.%d{yyyy-MM-dd}.log</fileNamePattern>
 
             <!-- keep 1 days' worth of history -->
             <maxHistory>10</maxHistory>
@@ -43,8 +43,9 @@
         </encoder>
     </appender>
  
-	<logger name="org.springframework.web" level="error" additivity="false">
+	<logger name="org.springframework.web" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE"/>
 	</logger>
  
 	<logger name="com.puridiompe.mpa" level="debug" additivity="false">
