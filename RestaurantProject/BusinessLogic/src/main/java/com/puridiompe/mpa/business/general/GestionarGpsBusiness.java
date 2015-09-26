@@ -15,7 +15,7 @@ public interface GestionarGpsBusiness {
 	
 	public GpsDto addGps(GpsDto gps);
 	
-	public GpsDto addBatchGps(List<GpsDto> gps);
+	public GpsDto addBatchGps(String username, List<GpsDto> gps);
 	
 	public GpsDto getLastGpsByImei(String imei);	
 	

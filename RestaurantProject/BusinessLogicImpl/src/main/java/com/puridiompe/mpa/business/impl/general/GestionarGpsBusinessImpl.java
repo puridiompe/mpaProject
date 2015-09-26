@@ -28,8 +28,8 @@ public class GestionarGpsBusinessImpl implements GestionarGpsBusiness{
 	}
 	
 	@Override
-	public GpsDto addBatchGps(List<GpsDto> gps) {
-		return gpsDao.addBatchGps(gps);
+	public GpsDto addBatchGps(String username, List<GpsDto> gps) {
+		return gpsDao.addBatchGps(username, gps);
 	}
 	
 	@Override

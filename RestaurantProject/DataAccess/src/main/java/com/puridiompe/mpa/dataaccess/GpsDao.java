@@ -16,7 +16,7 @@ public interface GpsDao {
 	
 	public GpsDto addGps(GpsDto gps);
 	
-	public GpsDto addBatchGps(List<GpsDto> gps);
+	public GpsDto addBatchGps(String username, List<GpsDto> gps);
 	
 	public List<GpsDto> getGpsByImei(String imei);
 	

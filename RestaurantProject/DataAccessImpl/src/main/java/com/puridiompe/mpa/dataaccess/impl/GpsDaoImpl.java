@@ -70,11 +70,11 @@ public class GpsDaoImpl implements GpsDao {
 	
 	@Transactional(value = "sistranTransactionManager")
 	@Override
-	public GpsDto addBatchGps(List<GpsDto> gps) {				
+	public GpsDto addBatchGps(String username, List<GpsDto> gps) {				
 
 		if (gps != null) {
 			
-			GpsInspector gpsInspector = gpsInspectorRepository.findLastByImei(gps.get(0).getImei());
+			GpsInspector gpsInspector = gpsInspectorRepository.findLastByUsername(username);
 			Integer arraySize = gps.size();
 						
 			//One member array - offline and online cases
@@ -86,7 +86,7 @@ public class GpsDaoImpl implements GpsDao {
 				
 				if(gps.get(0).getOfflineTime() > 0 && gpsInspector != null){
 					
-					Date lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();
+					Date lastOnlineDatetime = gpsInspectorRepository.findLastByUsername(username).getDate();
 					Date tmpToInsert = new Date();				
 					Gps gpsToSave = new Gps();                
 	                GpsDto listTmp = gps.get(0);                
@@ -115,7 +115,7 @@ public class GpsDaoImpl implements GpsDao {
 			//special case: init offline
 			if(arraySize > 1 && gpsInspector != null){
 				
-			Date lastOnlineDatetime = gpsInspectorRepository.findLastByImei(gps.get(0).getImei()).getDate();				
+			Date lastOnlineDatetime = gpsInspectorRepository.findLastByUsername(username).getDate();				
 				
 				
 			if(gps.get(arraySize-1).getOfflineTime() > 0){
