@@ -24,7 +24,9 @@ public class GpsInspectorDto {
 	 
 	 private BigDecimal longitude;	 	 
 	 
-	 private Datetime date;	
+	 private Datetime date;
+	 
+	 private String rol;
 	 
 	 public GpsInspectorDto() {
 		// TODO Auto-generated constructor stub
@@ -92,6 +94,14 @@ public class GpsInspectorDto {
 
 	public void setDate(Datetime date) {
 		this.date = date;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 }

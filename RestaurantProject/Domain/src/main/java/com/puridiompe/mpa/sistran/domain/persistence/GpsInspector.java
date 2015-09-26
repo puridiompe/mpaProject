@@ -50,8 +50,8 @@ public class GpsInspector{
 	 private BigDecimal longitude;
 	 	 
 	 @Column(name = "\"txn_date\"", nullable = true, updatable = false)
-	 private Date date;	 
-	 	 
+	 private Date date;
+	 	 	 
 	 /**
 	  * default constructor
 	  */
@@ -138,6 +138,14 @@ public class GpsInspector{
 
 	public void setDate(Date date) {
 		this.date = date;
-	} 
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 	
 }

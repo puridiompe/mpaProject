@@ -96,7 +96,7 @@ public class RegistroGpsController extends BaseController {
 			}
 		}
 		
-		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(gpsCollection);				
+		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(request.getBody().getGpss().get(0).getUsuarioId(), gpsCollection);				
 		
 		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
 		
