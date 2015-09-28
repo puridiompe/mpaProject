@@ -79,7 +79,8 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 			// Logger.error(this, "GestionarUserDetailsBusiness returned null");
 
 			throw new InternalAuthenticationServiceException(
-					"UserDetailsService returned null, an user is required for authentication");
+					//"UserDetailsService returned null, an user is required for authentication");
+			messages.getMessage("AbstractUserDetailsAuthenticationProvider.InternalAuthenticationService", "UserDetailsService returned null, an user is required for authentication"));
 		}
 
 		return user;

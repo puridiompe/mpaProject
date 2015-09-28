@@ -41,7 +41,7 @@ public class RestAuthenticationFailureHandler extends
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request,
-			HttpServletResponse response, AuthenticationException exception)
+			HttpServletResponse response, AuthenticationException exception) // obtener el message
 			throws IOException, ServletException {
 
 //		Logger.info(this, "==================== AUTH FAILURE ====================");
@@ -53,9 +53,10 @@ public class RestAuthenticationFailureHandler extends
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
 		ResponseMessage<ResponseError> responseObject = new ResponseMessage<ResponseError>();
-
-		responseObject.setBody(RestMessage.getResponseError(messageSource,
-				"error.authentication.system"));
+		
+		//responseObject.setBody(RestMessage.getResponseError(messageSource,"error.authentication.system"));
+		
+		responseObject.setBody(RestMessage.getResponseError(messageSource,exception.getLocalizedMessage(),"error.authentication.system"));
 
 		PrintWriter writer = response.getWriter();
 
