@@ -45,7 +45,7 @@ import com.puridiompe.mpa.rest.security.provider.CustomAuthenticationProvider;
  */
 @Configuration
 @Import(RestCommonConfiguration.class)
-@PropertySource({"classpath:security.properties"})
+@PropertySource({"file:${app.security.config}/security.properties"})
 @ComponentScan(value = {
 		"com.puridiompe.mpa.rest.security.handler",
 		"com.puridiompe.mpa.rest.security.expression" })
