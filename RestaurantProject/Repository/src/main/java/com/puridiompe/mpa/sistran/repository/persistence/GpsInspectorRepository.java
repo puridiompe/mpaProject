@@ -13,8 +13,8 @@ public interface GpsInspectorRepository extends JpaRepository<GpsInspector, Inte
 	@Query("from GpsInspector g where g.rol = ?1")
 	public List<GpsInspector> findByRol(String rol);
 	
-	@Query("from GpsInspector g where g.imei = ?1")
-	public GpsInspector findLastByImei(String imei);
+	//@Query("from GpsInspector g where g.imei = ?1")
+	//public GpsInspector findLastByImei(String imei);
 	
 	@Query("from GpsInspector g where g.username = ?1")
 	public GpsInspector findLastByUsername(String username);

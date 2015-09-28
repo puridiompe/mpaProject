@@ -82,13 +82,12 @@ public class RegistroGpsController extends BaseController {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
 		
+		String currentImei = ((LoginAuthenticationToken) authentication).getImei();
+		String currentUsername = ((LoginAuthenticationToken) authentication).getName();
+
 		List<GpsDto> gpsCollection = request.getBody().getGpss();
 		
 		if (authentication != null && gpsCollection != null) {
-			
-			String currentImei = ((LoginAuthenticationToken) authentication).getImei();
-			String currentUsername = ((LoginAuthenticationToken) authentication).getName();
-			System.out.print("====================== "+currentUsername );
 			
 			for (GpsDto gps : gpsCollection) {
 				gps.setImei(currentImei);
@@ -96,7 +95,7 @@ public class RegistroGpsController extends BaseController {
 			}
 		}
 		
-		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(request.getBody().getGpss().get(0).getUsuarioId(), gpsCollection);				
+		GpsDto forResponse = gestionarGpsBusiness.addBatchGps(currentUsername, gpsCollection);				
 		
 		ResponseMessage<GetGpsResponse> response = new ResponseMessage<GetGpsResponse>();
 		
