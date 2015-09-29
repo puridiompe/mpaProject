@@ -1,10 +1,10 @@
 package com.puridiompe.mpa.dataaccess;
 
+import java.util.Date;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
-import com.puridiompe.mpa.common.type.Datetime;
 
 /**
  * 
@@ -14,9 +14,11 @@ import com.puridiompe.mpa.common.type.Datetime;
 
 public interface GpsDao {	
 	
-	public GpsDto addGps(GpsDto gps);
+	public GpsDto addGps(GpsDto gps, Long timeToSave);
 	
-	public GpsDto addBatchGps(String username, List<GpsDto> gps);
+	public GpsInspectorDto getLastByUsername(String username);
+	
+	public GpsDto addBatchGps(String username, List<GpsDto> gps, Long lastTime, Integer caseNumber);
 	
 	public List<GpsDto> getGpsByImei(String imei);
 	
