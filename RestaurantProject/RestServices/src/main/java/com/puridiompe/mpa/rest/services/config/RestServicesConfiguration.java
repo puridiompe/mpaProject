@@ -25,6 +25,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
+import com.puridiompe.mpa.common.config.RestCommonConfiguration;
 import com.puridiompe.mpa.rest.controller.config.RestControllerConfiguration;
 
 /**

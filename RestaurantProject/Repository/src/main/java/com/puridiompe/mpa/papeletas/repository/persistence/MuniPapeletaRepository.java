@@ -1,12 +1,8 @@
 package com.puridiompe.mpa.papeletas.repository.persistence;
 
-import java.math.BigDecimal;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.puridiompe.mpa.domain.persistence.Infraction;
-import com.puridiompe.mpa.papeletas.domain.persistence.MuniConductor;
 import com.puridiompe.mpa.papeletas.domain.persistence.MuniPapeleta;
 
 public interface MuniPapeletaRepository extends JpaRepository<MuniPapeleta, Integer>{

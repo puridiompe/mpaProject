@@ -54,7 +54,7 @@ public class Vehiculo{
 	private String modelo;
 	
 	@Column(name = "\"añoFab\"")
-	private Integer añoFabricacion;
+	private Integer anioFabricacion;
 	
 	@Column(name = "\"combustib\"")
 	private Integer combustible;
@@ -217,12 +217,12 @@ public class Vehiculo{
 		this.modelo = modelo;
 	}
 
-	public Integer getAñoFabricacion() {
-		return añoFabricacion;
+	public Integer getAnioFabricacion() {
+		return anioFabricacion;
 	}
 
-	public void setAñoFabricacion(Integer añoFabricacion) {
-		this.añoFabricacion = añoFabricacion;
+	public void setAnioFabricacion(Integer anioFabricacion) {
+		this.anioFabricacion = anioFabricacion;
 	}
 
 	public Integer getCombustible() {
