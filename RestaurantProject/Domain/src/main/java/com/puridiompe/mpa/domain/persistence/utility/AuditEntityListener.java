@@ -17,23 +17,25 @@ public class AuditEntityListener {
 	@PrePersist
 	public void prePersist(PersistenceAuditableEntity entity) {
 
-		String currentUser = "admin";
+//		String currentUser = "admin";
 		Date actualDate = new Date();
 
-		entity.setCreatedBy(currentUser);
-		entity.setCreatedDate(actualDate);
+//		entity.setCreatedBy(currentUser);
+		
+		entity.setEstado("1");
+		entity.setFecCre(actualDate);
 
-		entity.setLastChangedBy(currentUser);
-		entity.setLastChangedDate(actualDate);
+//		entity.setLastChangedBy(currentUser);
+		entity.setFecMod(actualDate);
 
 	}
 
 	@PreUpdate
 	public void preUpdate(PersistenceAuditableEntity entity) {
-		String currentUser = "admin";
+//		String currentUser = "admin";
 		Date actualDate = new Date();
 
-		entity.setLastChangedBy(currentUser);
-		entity.setLastChangedDate(actualDate);
+//		entity.setLastChangedBy(currentUser);
+		entity.setFecMod(actualDate);
 	}
 }

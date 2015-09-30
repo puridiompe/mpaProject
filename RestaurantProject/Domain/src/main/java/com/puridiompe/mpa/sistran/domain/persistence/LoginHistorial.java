@@ -14,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
-@Table(name = "\"TrPpe_LogHis\"")
+@Table(name = "\"TrMov_HisLog\"")
 public class LoginHistorial {
 
 	@Id

@@ -15,5 +15,5 @@ import javax.persistence.MappedSuperclass;
 @SuppressWarnings("serial")
 public abstract class PersistableEntity<T> implements Serializable {
 
-	public abstract T getId();
+	//public abstract T getId();
 }

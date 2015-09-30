@@ -17,7 +17,7 @@ import com.puridiompe.mpa.common.security.SystemRole;
  */
 
 @Entity
-@Table(name = "\"TrPpe_Rol\"")
+@Table(name = "\"TrMov_Rol\"")
 public class Rol {
 	@Id
 	@Column(name = "\"idRol\"", nullable = false, unique = true)

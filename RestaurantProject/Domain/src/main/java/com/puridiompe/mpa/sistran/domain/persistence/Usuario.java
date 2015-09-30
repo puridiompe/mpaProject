@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
+
 /**
  * @author PuridiomPe
  * @version 1.0
@@ -20,11 +22,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "\"TrMov_Usuario\"")
 
-public class Usuario {
+public class Usuario extends PersistenceAuditableEntity<Integer> {
 	@Id
 	@Column(name = "\"idUsu\"", nullable = false, unique = true)
-	@SequenceGenerator(name = "usuario_sequence", sequenceName = "usuario_usuario_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "usuario_sequence")	
 	private Integer idUsuario;
 	
 	@Column(name = "\"username\"", nullable = false,length = 100)
@@ -41,15 +41,6 @@ public class Usuario {
 	
 	@Column(name = "\"nombres\"", nullable = false,length = 100)
 	private String nombres;
-	
-	@Column(name = "\"estado\"", nullable = false)
-	private String  estado;
-	
-	@Column(name = "\"fecCre\"", nullable = false)
-	private Date fecCre;
-	
-	@Column(name = "\"fecMod\"", nullable = true)
-	private Date fecMod;
 	
 	public Usuario(){}
 	
@@ -99,29 +90,4 @@ public class Usuario {
 	public String getNombres(){
 		return this.nombres;
 	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public Date getFecCre() {
-		return fecCre;
-	}
-
-	public void setFecCre(Date fecCre) {
-		this.fecCre = fecCre;
-	}
-
-	public Date getFecMod() {
-		return fecMod;
-	}
-
-	public void setFecMod(Date fecMod) {
-		this.fecMod = fecMod;
-	}
-	
 }

@@ -7,7 +7,7 @@ public class LoginHistorialDto {
 	private Integer idLogHist;
 	private Integer idUsuario;
 	private Date fechaHora;
-	private Boolean estado;
+//	private Boolean estado;
 	
 	public LoginHistorialDto(){}
 
@@ -35,13 +35,13 @@ public class LoginHistorialDto {
 		this.fechaHora = fechaHora;
 	}
 
-	public Boolean getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Boolean estado) {
-		this.estado = estado;
-	}
+//	public Boolean getEstado() {
+//		return estado;
+//	}
+//
+//	public void setEstado(Boolean estado) {
+//		this.estado = estado;
+//	}
 	
 	
 	

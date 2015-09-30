@@ -27,7 +27,7 @@ public class Gps {
 
 	 @Id
 	 @Column(name = "\"idTraGps\"", unique=true, nullable = false)
-	 @SequenceGenerator(name = "gps_sequence", sequenceName = "gps_txn_txn_id_seq", allocationSize = 1)
+	 @SequenceGenerator(name = "gps_sequence", sequenceName = "trmov_tragps_id", allocationSize = 1)
 	 @GeneratedValue(strategy = GenerationType.AUTO, generator = "gps_sequence")
 	 private Integer idGps;
 	 

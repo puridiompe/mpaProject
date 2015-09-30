@@ -69,7 +69,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				}
 			}
 			
-			loginHistorial = loginHistorialRepository.findByIdUsuario(usuario.getIdUsuario());
+			loginHistorial = loginHistorialRepository.findByIdUsuario(usuario.getUsername());//.getIdUsuario());
 			
 			if(loginHistorial.size()>0){
 				usuarioObject.setLastLogin(loginHistorial.get(loginHistorial.size()-1).getFechaHora());
