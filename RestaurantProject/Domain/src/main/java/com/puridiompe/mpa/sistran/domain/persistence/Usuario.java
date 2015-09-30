@@ -4,7 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -15,11 +18,13 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "\"TrPpe_Usuario\"")
+@Table(name = "\"TrMov_Usuario\"")
 
 public class Usuario {
 	@Id
-	@Column(name = "\"idUsuario\"", nullable = false, unique = true)
+	@Column(name = "\"idUsu\"", nullable = false, unique = true)
+	@SequenceGenerator(name = "usuario_sequence", sequenceName = "usuario_usuario_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "usuario_sequence")	
 	private Integer idUsuario;
 	
 	@Column(name = "\"username\"", nullable = false,length = 100)
@@ -38,7 +43,7 @@ public class Usuario {
 	private String nombres;
 	
 	@Column(name = "\"estado\"", nullable = false)
-	private Boolean  estado;
+	private String  estado;
 	
 	@Column(name = "\"fecCre\"", nullable = false)
 	private Date fecCre;
@@ -95,11 +100,11 @@ public class Usuario {
 		return this.nombres;
 	}
 
-	public Boolean getEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 

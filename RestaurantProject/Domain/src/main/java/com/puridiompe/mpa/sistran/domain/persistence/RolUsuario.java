@@ -12,20 +12,20 @@ import javax.persistence.Table;
 
 @Entity
 //@IdClass(value=RolUsuario.RolUsuarioId.class)
-@Table(name = "\"TrPpe_RolUsu\"")
+@Table(name = "\"TrMov_RolUsu\"")
 public class RolUsuario {
 
 	//@Id
-	@Column(name = "\"idUsuario\"", nullable = false)
+	@Column(name = "\"idUsu\"", nullable = false)
 	private Integer idUsuario;
 	
 	@Id
 	@Column(name = "\"idRol\"", nullable = false)
 	private Integer idRol;
-	
+	/*
 	@Column(name = "\"estado\"", nullable = false)
 	private Boolean estado;
-	
+	*/
 	@Column(name = "\"fecCre\"", nullable = false)
 	private Date fecCre;
 	
@@ -54,7 +54,7 @@ public class RolUsuario {
 
 	
 
-
+/*
 	public Boolean getEstado() {
 		return estado;
 	}
@@ -62,7 +62,7 @@ public class RolUsuario {
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
-
+*/
 	public Date getFecCre() {
 		return fecCre;
 	}

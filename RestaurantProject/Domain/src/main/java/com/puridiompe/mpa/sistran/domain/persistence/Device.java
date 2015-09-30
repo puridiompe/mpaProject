@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.sistran.domain.persistence;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,19 +19,19 @@ import org.hibernate.annotations.GenericGenerator;
  */
 
 @Entity
-@Table(name = "\"device\"")
+@Table(name = "\"TrMov_Dispositivo\"")
 public class Device {
 	
 
 	 @Id
-	 @Column(name = "\"device_id\"", unique=true, nullable = false)
+	 @Column(name = "\"idDis\"", unique=true, nullable = false)
 	 @SequenceGenerator(name = "device_sequence", sequenceName = "device_device_id_seq", allocationSize = 1)
 	 @GeneratedValue(strategy = GenerationType.AUTO, generator = "device_sequence")
 	 private Integer idDevice;
 	 
 	 @Column(name = "\"imei\"", length = 20, unique = true, nullable = false)
 	 private String imei;
-	 
+	 /*
 	 @Column(name = "\"name\"", length = 255, nullable = true)	 
 	 private String name;
 	 
@@ -44,9 +46,18 @@ public class Device {
 	 
 	 @Column(name = "\"latitude_user\"", length = 30, nullable = true)
 	 private String latitudeUser;
+	 */
+	 @Column(name = "\"fecCre\"", nullable = false)
+	 private Date fecCre;
+	
+	 @Column(name = "\"fecMod\"", nullable = true)
+	 private Date fecMod;
 	 
-	 @Column(name = "\"usuario_id\"", length = 30, nullable = true)
-	 private Integer usuarioId;
+	 @Column(name = "\"estado\"", nullable = false)
+	 private String  estado;
+	 
+	 @Column(name = "\"idUsu\"", length = 30, nullable = true)
+	 private Integer idUsu;
 	 
 	 /**
 	  * default constructor
@@ -60,6 +71,14 @@ public class Device {
 	  * setters and getters
 	  */
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}	 
+	 
 	public Integer getIdDevice() {
 		return idDevice;
 	}
@@ -75,7 +94,24 @@ public class Device {
 	public void setImei(String imei) {
 		this.imei = imei;
 	}
+	
+	public Date getFecCre() {
+		return fecCre;
+	}
 
+	public void setFecCre(Date fecCre) {
+		this.fecCre = fecCre;
+	}
+
+	public Date getFecMod() {
+		return fecMod;
+	}
+
+	public void setFecMod(Date fecMod) {
+		this.fecMod = fecMod;
+	}
+	
+/*
 	public String getName() {
 		return name;
 	}
@@ -115,13 +151,13 @@ public class Device {
 	public void setLatitudeUser(String latitudeUser) {
 		this.latitudeUser = latitudeUser;
 	}	 
-	
+	*/
 	public Integer getUsarioId() {
-		return usuarioId;
+		return idUsu;
 	}
 
 	public void setUsarioId(Integer usarioId) {
-		this.usuarioId = usarioId;
+		this.idUsu = usarioId;
 	}
 
 }

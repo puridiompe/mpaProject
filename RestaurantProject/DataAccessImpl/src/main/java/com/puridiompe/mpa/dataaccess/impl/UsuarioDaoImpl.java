@@ -155,7 +155,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			}else {
 				newDevice = new Device();
 				newDevice.setImei(imei);
-				newDevice.setActive("N");
+				//newDevice.setActive("N");
 				newDevice.setUsarioId(usuarioObject.getIdUsuario());
 				deviceRepository.save(newDevice);
 			}
