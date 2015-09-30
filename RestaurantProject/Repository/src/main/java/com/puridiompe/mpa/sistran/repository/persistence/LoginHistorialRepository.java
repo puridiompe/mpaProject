@@ -10,7 +10,7 @@ import com.puridiompe.mpa.sistran.domain.persistence.LoginHistorial;
 
 public interface LoginHistorialRepository extends JpaRepository<LoginHistorial, Integer> {
 	
-	@Query("from  LoginHistorial p  where p.idUsuario = ?1 ")
-	public List<LoginHistorial> findByIdUsuario(Integer idUsuario);
+	@Query("from  LoginHistorial p  where p.username = ?1 ")
+	public List<LoginHistorial> findByIdUsuario(String username);
 	
 }
