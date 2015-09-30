@@ -56,5 +56,10 @@
 			<artifactId>Common</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.puridiompe.mpa</groupId>
+			<artifactId>RestSecurity</artifactId>
+			<version>1.0</version>
+		</dependency>		
 	</dependencies>
 </project>
