@@ -15,17 +15,17 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "\"TrPpe_LastPerUser\"")
+@Table(name = "\"TrMov_LastPerUser\"")
 public class GpsInspector{
 	
 	 @Id
-	 @Column(name = "\"txn_id\"")	 
-	 private Integer idGps;
+	 @Column(name = "\"idTraGps\"")	 
+	 private Integer idTraGps;
 	 
-	 @Column(name = "\"imei\"", length = 20, unique = true)
+	 @Column(name = "\"imei\"", length = 30, unique = true)
 	 private String imei;
 	 
-	 @Column(name = "\"idUsuario\"")	 
+	 @Column(name = "\"idUsu\"")	 
 	 private Integer idUsuario;
 	 
 	 @Column(name = "\"rol\"")
@@ -43,14 +43,14 @@ public class GpsInspector{
 	 @Column(name = "\"nombres\"")
 	 private String nombres;
 	 
-	 @Column(name = "\"latitude\"")
-	 private BigDecimal latitude;
+	 @Column(name = "\"latitud\"")
+	 private BigDecimal latitud;
 	 
-	 @Column(name = "\"longitude\"")
-	 private BigDecimal longitude;
+	 @Column(name = "\"longitud\"")
+	 private BigDecimal longitud;
 	 	 
-	 @Column(name = "\"txn_date\"", nullable = true, updatable = false)
-	 private Date date;
+	 @Column(name = "\"fecha\"", nullable = true, updatable = false)
+	 private Date fecha;
 	 	 	 
 	 /**
 	  * default constructor
@@ -61,11 +61,11 @@ public class GpsInspector{
 	 }
 
 	public Integer getIdGps() {
-		return idGps;
+		return idTraGps;
 	}
 
-	public void setIdGps(Integer idGps) {
-		this.idGps = idGps;
+	public void setIdGps(Integer idTraGps) {
+		this.idTraGps = idTraGps;
 	}
 
 	public String getImei() {
@@ -117,27 +117,27 @@ public class GpsInspector{
 	}
 
 	public BigDecimal getLatitude() {
-		return latitude;
+		return latitud;
 	}
 
-	public void setLatitude(BigDecimal latitude) {
-		this.latitude = latitude;
+	public void setLatitude(BigDecimal latitud) {
+		this.latitud = latitud;
 	}
 
 	public BigDecimal getLongitude() {
-		return longitude;
+		return longitud;
 	}
 
-	public void setLongitude(BigDecimal longitude) {
-		this.longitude = longitude;
+	public void setLongitude(BigDecimal longitud) {
+		this.longitud = longitud;
 	}
 
 	public Date getDate() {
-		return date;
+		return fecha;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(Date fecha) {
+		this.fecha = fecha;
 	}
 
 	public String getRol() {

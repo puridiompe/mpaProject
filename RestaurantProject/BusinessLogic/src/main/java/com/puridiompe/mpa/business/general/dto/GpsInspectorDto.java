@@ -8,9 +8,7 @@ public class GpsInspectorDto {
 	
 //	 private Integer idGps;	 
 	 
-	 private String imei;	 
-	 	 
-//	 private Integer idUsuario;	 
+	 private String imei;  
 	 
 	 private String username;	 
 	 
@@ -20,11 +18,11 @@ public class GpsInspectorDto {
 	 
 	 private String nombres; 
 	 
-	 private BigDecimal latitude;	 
+	 private BigDecimal latitud;	 
 	 
-	 private BigDecimal longitude;	 	 
+	 private BigDecimal longitud;	 	 
 	 
-	 private Datetime date;
+	 private Datetime fecha;
 	 
 	 private String rol;
 	 
@@ -73,27 +71,27 @@ public class GpsInspectorDto {
 	}
 
 	public BigDecimal getLatitude() {
-		return latitude;
+		return latitud;
 	}
 
-	public void setLatitude(BigDecimal latitude) {
-		this.latitude = latitude;
+	public void setLatitude(BigDecimal latitud) {
+		this.latitud = latitud;
 	}
 
 	public BigDecimal getLongitude() {
-		return longitude;
+		return longitud;
 	}
 
-	public void setLongitude(BigDecimal longitude) {
-		this.longitude = longitude;
+	public void setLongitude(BigDecimal longitud) {
+		this.longitud = longitud;
 	}
 
 	public Datetime getDate() {
-		return date;
+		return fecha;
 	}
 
-	public void setDate(Datetime date) {
-		this.date = date;
+	public void setDate(Datetime fecha) {
+		this.fecha = fecha;
 	}
 
 	public String getRol() {
