@@ -174,8 +174,8 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		if (usuario != null) {
 			
 			LoginHistorial loginHistorial = new LoginHistorial() ;
-			loginHistorial.setIdUsuario(usuario.getIdUsuario());
-			loginHistorial.setEstado(true);
+			loginHistorial.setUsername(username);//.setIdUsuario(usuario.getIdUsuario());
+			//loginHistorial.setEstado(true);
 			loginHistorial.setFechaHora(new Date());
 			loginHistorialRepository.save(loginHistorial);
 			return true;

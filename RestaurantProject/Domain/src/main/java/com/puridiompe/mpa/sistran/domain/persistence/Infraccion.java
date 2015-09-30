@@ -16,11 +16,11 @@ import org.jboss.logging.annotations.Field;
  */
 
 @Entity
-@Table(name = "\"trgen_infracciones\"")
+@Table(name = "\"TrMov_Infraccion\"")
 public class Infraccion {
 	
 	 @Id
-	 @Column(name = "\"id\"", nullable = false, unique = true)
+	 @Column(name = "\"idInf\"", nullable = false, unique = true)
 	 private Integer idInfraccion;
 	 
 	 @Column(name = "\"codigo\"", length = 7)
@@ -44,7 +44,7 @@ public class Infraccion {
 	 @Column(name = "\"puntos\"")
 	 private Integer puntos;
 	 
-	 @Column(name = "\"medprev\"")
+	 @Column(name = "\"medPre\"")
 	 private String medidaPreventiva;
 	 
 	 /**

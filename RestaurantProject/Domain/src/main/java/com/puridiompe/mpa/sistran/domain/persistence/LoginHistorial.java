@@ -20,17 +20,20 @@ public class LoginHistorial {
 	@Id
 	@SequenceGenerator(name = "pk_sequence", sequenceName = "tr_loghis_id", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
-	@Column(name = "\"idloghist\"", unique=true, nullable=false)
+	@Column(name = "\"idHisLog\"", unique=true, nullable=false)
 	private Integer idLogHist;
 	
-	@Column(name = "\"idUsuario\"", nullable = false)
-	private Integer idUsuario;
+//	@Column(name = "\"idUsuario\"", nullable = false)
+//	private Integer idUsuario;
 	
-	@Column(name = "\"fechaHora\"", nullable = false)
+	@Column(name = "\"username\"", nullable = false)
+	private String username;
+	
+	@Column(name = "\"fecha\"", nullable = false)
 	private Date fechaHora;
 	
-	@Column(name = "\"estado\"", nullable = true)
-	private Boolean estado;
+//	@Column(name = "\"estado\"", nullable = true)
+//	private Boolean estado;
 
 	public LoginHistorial(){}
 
@@ -42,12 +45,12 @@ public class LoginHistorial {
 		this.idLogHist = idLogHist;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Date getFechaHora() {
@@ -58,13 +61,13 @@ public class LoginHistorial {
 		this.fechaHora = fechaHora;
 	}
 
-	public Boolean getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Boolean estado) {
-		this.estado = estado;
-	}
+//	public Boolean getEstado() {
+//		return estado;
+//	}
+//
+//	public void setEstado(Boolean estado) {
+//		this.estado = estado;
+//	}
 	
 	
 }
