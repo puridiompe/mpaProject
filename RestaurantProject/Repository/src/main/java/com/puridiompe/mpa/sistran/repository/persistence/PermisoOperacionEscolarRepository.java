@@ -14,6 +14,6 @@ public interface PermisoOperacionEscolarRepository extends JpaRepository<Permiso
 	 * @param vehiculo
 	 * @return
 	 */
-	@Query("from PermisoOperacionEscolar p where p.vehiculo = ?1")
+	@Query("from PermisoOperacionEscolar p where p.vehiculo = ?1 and p.estado = 1")
 	public PermisoOperacionEscolar findByVehiculo(String vehiculo);
 }
