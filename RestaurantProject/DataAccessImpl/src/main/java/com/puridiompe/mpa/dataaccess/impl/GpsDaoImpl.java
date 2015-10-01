@@ -19,12 +19,12 @@ import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.dataaccess.GpsDao;
-import com.puridiompe.mpa.sistran.domain.persistence.Gps;
-import com.puridiompe.mpa.sistran.domain.persistence.GpsInspector;
-import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
-import com.puridiompe.mpa.sistran.repository.persistence.GpsInspectorRepository;
-import com.puridiompe.mpa.sistran.repository.persistence.GpsRepository;
-import com.puridiompe.mpa.sistran.repository.persistence.UsuarioRepository;
+import com.puridiompe.mpa.movil.domain.persistence.Gps;
+import com.puridiompe.mpa.movil.domain.persistence.GpsInspector;
+import com.puridiompe.mpa.movil.domain.persistence.Usuario;
+import com.puridiompe.mpa.movil.repository.persistence.GpsInspectorRepository;
+import com.puridiompe.mpa.movil.repository.persistence.GpsRepository;
+import com.puridiompe.mpa.movil.repository.persistence.UsuarioRepository;
 /**
  * @author Lucho
  *
@@ -42,7 +42,7 @@ public class GpsDaoImpl implements GpsDao {
 	@Autowired
 	private GpsInspectorRepository gpsInspectorRepository;
 
-	@Transactional(value = "sistranTransactionManager")
+	@Transactional(value = "movilTransactionManager")
 	@Override
 	public GpsDto addGps(GpsDto gps, Long timetoSave) {
 
@@ -63,7 +63,7 @@ public class GpsDaoImpl implements GpsDao {
 		return gps;
 	}
 	
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public GpsInspectorDto getLastByUsername(String username) {
 		
@@ -80,7 +80,7 @@ public class GpsDaoImpl implements GpsDao {
 		return gpsInspectorObject;
 	}
 	
-	@Transactional(value = "sistranTransactionManager")
+	@Transactional(value = "movilTransactionManager")
 	@Override
 	public GpsDto addBatchGps(String username, List<GpsDto> gps, Long lastTime, Integer caseNumber) {		
 		
@@ -263,7 +263,7 @@ public class GpsDaoImpl implements GpsDao {
 		return null;
 	}
 
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public GpsDto getLastGpsByImei(String imei) {
 
@@ -291,7 +291,7 @@ public class GpsDaoImpl implements GpsDao {
 		return gpsObject;
 	}
 
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public List<GpsDto> getGpsByImei(String imei) {
 
@@ -326,7 +326,7 @@ public class GpsDaoImpl implements GpsDao {
 		return gpsObject;
 	}
 
-	@Transactional(value = "sistranTransanctionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public List<GpsDto> findAll() {
 
@@ -352,7 +352,7 @@ public class GpsDaoImpl implements GpsDao {
 		return gpsObject;
 	}
 
-	@Transactional(value = "sistranTransanctionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public List<GpsInspectorDto> getLastPositions() {
 

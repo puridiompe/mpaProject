@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.sistran.domain.persistence;
+package com.puridiompe.mpa.movil.domain.persistence;
 
 import java.util.Date;
 
@@ -11,13 +11,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"TrGen_Vehiculo_His\"")
+@Table(name = "\"TrMov_HisConVeh\"")
 public class VehiculoHistorial {
 	
 	@Id
-	@SequenceGenerator(name = "pk_sequence", sequenceName = "trgen_vehiculo_his_id", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
-	@Column(name = "\"idloghist\"", unique=true, nullable=false)
+	@SequenceGenerator(name = "vehiculohistorial_sequence", sequenceName = "\"TrMov_HisConVeh_idHisConVeh_seq\"", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "vehiculohistorial_sequence")
+	@Column(name = "\"idHisConVeh\"", unique=true, nullable=false)
 	private Integer idHistorial;
 	
 	@Column(name = "\"username\"", nullable = false)
@@ -29,8 +29,8 @@ public class VehiculoHistorial {
 	@Column(name = "\"imei\"", nullable = false)
 	private String imei;
 	
-	@Column(name = "\"fechaHora\"", nullable = false)
-	private Date fechaHora;
+	@Column(name = "\"fecha\"", nullable = false)
+	private Date fecha;
 	
 	/**
 	 * Default Constructor
@@ -75,12 +75,12 @@ public class VehiculoHistorial {
 		this.imei = imei;
 	}
 
-	public Date getFechaHora() {
-		return fechaHora;
+	public Date getFecha() {
+		return fecha;
 	}
 
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	
 }

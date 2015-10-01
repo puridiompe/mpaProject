@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.sistran.domain.persistence;
+package com.puridiompe.mpa.movil.domain.persistence;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,13 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * Object with last gps position for user
  * 
  * @author Lucho
  *
  */
-
 @Entity
-@Table(name = "\"TrMov_LastPerUser\"")
+@Table(name = "\"TrMov_VisGpsUsu\"")
 public class GpsInspector{
 	
 	 @Id

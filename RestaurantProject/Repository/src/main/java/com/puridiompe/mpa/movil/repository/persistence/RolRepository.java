@@ -1,9 +1,9 @@
-package com.puridiompe.mpa.sistran.repository.persistence;
+package com.puridiompe.mpa.movil.repository.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.puridiompe.mpa.sistran.domain.persistence.Rol;
+import com.puridiompe.mpa.movil.domain.persistence.Rol;
 
 
 public interface RolRepository extends JpaRepository<Rol, Integer> { 

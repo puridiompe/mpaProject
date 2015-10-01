@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.InfraccionDto;
 import com.puridiompe.mpa.dataaccess.InfraccionDao;
-import com.puridiompe.mpa.sistran.domain.persistence.Infraccion;
-import com.puridiompe.mpa.sistran.repository.persistence.InfraccionRepository;
+import com.puridiompe.mpa.movil.domain.persistence.Infraccion;
+import com.puridiompe.mpa.movil.repository.persistence.InfraccionRepository;
 
 /**
  * @author Lucho
@@ -27,7 +27,7 @@ public class InfraccionDaoImpl implements InfraccionDao{
 	@Autowired
 	private InfraccionRepository infraccionRepository;
 
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public InfraccionDto getInfraccionByCodigo(String codigo) {
 		
@@ -47,7 +47,7 @@ public class InfraccionDaoImpl implements InfraccionDao{
 		return infraccionObject;
 	}
 
-	@Transactional(value = "sistranTransanctionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public InfraccionDto getInfraccionByDescripcion(String descripcion) {
 		
@@ -66,7 +66,7 @@ public class InfraccionDaoImpl implements InfraccionDao{
 		return infraccionObject;
 	}
 	
-	@Transactional(value = "sistranTransanctionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public List<InfraccionDto> findAll() {
 		

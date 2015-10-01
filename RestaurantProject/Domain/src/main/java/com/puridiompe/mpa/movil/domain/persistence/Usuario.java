@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.sistran.domain.persistence;
+package com.puridiompe.mpa.movil.domain.persistence;
 
 import java.util.Date;
 

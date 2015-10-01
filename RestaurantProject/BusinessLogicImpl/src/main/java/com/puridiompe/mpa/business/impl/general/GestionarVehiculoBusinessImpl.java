@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.puridiompe.mpa.business.exception.BusinessException;
+import com.puridiompe.mpa.business.exception.VehiculoNotFoundException;
 import com.puridiompe.mpa.business.general.GestionarVehiculoBusiness;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
 import com.puridiompe.mpa.dataaccess.VehiculoDao;
@@ -23,19 +25,27 @@ public class GestionarVehiculoBusinessImpl implements GestionarVehiculoBusiness 
 
 	@Autowired
 	private VehiculoDao vehiculoDao;
-	
+
 	@Override
-	public VehiculoDto getVehiculo(String placa) {
-		
+	public VehiculoDto getVehiculo(String placa) throws BusinessException {
+
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		
-		String currentImei = ((LoginAuthenticationToken) authentication).getImei();
-		String currentUsername = ((LoginAuthenticationToken) authentication).getName();
-		
+
+		String currentImei = ((LoginAuthenticationToken) authentication)
+				.getImei();
+		String currentUsername = ((LoginAuthenticationToken) authentication)
+				.getName();
+
 		VehiculoDto vehiculoDto = vehiculoDao.getVehiculoByPlaca(placa);
+
+		if (vehiculoDto == null) {
+			throw new VehiculoNotFoundException(
+					"Vehiculo was not found in SISTRAN");
+		}
+
 		vehiculoDao.setVehicleConsulted(currentUsername, placa, currentImei);
-		
+
 		return vehiculoDto;
 	}
 }

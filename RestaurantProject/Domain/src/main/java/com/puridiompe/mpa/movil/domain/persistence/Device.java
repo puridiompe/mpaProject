@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.sistran.domain.persistence;
+package com.puridiompe.mpa.movil.domain.persistence;
 
 import java.util.Date;
 
@@ -25,7 +25,7 @@ public class Device extends PersistenceAuditableEntity<Integer> {
 
 	@Id
 	@Column(name = "\"idDis\"", unique = true, nullable = false)
-	@SequenceGenerator(name = "device_sequence", sequenceName = "device_device_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "device_sequence", sequenceName = "\"TrMov_Dispositivo_idDis_seq\"", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "device_sequence")
 	private Integer idDevice;
 

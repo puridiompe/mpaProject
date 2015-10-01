@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.DeviceDto;
 import com.puridiompe.mpa.dataaccess.DeviceDao;
-import com.puridiompe.mpa.sistran.domain.persistence.Device;
-import com.puridiompe.mpa.sistran.repository.persistence.DeviceRepository;
+import com.puridiompe.mpa.movil.domain.persistence.Device;
+import com.puridiompe.mpa.movil.repository.persistence.DeviceRepository;
 
 /**
  * @author Lucho
@@ -27,7 +27,7 @@ public class DeviceDaoImpl implements DeviceDao{
 	@Autowired
 	private DeviceRepository deviceRepository;
 
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public DeviceDto getDeviceByImei(String imei) {
 		
@@ -47,7 +47,7 @@ public class DeviceDaoImpl implements DeviceDao{
 		return infraccionObject;
 	}
 	
-	@Transactional(value = "sistranTransanctionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public List<DeviceDto> findAll() {
 		

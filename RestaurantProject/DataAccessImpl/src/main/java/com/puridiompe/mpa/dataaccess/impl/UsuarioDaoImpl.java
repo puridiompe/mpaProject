@@ -15,16 +15,16 @@ import com.puridiompe.mpa.business.security.dto.PerfilDto;
 //import com.puridiompe.mpa.business.general.dto.UsuarioDto;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.dataaccess.UsuarioDao;
-import com.puridiompe.mpa.sistran.domain.persistence.Device;
-import com.puridiompe.mpa.sistran.domain.persistence.LoginHistorial;
-import com.puridiompe.mpa.sistran.domain.persistence.Rol;
-import com.puridiompe.mpa.sistran.domain.persistence.RolUsuario;
-import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
-import com.puridiompe.mpa.sistran.repository.persistence.DeviceRepository;
-import com.puridiompe.mpa.sistran.repository.persistence.LoginHistorialRepository;
-import com.puridiompe.mpa.sistran.repository.persistence.RolRepository;
-import com.puridiompe.mpa.sistran.repository.persistence.RolUsuarioRepository;
-import com.puridiompe.mpa.sistran.repository.persistence.UsuarioRepository;
+import com.puridiompe.mpa.movil.domain.persistence.Device;
+import com.puridiompe.mpa.movil.domain.persistence.LoginHistorial;
+import com.puridiompe.mpa.movil.domain.persistence.Rol;
+import com.puridiompe.mpa.movil.domain.persistence.RolUsuario;
+import com.puridiompe.mpa.movil.domain.persistence.Usuario;
+import com.puridiompe.mpa.movil.repository.persistence.DeviceRepository;
+import com.puridiompe.mpa.movil.repository.persistence.LoginHistorialRepository;
+import com.puridiompe.mpa.movil.repository.persistence.RolRepository;
+import com.puridiompe.mpa.movil.repository.persistence.RolUsuarioRepository;
+import com.puridiompe.mpa.movil.repository.persistence.UsuarioRepository;
 
 
 @Component
@@ -45,7 +45,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	@Autowired
 	 private LoginHistorialRepository loginHistorialRepository;
 	
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public UsuarioDto getUsuarioByUsername(String username) {
 
@@ -95,7 +95,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		return usuarioObject;
 	}
 
-	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public UsuarioDto validateUsuario(String username,String password) {
 		
@@ -130,7 +130,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		return usuarioObject;
 	}
 	
-	@Transactional(value = "sistranTransactionManager")
+	@Transactional(value = "movilTransactionManager")
 	@Override
 	public Boolean setCurrentDevice(String username,String imei) {
 		
@@ -166,7 +166,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return false;
 	}
 	
-	@Transactional(value = "sistranTransactionManager")
+	@Transactional(value = "movilTransactionManager")
 	@Override
 	public Boolean setLastLogin(String username) {
 		

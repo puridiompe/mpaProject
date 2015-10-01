@@ -15,6 +15,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.puridiompe.mpa.business.config.BusinessConfiguration;
 import com.puridiompe.mpa.dataaccess.config.DataAccessConfiguration;
+import com.puridiompe.mpa.repository.config.MovilRepositoryConfiguration;
 import com.puridiompe.mpa.repository.config.PapeletasRepositoryConfiguration;
 import com.puridiompe.mpa.repository.config.SistranRepositoryConfiguration;
 import com.puridiompe.mpa.rest.security.config.SecurityConfiguration;
@@ -38,7 +39,8 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 	//	rootCtx.register(BusinessConfiguration.class, // --->> 
 				DataAccessConfiguration.class,
 				SistranRepositoryConfiguration.class,
-				PapeletasRepositoryConfiguration.class);
+				PapeletasRepositoryConfiguration.class,
+				MovilRepositoryConfiguration.class);
 
 		// Manage the lifecycle of the root application context
 		context.addListener(new ContextLoaderListener(rootCtx));
@@ -50,6 +52,8 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 		// Create the dispatcher servlet's Spring application context
 		AnnotationConfigWebApplicationContext dispatcherServlet = new AnnotationConfigWebApplicationContext();
 		dispatcherServlet.register(RestServicesConfiguration.class);
+		
+//		dispatcherServlet.getEnvironment().setActiveProfiles("", "");
 
 		ServletRegistration.Dynamic servlet = context.addServlet("dispatcher",
 				new DispatcherServlet(dispatcherServlet));

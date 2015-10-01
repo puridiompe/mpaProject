@@ -1,4 +1,4 @@
-package com.puridiompe.mpa.sistran.domain.persistence;
+package com.puridiompe.mpa.movil.domain.persistence;
 
 import java.util.Date;
 
@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class LoginHistorial {
 
 	@Id
-	@SequenceGenerator(name = "pk_sequence", sequenceName = "tr_loghis_id", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
+	@SequenceGenerator(name = "loginhistorial_sequence", sequenceName = "\"TrMov_HisLog_idHisLog_seq\"", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "loginhistorial_sequence")
 	@Column(name = "\"idHisLog\"", unique=true, nullable=false)
 	private Integer idLogHist;
 	

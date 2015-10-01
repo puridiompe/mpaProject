@@ -1,8 +1,9 @@
-package com.puridiompe.mpa.sistran.repository.persistence;
+package com.puridiompe.mpa.movil.repository.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import com.puridiompe.mpa.sistran.domain.persistence.Usuario;
+
+import com.puridiompe.mpa.movil.domain.persistence.Usuario;
 
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{

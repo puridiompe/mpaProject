@@ -12,5 +12,6 @@ import com.puridiompe.mpa.business.general.dto.VehiculoDto;
 public interface VehiculoDao {
 
 	public VehiculoDto getVehiculoByPlaca(String placa);
-	public Boolean setVehicleConsulted(String username, String placa, String imei);
+	
+	public void setVehicleConsulted(String username, String placa, String imei);
 }

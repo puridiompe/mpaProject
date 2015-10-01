@@ -3,8 +3,7 @@
  */
 package com.puridiompe.mpa.business.general;
 
-import java.util.Date;
-
+import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
 
 /**
@@ -13,6 +12,6 @@ import com.puridiompe.mpa.business.general.dto.VehiculoDto;
  */
 public interface GestionarVehiculoBusiness {
 
-	public VehiculoDto getVehiculo(String placa);
+	public VehiculoDto getVehiculo(String placa) throws BusinessException;
 	
 }
