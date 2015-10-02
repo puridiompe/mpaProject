@@ -41,7 +41,7 @@ public class GestionarVehiculoBusinessImpl implements GestionarVehiculoBusiness 
 
 		if (vehiculoDto == null) {
 			throw new VehiculoNotFoundException(
-					"Vehiculo was not found in SISTRAN");
+					"Vehículo no fue encontrado");
 		}
 
 		vehiculoDao.setVehicleConsulted(currentUsername, placa, currentImei);
