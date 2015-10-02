@@ -39,7 +39,7 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 	//	rootCtx.register(BusinessConfiguration.class, // --->> 
 				DataAccessConfiguration.class,
 				SistranRepositoryConfiguration.class,
-				PapeletasRepositoryConfiguration.class,
+//				PapeletasRepositoryConfiguration.class,
 				MovilRepositoryConfiguration.class);
 
 		// Manage the lifecycle of the root application context
