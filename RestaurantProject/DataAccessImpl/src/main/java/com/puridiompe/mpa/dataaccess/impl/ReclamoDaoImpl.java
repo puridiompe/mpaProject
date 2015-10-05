@@ -18,13 +18,12 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, String imagen) {
+	public void setReclamo(Integer dni, String descripcion, String vehiculo) {
 		
 		Reclamo reclamo =  new Reclamo();
 		reclamo.setDni(dni);
 		reclamo.setDescripcion(descripcion);
 		reclamo.setVehiculo(vehiculo);
-		reclamo.setImagen(imagen);
 		reclamo.setFechaCreacion(new Date());
 		
 		reclamoRepository.save(reclamo);

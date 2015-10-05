@@ -22,7 +22,7 @@ public class RegistroReclamoController {
 	@Autowired
 	private GestionarReclamoBusiness gestionarReclamo;
 	
-	@RequestMapping(value = "/set", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/setReclamo", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean addReclamo(
 			@RequestBody RequestMessage<GetReclamoRequest> request)
 			throws BusinessException {
@@ -30,7 +30,7 @@ public class RegistroReclamoController {
 		GetReclamoRequest reclamoRequest = request.getBody();
 		
 		gestionarReclamo.setReclamo(reclamoRequest.getReclamo().getDni(), reclamoRequest.getReclamo().getDescripcion(),
-									reclamoRequest.getReclamo().getVehiculo(), reclamoRequest.getReclamo().getImagen());
+									reclamoRequest.getReclamo().getVehiculo());
 
 		return true;
 

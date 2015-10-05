@@ -12,8 +12,6 @@ private Integer idReclamo;
 	
 	private String vehiculo;
 	
-	private String imagen;
-	
 	private Date fechaCreacion;
 	
 	
@@ -60,17 +58,6 @@ private Integer idReclamo;
 	public void setVehiculo(String vehiculo) {
 		this.vehiculo = vehiculo;
 	}
-
-
-	public String getImagen() {
-		return imagen;
-	}
-
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
 
 	public Date getFechaCreacion() {
 		return fechaCreacion;

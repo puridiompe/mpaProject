@@ -29,9 +29,6 @@ public class Reclamo {
 	@Column(name = "\"vehiculo\"")
 	private String vehiculo;
 	
-	@Column(name =  "\"imagen\"")
-	private String imagen;
-	
 	@Column(name = "\"fecCre\"")
 	private Date fechaCreacion;
 	
@@ -71,14 +68,6 @@ public class Reclamo {
 
 	public void setVehiculo(String vehiculo) {
 		this.vehiculo = vehiculo;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
 	}
 
 	public Date getFechaCreacion() {

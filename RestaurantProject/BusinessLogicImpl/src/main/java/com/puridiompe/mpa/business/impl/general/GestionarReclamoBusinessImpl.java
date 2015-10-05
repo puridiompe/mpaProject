@@ -13,9 +13,9 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	private ReclamoDao reclamoDao;
 	
 	@Override
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, String imagen) {
+	public void setReclamo(Integer dni, String descripcion, String vehiculo) {
 
-		reclamoDao.setReclamo(dni, descripcion, vehiculo, imagen);
+		reclamoDao.setReclamo(dni, descripcion, vehiculo);
 	}
 
 }
