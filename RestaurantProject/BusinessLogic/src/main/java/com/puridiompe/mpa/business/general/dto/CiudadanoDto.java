@@ -12,6 +12,8 @@ public class CiudadanoDto {
 	
 	private String email;
 	
+	private String imei;
+	
 	/**
 	 * Default Constructor
 	 */
@@ -61,6 +63,14 @@ public class CiudadanoDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 
 }

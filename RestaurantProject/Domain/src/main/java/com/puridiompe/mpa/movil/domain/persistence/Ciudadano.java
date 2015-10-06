@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.movil.domain.persistence;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,6 +26,15 @@ public class Ciudadano {
 	
 	@Column(name = "\"email\"", nullable = true)
 	private String email;
+	
+	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
+	private String imei;
+	
+	@Column(name = "\"fecCre\"", nullable = false)
+	private Date fechaCreacion;
+	
+	@Column(name = "\"fecMod\"", nullable = true)
+	private Date fechaModificacion;
 	
 	/**
 	 * Default Constructor
@@ -74,6 +85,30 @@ public class Ciudadano {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Date getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
 	}
 
 }
