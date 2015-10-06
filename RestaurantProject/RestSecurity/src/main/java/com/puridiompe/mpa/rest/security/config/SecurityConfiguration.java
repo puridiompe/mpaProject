@@ -104,13 +104,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().expressionHandler(securityExpressionHandler)
+		/*http.authorizeRequests().expressionHandler(securityExpressionHandler)
+				.antMatchers("/transportes/device/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/pedido/**")
 				.access("hasAccessPedidos()")
 				.antMatchers(HttpMethod.POST, "/cocina/**")
-				.access("hasAccessCocina()").anyRequest().authenticated().and()
+				.access("hasAccessCocina()")//.antMatchers(HttpMethod.POST,"/transportes/device/**")..permitAll()
+				.anyRequest().authenticated().and()
 				.anonymous().disable();
-
+		 */
+		http.authorizeRequests().expressionHandler(securityExpressionHandler).antMatchers("/transportes/device/**").permitAll().anyRequest().authenticated();//.and()
+		//.anonymous().disable();
 		 http.csrf().disable();
 
 		http.sessionManagement().sessionCreationPolicy(
