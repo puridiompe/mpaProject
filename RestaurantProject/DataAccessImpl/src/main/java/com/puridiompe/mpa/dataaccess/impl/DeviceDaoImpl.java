@@ -49,6 +49,22 @@ public class DeviceDaoImpl implements DeviceDao{
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
+	public DeviceDto checkDeviceByImei(String imei){
+		
+		DeviceDto deviceObject = new DeviceDto();
+		Device device = deviceRepository.findByImei(imei);
+		
+		if(device != null){
+			BeanUtils.copyProperties(device, deviceObject);
+		}else{
+			return null;
+		}
+		
+		return deviceObject;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
 	public List<DeviceDto> findAll() {
 		
 		List<DeviceDto> devicesObject = new ArrayList<DeviceDto>();

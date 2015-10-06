@@ -14,6 +14,8 @@ public interface DeviceDao {
 	
 	public DeviceDto getDeviceByImei(String codigo);
 
+	public DeviceDto checkDeviceByImei(String imei);
+	
 	public List<DeviceDto> findAll();	
 
 }

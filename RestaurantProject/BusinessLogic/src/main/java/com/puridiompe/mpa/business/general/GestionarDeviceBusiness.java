@@ -12,7 +12,9 @@ import com.puridiompe.mpa.business.general.dto.DeviceDto;
 
 public interface GestionarDeviceBusiness {
 	
-	public DeviceDto getDeviceByImei(String imei);	
+	public DeviceDto getDeviceByImei(String imei);
+	
+	public boolean checkDeviceByImei(String imei);
 
 	public List<DeviceDto> getAll();	
 	

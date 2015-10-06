@@ -27,6 +27,18 @@ public class GestionarDeviceBusinessImpl implements GestionarDeviceBusiness{
 	}
 
 	@Override
+	public boolean checkDeviceByImei(String imei){
+		
+		DeviceDto deviceDto = deviceDao.checkDeviceByImei(imei);
+		
+		if(deviceDto == null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	@Override
 	public List<DeviceDto> getAll() {
 		return deviceDao.findAll();
 	}

@@ -69,6 +69,17 @@ public class RegistroDeviceController extends BaseController {
 		return response;		
 	}	
 	
+	@RequestMapping(value = "/checkDevice", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean checkDevice(
+			@RequestBody RequestMessage<GetDeviceRequest> request)
+			throws BusinessException {
+		
+		GetDeviceRequest deviceRequest = request.getBody();
+		
+		return gestionarDeviceBusiness.checkDeviceByImei(deviceRequest.getDevice().getImei());
+		
+	}
+	
 	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetDevicesResponse> getDevices()			
 			throws BusinessException {		
