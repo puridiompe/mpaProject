@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.rest.controller.general;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
+import com.puridiompe.mpa.business.general.dto.NoticiaDto;
+import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
+import com.puridiompe.mpa.rest.controller.general.message.GetNoticiasResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
 
@@ -34,5 +39,22 @@ public class RegistroReclamoController {
 
 		return true;
 
+	}
+	
+	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamoResponse> getReclamosFrecuentes()			
+			throws BusinessException {		
+		
+		List<ReclamoDto> reclamosObject = gestionarReclamo.getReclamosFrecuentes();
+		
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		
+		GetReclamoResponse reclamoFrecuenteResponse = new GetReclamoResponse();
+		
+		reclamoFrecuenteResponse.setReclamosFrecuentes(reclamosObject);
+		
+		response.setBody(reclamoFrecuenteResponse);
+		
+		return response;		
 	}
 }
