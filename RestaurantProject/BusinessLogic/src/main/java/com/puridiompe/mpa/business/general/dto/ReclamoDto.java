@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ReclamoDto {
 
-private Integer idReclamo;
+	private Integer idReclamo;
 	
 	private Integer dni;
 	
@@ -13,6 +13,8 @@ private Integer idReclamo;
 	private String vehiculo;
 	
 	private Date fechaCreacion;
+	
+	private String imagenBase64;
 	
 	
 	public ReclamoDto (){
@@ -66,6 +68,16 @@ private Integer idReclamo;
 
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+
+
+	public String getImagenBase64() {
+		return imagenBase64;
+	}
+
+
+	public void setImagenBase64(String imagenBase64) {
+		this.imagenBase64 = imagenBase64;
 	}
 	
 }

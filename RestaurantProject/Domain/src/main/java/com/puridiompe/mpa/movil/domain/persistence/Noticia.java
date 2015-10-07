@@ -23,13 +23,15 @@ import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
 @Table(name = "\"TrMov_Noticia\"")
 public class Noticia extends PersistenceAuditableEntity<Integer>{
 	@Id
-	@Column(name = "\"idNot\"", nullable = false) //unique(?)
+	@Column(name = "\"idNot\"", unique = true, nullable = false)
+	@SequenceGenerator(name = "noticia_sequence", sequenceName = "\"TrMov_Noticia_idNot_seq\"", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "noticia_sequence")
 	private Integer idNoticia;
 	
-	@Column(name = "\"titulo\"", nullable = false,length = 100)
+	@Column(name = "\"titulo\"", nullable = false, length = 100)
 	private String titulo;
 	
-	@Column(name = "\"contenido\"", nullable = false,length = 250)
+	@Column(name = "\"contenido\"", nullable = false, length = 250)
 	private String contenido;
 	
 	@Column(name = "\"fecPub\"", nullable = false)
