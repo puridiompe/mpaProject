@@ -124,7 +124,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/transportes/gps/**").access("hasAccessGps()")
 		.anyRequest().authenticated();
 		
-		 http.csrf().disable();
+		http.csrf().disable();
 
 		http.sessionManagement().sessionCreationPolicy(
 				SessionCreationPolicy.STATELESS);
