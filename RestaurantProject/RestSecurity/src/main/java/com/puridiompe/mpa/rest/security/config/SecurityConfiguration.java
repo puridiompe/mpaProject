@@ -113,9 +113,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated().and()
 				.anonymous().disable();
 		 */
-		http.authorizeRequests().expressionHandler(securityExpressionHandler).antMatchers("/transportes/device/**").permitAll().anyRequest().authenticated();//.and()
+		//http.authorizeRequests().expressionHandler(securityExpressionHandler).antMatchers("/transportes/device/**").permitAll().anyRequest().authenticated();//.and()
 		//.anonymous().disable();
-		 http.csrf().disable();
+		http.authorizeRequests().expressionHandler(securityExpressionHandler)
+		.antMatchers("/transportes/device/**").permitAll()//.anyRequest().authenticated()
+		.antMatchers("/transportes/reclamo/**").permitAll()//.anyRequest().authenticated()
+		.antMatchers("/transportes/vehiculo/**").permitAll()//.anyRequest().authenticated()
+		.antMatchers("/transportes/permisoGeneral/**").permitAll()//.anyRequest().authenticated()
+		.antMatchers("/transportes/infraccion/**").permitAll().anyRequest().authenticated();
+
+		 
+		http.csrf().disable();
 
 		http.sessionManagement().sessionCreationPolicy(
 				SessionCreationPolicy.STATELESS);
