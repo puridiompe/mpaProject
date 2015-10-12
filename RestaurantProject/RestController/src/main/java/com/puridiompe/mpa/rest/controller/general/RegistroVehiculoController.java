@@ -20,6 +20,7 @@ import com.puridiompe.mpa.business.general.GestionarVehiculoBusiness;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetVehiculoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetVehiculoResponse;
@@ -49,7 +50,7 @@ public class RegistroVehiculoController extends BaseController {
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetVehiculoResponse> getVehiculo(
 			@RequestBody @Valid RequestMessage<GetVehiculoRequest> request)
-			throws BusinessException {
+			throws BusinessException, SecurityException {
 
 		GetVehiculoRequest vehiculoRequest = request.getBody();
 

@@ -10,6 +10,9 @@
         <dependent-module archiveName="BusinessLogic-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BusinessLogic/BusinessLogic">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="BusinessSecurity-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/BusinessSecurity/BusinessSecurity">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="RestController-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RestController/RestController">
             <dependency-type>uses</dependency-type>
         </dependent-module>

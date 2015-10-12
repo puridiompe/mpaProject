@@ -1,14 +1,23 @@
-package com.puridiompe.mpa.common.logging;
+/**
+ * 
+ */
+package com.puridiompe.mpa.business.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * @author Johnny
+ *
+ */
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Inherited
 @Documented
-public @interface Autologger {
+public @interface AuditMethod {
 
 }

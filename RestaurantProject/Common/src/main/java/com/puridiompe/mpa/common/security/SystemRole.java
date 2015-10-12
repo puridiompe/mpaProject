@@ -8,7 +8,7 @@ package com.puridiompe.mpa.common.security;
  *
  */
 public enum SystemRole {
-	ADMINISTRADOR("ADM"), SUPERVISOR("SUP"), INSPECTOR("INS");
+	ADMINISTRADOR("ADM"), SUPERVISOR("SUP"), INSPECTOR("INS"), CIUDADANO("CIU");
 
 	private final String typeValue;
 

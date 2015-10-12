@@ -20,9 +20,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
+import com.puridiompe.mpa.common.security.entity.LoginAuthenticationToken;
 import com.puridiompe.mpa.rest.security.handler.HeaderAuthenticationHandler;
-import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
 
 /**
  * @author Johnny
@@ -30,7 +31,8 @@ import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
  */
 public class HeaderAuthenticationFilter extends GenericFilterBean {
 
-	private UserDetailsService userDetailsService;
+	
+	private GestionarUserDetailsBusiness userDetailsService;
 	
 	private HeaderAuthenticationHandler authenticationHandler;
 
@@ -74,8 +76,8 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 //					userDetails.getUsername(), userDetails.getPassword(),
 //					userDetails.getAuthorities());
 			Authentication authentication = new LoginAuthenticationToken(
-					userDetails, null,
-					userDetails.getAuthorities(), ((UsuarioDto)userDetails).getImei());
+					userDetails, ((UsuarioDto)userDetails).getImei(),
+					userDetails.getAuthorities());
 			securityContext.setAuthentication(authentication);
 			return securityContext;
 		}
@@ -83,13 +85,17 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 	}
 
 	private UserDetails loadUserDetails(HttpServletRequest request) {
-		String userName = authenticationHandler.getUserName(request);
+		String username = authenticationHandler.getUserName(request);
 
-		return userName != null ? userDetailsService
-				.loadUserByUsername(userName) : null;
+		if (userDetailsService.isAnonymusUser(username)) {
+			return userDetailsService.loadAnonymusUser(username);
+		} else {
+			return username != null ? userDetailsService
+					.loadUserByUsername(username) : null;
+		}
 	}
 
-	public void userDetailsService(UserDetailsService userDetailsService) {
+	public void userDetailsService(GestionarUserDetailsBusiness userDetailsService) {
 		this.userDetailsService = userDetailsService;
 	}
 

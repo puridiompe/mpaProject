@@ -8,7 +8,10 @@ import com.puridiompe.mpa.movil.domain.persistence.Rol;
 
 public interface RolRepository extends JpaRepository<Rol, Integer> { 
 	
-	@Query("from  Rol p where p.idRol = ?1")
+	@Query("from Rol p where p.idRol = ?1")
 	public Rol findByIdRol (Integer idRol);
+	
+	@Query("from Rol p where p.rol = ?1")
+	public Rol findByName (String rol);
 
 }

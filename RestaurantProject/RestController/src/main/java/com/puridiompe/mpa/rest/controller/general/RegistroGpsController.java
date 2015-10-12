@@ -9,8 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +23,8 @@ import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
+import com.puridiompe.mpa.common.security.SecurityContextHelper;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsInspectorResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpsRequest;
@@ -32,7 +32,6 @@ import com.puridiompe.mpa.rest.controller.general.message.GetGpsResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpssRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetGpssResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetGpsValidator;
-import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
 
 
 /**
@@ -77,17 +76,14 @@ public class RegistroGpsController extends BaseController {
 	@RequestMapping(value = "/addBatch", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetGpsResponse> addBatchGps(
 			@RequestBody RequestMessage<GetGpssRequest> request)
-			throws BusinessException {
+			throws BusinessException, SecurityException {
 		
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		
-		String currentImei = ((LoginAuthenticationToken) authentication).getImei();
-		String currentUsername = ((LoginAuthenticationToken) authentication).getName();
+		String currentImei = SecurityContextHelper.getCurrentImei();
+		String currentUsername = SecurityContextHelper.getCurrentUsername();
 
 		List<GpsDto> gpsCollection = request.getBody().getGpss();
 		
-		if (authentication != null && gpsCollection != null) {
+		if (gpsCollection != null) {
 			
 			for (GpsDto gps : gpsCollection) {
 				gps.setImei(currentImei);

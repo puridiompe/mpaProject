@@ -13,8 +13,8 @@ import com.puridiompe.mpa.common.security.SystemModule;
  */
 public interface GestionarUserRightsBusiness {
 
-//	public boolean hasPermissionRight(UserDetails user, ModuloSistema modulo,
-//			String permission);
+	public boolean hasPermissionRight(UserDetails user, SystemModule module,
+			String permission);
 
 	public boolean hasModuleRight(UserDetails user, SystemModule module);
 }

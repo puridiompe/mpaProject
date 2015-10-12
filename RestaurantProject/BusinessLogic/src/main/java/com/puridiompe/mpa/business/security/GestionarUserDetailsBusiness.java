@@ -13,6 +13,12 @@ import com.puridiompe.mpa.business.security.dto.UsuarioDto;
  *
  */
 public interface GestionarUserDetailsBusiness extends UserDetailsService {
+	
+	public UserDetails createAnonymusUser();
+
+	public boolean isAnonymusUser(String username);
+	
+	public UserDetails loadAnonymusUser(String username);
 
 	public UsuarioDto getUsuario(String username);
 	

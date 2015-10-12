@@ -5,17 +5,18 @@ package com.puridiompe.mpa.rest.controller.general;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarDeviceBusiness;
@@ -27,6 +28,7 @@ import com.puridiompe.mpa.rest.controller.general.message.GetDeviceRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetDeviceResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetDevicesResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetDeviceValidator;
+import com.puridiompe.mpa.rest.security.message.LoginRequest;
 
 
 /**
@@ -34,7 +36,7 @@ import com.puridiompe.mpa.rest.controller.general.validation.GetDeviceValidator;
  *
  */
 
-@RestController
+@Controller
 @RequestMapping("/transportes/device")
 public class RegistroDeviceController extends BaseController {
 	
@@ -69,15 +71,30 @@ public class RegistroDeviceController extends BaseController {
 		return response;		
 	}	
 	
-	@RequestMapping(value = "/checkDevice", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean checkDevice(
-			@RequestBody RequestMessage<GetDeviceRequest> request)
+	@RequestMapping(value = "/checkDevice")//, method = RequestMethod.POST, headers = "Accept=application/json")
+	public String checkDevice(
+			/*@RequestBody RequestMessage<GetDeviceRequest> request, */HttpServletRequest servletRequest)
 			throws BusinessException {
 		
-		GetDeviceRequest deviceRequest = request.getBody();
+		//GetDeviceRequest deviceRequest = request.getBody();
 		
-		return gestionarDeviceBusiness.checkDeviceByImei(deviceRequest.getDevice().getImei());
+//		boolean isMpaDevice = gestionarDeviceBusiness
+//				.checkDeviceByImei(deviceRequest.getDevice().getImei());
 		
+		boolean isMpaDevice = false;
+
+		if (isMpaDevice) {
+			return "forward:/test2";
+		} else {
+			LoginRequest loginRequest = new LoginRequest();
+			
+			loginRequest.setImei("asdada");
+			loginRequest.setUsername("anonymus");
+			
+			servletRequest.setAttribute("anonymusRequest", loginRequest);
+			
+			return "forward:/transportes/device/getAll";
+		}
 	}
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)

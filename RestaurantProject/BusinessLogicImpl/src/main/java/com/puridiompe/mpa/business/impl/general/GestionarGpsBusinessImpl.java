@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.type.ArrayType;
 import com.puridiompe.mpa.business.general.GestionarGpsBusiness;
 import com.puridiompe.mpa.business.general.dto.GpsDto;
 import com.puridiompe.mpa.business.general.dto.GpsInspectorDto;
+import com.puridiompe.mpa.common.annotation.ProfileMethod;
 import com.puridiompe.mpa.dataaccess.GpsDao;
 
 /**
@@ -38,6 +38,7 @@ public class GestionarGpsBusinessImpl implements GestionarGpsBusiness{
 	}	
 	
 	//Main method to save positions/inspectors
+	@ProfileMethod
 	@Override
 	public GpsDto addBatchGps(String username, List<GpsDto> gps) {
 		

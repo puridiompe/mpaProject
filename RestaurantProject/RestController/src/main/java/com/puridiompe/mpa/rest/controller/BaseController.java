@@ -80,6 +80,20 @@ public abstract class BaseController {
 
 		return response;
 	}
+	
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	@ExceptionHandler(SecurityException.class)
+	public @ResponseBody ResponseMessage<ResponseError> handleSecurityException(
+			HttpServletRequest request, SecurityException exception) {
+
+//		Logger.error(this, exception);
+
+		ResponseMessage<ResponseError> response = new ResponseMessage<ResponseError>();
+
+		response.setBody(getResponseError("error.accessdenied.system"));
+
+		return response;
+	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

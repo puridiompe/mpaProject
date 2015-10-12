@@ -14,9 +14,9 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.puridiompe.mpa.business.config.BusinessConfiguration;
+import com.puridiompe.mpa.business.security.config.SecurityMethodConfiguration;
 import com.puridiompe.mpa.dataaccess.config.DataAccessConfiguration;
 import com.puridiompe.mpa.repository.config.MovilRepositoryConfiguration;
-import com.puridiompe.mpa.repository.config.PapeletasRepositoryConfiguration;
 import com.puridiompe.mpa.repository.config.SistranRepositoryConfiguration;
 import com.puridiompe.mpa.rest.security.config.SecurityConfiguration;
 
@@ -35,7 +35,8 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext rootCtx = new AnnotationConfigWebApplicationContext();
 		
 //		SecurityConfiguration.class, 
-		rootCtx.register(SecurityConfiguration.class, BusinessConfiguration.class,		
+		rootCtx.register(SecurityConfiguration.class, SecurityMethodConfiguration.class, 
+				BusinessConfiguration.class,		
 	//	rootCtx.register(BusinessConfiguration.class, // --->> 
 				DataAccessConfiguration.class,
 				SistranRepositoryConfiguration.class,

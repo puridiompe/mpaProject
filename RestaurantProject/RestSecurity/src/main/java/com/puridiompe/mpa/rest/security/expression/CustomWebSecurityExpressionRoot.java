@@ -26,25 +26,25 @@ public class CustomWebSecurityExpressionRoot extends WebSecurityExpressionRoot {
 		this.gestionarUserRightsBusiness = gestionarUserRightsBusiness;
 	}
 
-//	public boolean hasAccessAdministracion() {
-//		return hasAccess(ModuloSistema.ADMINISTRACION);
-//	}
-//
-//	public boolean hasAccessAlmacen() {
-//		return hasAccess(ModuloSistema.ALMACEN);
-//	}
-//
-//	public boolean hasAccessCocina() {
-//		return hasAccess(ModuloSistema.COCINA);
-//	}
-//
-//	public boolean hasAccessFacturacion() {
-//		return hasAccess(ModuloSistema.FACTURACION);
-//	}
-//
-//	public boolean hasAccessPedidos() {
-//		return hasAccess(ModuloSistema.PEDIDOS);
-//	}
+	public boolean hasAccessVehiculo() {
+		return hasAccess(SystemModule.PERMISOS);
+	}
+
+	public boolean hasAccessInfraccion() {
+		return hasAccess(SystemModule.INFRACCIONES);
+	}
+
+	public boolean hasAccessNoticia() {
+		return hasAccess(SystemModule.NOTICIAS);
+	}
+
+	public boolean hasAccessCiudadano() {
+		return hasAccess(SystemModule.CIUDADANO);
+	}
+
+	public boolean hasAccessGps() {
+		return hasAccess(SystemModule.GEO_LOCALIZACION);
+	}
 
 	private boolean hasAccess(SystemModule modulo) {
 		boolean hasAccess = false;

@@ -20,7 +20,14 @@ public class GestionarUserRightsBusinessImpl implements
 	@Override
 	public boolean hasModuleRight(UserDetails user, SystemModule module) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	@Override
+	public boolean hasPermissionRight(UserDetails user, SystemModule module,
+			String permission) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

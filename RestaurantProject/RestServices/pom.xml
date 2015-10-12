@@ -99,6 +99,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.puridiompe.mpa</groupId>
+			<artifactId>BusinessSecurity</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.puridiompe.mpa</groupId>
 			<artifactId>RestController</artifactId>
 			<version>1.0</version>
 		</dependency>

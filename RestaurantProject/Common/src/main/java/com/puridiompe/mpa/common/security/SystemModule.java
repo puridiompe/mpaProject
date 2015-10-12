@@ -10,7 +10,8 @@ package com.puridiompe.mpa.common.security;
 public enum SystemModule {
 
 	ADMINISTRACION("ADM", "administracion"), PERMISOS("PER", "permisos"), PAPELETAS(
-			"PAP", "papeletas"), INFRACCIONES("INF", "infracciones");
+			"PAP", "papeletas"), INFRACCIONES("INF", "infracciones"), NOTICIAS(
+			"NOT", "noticias"), CIUDADANO("CIU", "ciudadano"), GEO_LOCALIZACION("GEO", "geolocalizacion");
 
 	private final String typeValue;
 
@@ -64,8 +65,8 @@ public enum SystemModule {
 		}
 
 		if (labelType == null) {
-//			Logger.error(SystemModule.class, "Modulo " + name
-//					+ " desconocido, no es un valor válido");
+			// Logger.error(SystemModule.class, "Modulo " + name
+			// + " desconocido, no es un valor válido");
 		}
 
 		return labelType;

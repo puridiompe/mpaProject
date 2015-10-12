@@ -5,6 +5,8 @@ package com.puridiompe.mpa.business.general;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
+import com.puridiompe.mpa.common.annotation.SafeMethod;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 
 /**
  * @author Johnny
@@ -12,6 +14,7 @@ import com.puridiompe.mpa.business.general.dto.VehiculoDto;
  */
 public interface GestionarVehiculoBusiness {
 
-	public VehiculoDto getVehiculo(String placa) throws BusinessException;
+	@SafeMethod
+	public VehiculoDto getVehiculo(String placa) throws BusinessException, SecurityException;
 	
 }

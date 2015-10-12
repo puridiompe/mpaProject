@@ -28,5 +28,6 @@
   	<module>RestController</module>
 <!--   	<module>RestSecurity</module> -->
   	<module>RestSecurity</module>
+  	<module>BusinessSecurity</module>
   </modules>
 </project>

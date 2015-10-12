@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.puridiompe.mpa.rest.security.token;
+package com.puridiompe.mpa.common.security.entity;
 
 import java.util.Collection;
 
@@ -23,9 +23,8 @@ public class LoginAuthenticationToken extends
 		this.imei = imei;
 	}
 	
-	public LoginAuthenticationToken(Object principal, Object credentials,
-			Collection<? extends GrantedAuthority> authorities, String imei) {
-		super(principal, credentials, authorities);
+	public LoginAuthenticationToken(Object principal, String imei, Collection<? extends GrantedAuthority> authorities) {
+		super(principal, null, authorities);
 		this.imei = imei;
 	}
 	

@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
-import com.puridiompe.mpa.rest.security.token.LoginAuthenticationToken;
+import com.puridiompe.mpa.common.security.entity.LoginAuthenticationToken;
 
 /**
  * @author Johnny

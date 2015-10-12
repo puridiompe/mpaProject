@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.puridiompe.mpa.business.general.dto.LoginHistorialDto;
 import com.puridiompe.mpa.business.security.dto.PerfilDto;
 //import com.puridiompe.mpa.business.general.dto.RolDto;
 //import com.puridiompe.mpa.business.general.dto.UsuarioDto;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
+import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.dataaccess.UsuarioDao;
 import com.puridiompe.mpa.movil.domain.persistence.Device;
 import com.puridiompe.mpa.movil.domain.persistence.LoginHistorial;
@@ -93,6 +93,23 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return null;
 		}
 		return usuarioObject;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	public PerfilDto getPerfilByRol(SystemRole systemRol) {
+		
+		Rol rol = rolRepository.findByName(systemRol.toString());
+		
+		PerfilDto rolObject = null;
+		try {
+			rolObject = new PerfilDto(rol.getRol(), rol.getFecMod());
+			rolObject.setIdRol(rol.getIdRol());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rolObject;
 	}
 
 	@Transactional(value = "movilTransactionManager", readOnly = true)

@@ -23,8 +23,8 @@ import com.puridiompe.mpa.common.type.Datetime;
  *
  */
 @Configuration
-@ComponentScan(value = {
-		"com.puridiompe.mpa.common.context" })
+//@ComponentScan(value = { "com.puridiompe.mpa.common.context",
+//		"com.puridiompe.mpa.common.logging", "com.puridiompe.mpa.common.aspect" })
 public class RestCommonConfiguration {
 
 	@Bean
@@ -41,17 +41,18 @@ public class RestCommonConfiguration {
 
 	@Bean
 	public MappingJackson2HttpMessageConverter messageConverter() {
-//		ObjectMapper mapper = new ObjectMapper();
-//		mapper.setSerializationInclusion(Include.NON_NULL);
-//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-//				true);
-//		
-//		
-//
-//		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-//		converter.setObjectMapper(mapper);
-		
+		// ObjectMapper mapper = new ObjectMapper();
+		// mapper.setSerializationInclusion(Include.NON_NULL);
+		// mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		// mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+		// true);
+		//
+		//
+		//
+		// MappingJackson2HttpMessageConverter converter = new
+		// MappingJackson2HttpMessageConverter();
+		// converter.setObjectMapper(mapper);
+
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
 		builder.serializationInclusion(Include.NON_NULL);
 		// builder.propertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE);
@@ -60,7 +61,7 @@ public class RestCommonConfiguration {
 		builder.serializerByType(Datetime.class, new DatetimeSerializer());
 		builder.indentOutput(true).failOnUnknownProperties(true)
 				.dateFormat(new SimpleDateFormat("dd-MM-yyyy"));
-		
+
 		return new MappingJackson2HttpMessageConverter(builder.build());
 	}
 }

@@ -9,14 +9,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
+
+import com.puridiompe.mpa.common.annotation.InjectLogger;
 
 /**
  * @author Johnny
  *
  */
-public class AutologgerInjector implements BeanPostProcessor {
+@Component
+public class LoggerInjector implements BeanPostProcessor {
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName)
@@ -26,7 +30,7 @@ public class AutologgerInjector implements BeanPostProcessor {
 					IllegalAccessException {
 				// make the field accessible if defined private
 				ReflectionUtils.makeAccessible(field);
-				if (field.getAnnotation(Autologger.class) != null) {
+				if (field.getAnnotation(InjectLogger.class) != null) {
 					Logger log = LoggerFactory.getLogger(bean.getClass());
 					field.set(bean, log);
 				}

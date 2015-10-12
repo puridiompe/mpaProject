@@ -3,6 +3,7 @@ package com.puridiompe.mpa.business.general;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.NoticiaDto;
+import com.puridiompe.mpa.common.annotation.SafeMethod;
 
 /**
  * 
@@ -11,5 +12,7 @@ import com.puridiompe.mpa.business.general.dto.NoticiaDto;
  */
 
 public interface GestionarNoticiaBusiness {
+	
+	@SafeMethod
 	public List<NoticiaDto> getAllByEstado();	
 }
