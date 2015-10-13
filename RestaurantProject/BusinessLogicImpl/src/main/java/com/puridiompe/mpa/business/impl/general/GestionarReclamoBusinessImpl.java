@@ -35,6 +35,7 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 				byte[] data = Base64.getDecoder().decode(elementBase64toDecode);				
 				
 				filePath += pos.toString();
+				filePath += ".";
 				filePath += extension;
 				
 				try (OutputStream stream = new FileOutputStream(filePath)) {
