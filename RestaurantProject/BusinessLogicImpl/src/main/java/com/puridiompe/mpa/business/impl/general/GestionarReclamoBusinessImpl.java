@@ -31,8 +31,8 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 				
 				String elementBase64 = imagenesBase64.get(pos);
 				String extension = elementBase64.substring(11, 14);
-				elementBase64 = elementBase64.substring(22, arraySize);
-				byte[] data = Base64.getDecoder().decode(elementBase64);				
+				String elementBase64toDecode = elementBase64.substring(22);
+				byte[] data = Base64.getDecoder().decode(elementBase64toDecode);				
 				
 				filePath += pos.toString();
 				filePath += extension;
