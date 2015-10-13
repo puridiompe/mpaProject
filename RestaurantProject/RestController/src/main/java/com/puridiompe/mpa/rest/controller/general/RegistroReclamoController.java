@@ -35,7 +35,7 @@ public class RegistroReclamoController {
 		GetReclamoRequest reclamoRequest = request.getBody();
 		
 		gestionarReclamo.setReclamo(reclamoRequest.getReclamo().getDni(), reclamoRequest.getReclamo().getDescripcion(),
-									reclamoRequest.getReclamo().getVehiculo(), reclamoRequest.getReclamo().getImagenBase64());
+									reclamoRequest.getReclamo().getVehiculo(), reclamoRequest.getReclamo().getImagenesBase64());
 
 		return true;
 

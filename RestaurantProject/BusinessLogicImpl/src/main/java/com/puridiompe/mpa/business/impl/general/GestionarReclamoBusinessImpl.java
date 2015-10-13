@@ -21,18 +21,34 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	private ReclamoDao reclamoDao;
 	
 	@Override
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, String imagenBase64) {
+	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64) {
 		
-		byte[] data = Base64.getDecoder().decode(imagenBase64);
-		try (OutputStream stream = new FileOutputStream("/home/puridiompe/testImg.png")) {
-		    stream.write(data);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(!imagenesBase64.isEmpty()){
+			String filePath ="/home/puridiompe/testImg";
+			Integer arraySize = imagenesBase64.size();
+			
+			for(Integer pos = 0; pos < arraySize; pos++){
+				
+				String elementBase64 = imagenesBase64.get(pos);
+				String extension = elementBase64.substring(11, 14);
+				elementBase64 = elementBase64.substring(22, arraySize);
+				byte[] data = Base64.getDecoder().decode(elementBase64);				
+				
+				filePath += pos.toString();
+				filePath += extension;
+				
+				try (OutputStream stream = new FileOutputStream(filePath)) {
+				    stream.write(data);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+			}
+					
+		}		
 		reclamoDao.setReclamo(dni, descripcion, vehiculo);
 	}
 

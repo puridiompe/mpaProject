@@ -1,6 +1,8 @@
 package com.puridiompe.mpa.business.general.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ReclamoDto {
 
@@ -14,11 +16,11 @@ public class ReclamoDto {
 	
 	private Date fechaCreacion;
 	
-	private String imagenBase64;
+	private List<String> imagenesBase64;
 	
 	
 	public ReclamoDto (){
-		
+		imagenesBase64 = new ArrayList<String>();		
 	}
 
 
@@ -71,13 +73,13 @@ public class ReclamoDto {
 	}
 
 
-	public String getImagenBase64() {
-		return imagenBase64;
+	public List<String> getImagenesBase64() {
+		return imagenesBase64;
 	}
 
 
-	public void setImagenBase64(String imagenBase64) {
-		this.imagenBase64 = imagenBase64;
+	public void setImagenesBase64(List<String> imagenesBase64) {
+		this.imagenesBase64 = imagenesBase64;
 	}
 	
 }
