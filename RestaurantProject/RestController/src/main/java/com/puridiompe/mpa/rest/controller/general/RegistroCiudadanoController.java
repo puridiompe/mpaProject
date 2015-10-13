@@ -13,6 +13,8 @@ import com.puridiompe.mpa.business.general.GestionarCiudadanoBusiness;
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
+import com.puridiompe.mpa.common.security.SecurityContextHelper;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoResponse; 
 
@@ -24,13 +26,12 @@ public class RegistroCiudadanoController {
 	private GestionarCiudadanoBusiness gestionarCiudadano;
 	
 	@RequestMapping(value = "/setAndUpdate ", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean setCiudadano(@RequestBody RequestMessage<GetCiudadanoRequest> request)
-			throws BusinessException {
+	public boolean setCiudadano(@RequestBody RequestMessage<GetCiudadanoRequest> request) throws BusinessException, SecurityException{
 		
 		GetCiudadanoRequest ciudadanoRequest = request.getBody();
 		
 		gestionarCiudadano.setCiudadano(ciudadanoRequest.getCiudadano().getDni(), ciudadanoRequest.getCiudadano().getApellidoPaterno(),
-				ciudadanoRequest.getCiudadano().getApellidoMaterno(), ciudadanoRequest.getCiudadano().getNombres(),ciudadanoRequest.getCiudadano().getEmail(), ciudadanoRequest.getCiudadano().getImei());
+				ciudadanoRequest.getCiudadano().getApellidoMaterno(), ciudadanoRequest.getCiudadano().getNombres(),ciudadanoRequest.getCiudadano().getEmail()); 
 
 		return true;
 
@@ -38,10 +39,12 @@ public class RegistroCiudadanoController {
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetCiudadanoResponse> updateCiudadano(@RequestBody RequestMessage<GetCiudadanoRequest> request)
-			throws BusinessException {
+			throws BusinessException, SecurityException {
 		
-		GetCiudadanoRequest ciudadanoRequest = request.getBody();
-		CiudadanoDto ciudadanoObject = gestionarCiudadano.getCiudadano(ciudadanoRequest.getCiudadano().getImei());
+		String currentImei = SecurityContextHelper.getCurrentImei();
+		
+		//GetCiudadanoRequest ciudadanoRequest = request.getBody();
+		CiudadanoDto ciudadanoObject = gestionarCiudadano.getCiudadano(currentImei);//ciudadanoRequest.getCiudadano().getImei());
 		
 		ResponseMessage<GetCiudadanoResponse> response = new ResponseMessage<GetCiudadanoResponse>();
 		GetCiudadanoResponse ciudadanoResponse = new GetCiudadanoResponse();
