@@ -14,7 +14,7 @@ import com.puridiompe.mpa.common.security.exception.SecurityException;
  */
 public interface GestionarVehiculoBusiness {
 
-	@SafeMethod
+	//@SafeMethod
 	public VehiculoDto getVehiculo(String placa) throws BusinessException, SecurityException;
 	
 }

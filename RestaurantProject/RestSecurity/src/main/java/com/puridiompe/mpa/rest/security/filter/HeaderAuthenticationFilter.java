@@ -88,7 +88,8 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 		String username = authenticationHandler.getUserName(request);
 
 		if (userDetailsService.isAnonymusUser(username)) {
-			return userDetailsService.loadAnonymusUser(username);
+			String imei = authenticationHandler.getImei(request);
+			return userDetailsService.loadAnonymusUser(username, imei);
 		} else {
 			return username != null ? userDetailsService
 					.loadUserByUsername(username) : null;

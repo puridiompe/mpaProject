@@ -13,6 +13,6 @@ import com.puridiompe.mpa.common.annotation.SafeMethod;
 
 public interface GestionarNoticiaBusiness {
 	
-	@SafeMethod
+	//@SafeMethod
 	public List<NoticiaDto> getAllByEstado();	
 }

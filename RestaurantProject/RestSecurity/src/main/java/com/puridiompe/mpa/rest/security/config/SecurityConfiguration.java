@@ -116,6 +116,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //		http.authorizeRequests().expressionHandler(securityExpressionHandler).antMatchers("/transportes/device/**").permitAll().anyRequest().authenticated();//.and()
 		//.anonymous().disable();
 		http.authorizeRequests().expressionHandler(securityExpressionHandler)
+
 		.antMatchers(HttpMethod.POST, "/transportes/init").permitAll()
 		.antMatchers(HttpMethod.POST, "/transportes/vehiculo/**").access("hasAccessVehiculo()")
 		.antMatchers(HttpMethod.POST, "/transportes/infraccion/**").access("hasAccessInfraccion()")

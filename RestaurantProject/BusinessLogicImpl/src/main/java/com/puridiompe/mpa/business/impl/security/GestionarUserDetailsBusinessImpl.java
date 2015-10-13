@@ -47,9 +47,10 @@ public class GestionarUserDetailsBusinessImpl implements
 	}
 	
 	@Override
-	public UserDetails loadAnonymusUser(String username) {
+	public UserDetails loadAnonymusUser(String username, String imei) {
 		UsuarioDto userObject =  new UsuarioDto();
 		userObject.setUsername(username);
+		userObject.setImei(imei);
 		
 		PerfilDto perfil = usuarioDao.getPerfilByRol(SystemRole.CIUDADANO);
 		

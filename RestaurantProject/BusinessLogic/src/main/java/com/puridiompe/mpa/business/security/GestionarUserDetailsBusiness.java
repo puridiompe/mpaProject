@@ -18,7 +18,7 @@ public interface GestionarUserDetailsBusiness extends UserDetailsService {
 
 	public boolean isAnonymusUser(String username);
 	
-	public UserDetails loadAnonymusUser(String username);
+	public UserDetails loadAnonymusUser(String username, String imei);
 
 	public UsuarioDto getUsuario(String username);
 	

@@ -16,7 +16,7 @@ public interface GestionarGpsBusiness {
 	
 	public GpsDto addGps(GpsDto gps);
 	
-	@SafeMethod
+	//@SafeMethod
 	public GpsDto addBatchGps(String username, List<GpsDto> gps);
 	
 	public GpsDto getLastGpsByImei(String imei);	
