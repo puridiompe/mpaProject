@@ -24,7 +24,7 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64) {
 		
 		if(!imagenesBase64.isEmpty()){
-			String filePath ="/home/puridiompe/testImg";
+			String filePath ="/home/puridiompe/";
 			Integer arraySize = imagenesBase64.size();
 			
 			for(Integer pos = 0; pos < arraySize; pos++){
@@ -34,6 +34,8 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 				String elementBase64toDecode = elementBase64.substring(22);
 				byte[] data = Base64.getDecoder().decode(elementBase64toDecode);				
 				
+				filePath += dni.toString();
+				filePath += "_";
 				filePath += pos.toString();
 				filePath += ".";
 				filePath += extension;
@@ -46,7 +48,8 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}				
+				}
+				filePath ="/home/puridiompe/";
 			}
 					
 		}		
