@@ -1,7 +1,11 @@
 package com.puridiompe.mpa.rest.controller.general;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +20,8 @@ import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoRequest;
-import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoResponse; 
+import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoResponse;
+import com.puridiompe.mpa.rest.controller.general.validation.GetCiudadanoValidator; 
 
 @RestController
 @RequestMapping("/transportes/ciudadano")
@@ -25,8 +30,16 @@ public class RegistroCiudadanoController {
 	@Autowired
 	private GestionarCiudadanoBusiness gestionarCiudadano;
 	
+	@Autowired
+	private GetCiudadanoValidator getCiudadanoValidator;
+	
+	@InitBinder
+	protected void InitBinder (WebDataBinder binder){
+		binder.setValidator(getCiudadanoValidator);
+	}
+	
 	@RequestMapping(value = "/setAndUpdate ", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean setCiudadano(@RequestBody RequestMessage<GetCiudadanoRequest> request) throws BusinessException, SecurityException{
+	public boolean setCiudadano(@RequestBody @Valid RequestMessage<GetCiudadanoRequest> request) throws BusinessException, SecurityException{
 		
 		GetCiudadanoRequest ciudadanoRequest = request.getBody();
 		
