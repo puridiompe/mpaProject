@@ -41,7 +41,7 @@ public class BusinessExceptionHandlingAspect {
 			Logger logger = LoggerFactory.getLogger(joinPoint.getTarget()
 					.getClass());
 
-			logger.error(exception.getMessage());
+			logger.error("Exception", exception);
 
 			if (!(exception instanceof BusinessException
 					|| exception instanceof AuthenticationException || exception instanceof AccessDeniedException)) {
