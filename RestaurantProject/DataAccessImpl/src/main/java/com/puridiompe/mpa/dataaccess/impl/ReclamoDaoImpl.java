@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
+import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
 import com.puridiompe.mpa.movil.domain.persistence.ReclamoFrecuente;
+import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoFrecuenteRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoRepository;
 
@@ -29,7 +31,8 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	@Override
 	public void setReclamo(Integer dni, String descripcion, String vehiculo) {
 		
-		Reclamo reclamo =  new Reclamo();
+		Reclamo reclamo =  new Reclamo();		
+		
 		reclamo.setDni(dni);
 		reclamo.setDescripcion(descripcion);
 		reclamo.setVehiculo(vehiculo);
