@@ -39,11 +39,10 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 				String elementBase64 = imagenesBase64.get(pos);
 				String fileType = elementBase64.substring(11, 14);
 				String elementBase64toDecode = elementBase64.substring(22);
-				byte[] data = Base64.getDecoder().decode(elementBase64toDecode);								
-				
-				Date name = new Date();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");				
-				String fileName = dateFormat.format(name);
+				byte[] data = Base64.getDecoder().decode(elementBase64toDecode);				
+									
+				Long name = new Date().getTime();
+				String fileName = name.toString();
 				
 				
 				filePath += fileName;				
