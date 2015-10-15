@@ -22,7 +22,7 @@ public class GetCiudadanoValidator implements Validator{
 		RequestMessage<GetCiudadanoRequest> request = (RequestMessage<GetCiudadanoRequest>) target;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-							"body.ciuadadano.dni",
+							"body.ciudadano.dni",
 							"validation.request.pedidos.comentario.required");
 		
 	}
