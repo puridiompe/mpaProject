@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.NoticiaDto;
+import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.dataaccess.NoticiaDao;
 import com.puridiompe.mpa.movil.domain.persistence.Noticia;
 import com.puridiompe.mpa.movil.repository.persistence.NoticiaRepository;
@@ -34,7 +35,10 @@ public class NoticiaDaoImpl implements NoticiaDao{
 		if(noticias != null)	
 			for(int i = 0; i < noticias.size(); i++ ){
 				NoticiaDto noticiaDtoTmp = new NoticiaDto();
-				BeanUtils.copyProperties(noticias.get(i), noticiaDtoTmp);
+				Noticia noticiatmp = noticias.get(i);
+				BeanUtils.copyProperties(noticiatmp, noticiaDtoTmp);
+				
+				noticiaDtoTmp.setFecPub(new Datetime(noticiatmp.getFecPub()));
 				noticiasObject.add(noticiaDtoTmp);				
 			}			
 		else return null;	
