@@ -1,12 +1,13 @@
 package com.puridiompe.mpa.business.general.dto;
 
 import java.util.Date;
+import com.puridiompe.mpa.common.type.Datetime;
 
 public class NoticiaDto {
 	private Integer idNoticia;
 	private String titulo;
 	private String contenido ;
-	private Date fecPub;
+	private Datetime fecPub;
 	private String fuente;
 	private String autor;
 	private String link;
@@ -34,10 +35,10 @@ public class NoticiaDto {
 		this.contenido = contenido;
 	}
 	
-	public Date getFecPub() {
+	public Datetime getFecPub() {
 		return fecPub;
 	}
-	public void setFecPub(Date fecPub) {
+	public void setFecPub(Datetime fecPub) {
 		this.fecPub = fecPub;
 	}
 	
