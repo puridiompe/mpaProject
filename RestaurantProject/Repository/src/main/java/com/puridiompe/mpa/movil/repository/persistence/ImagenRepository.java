@@ -9,7 +9,7 @@ import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 
 public interface ImagenRepository  extends JpaRepository<Imagen, Integer>{
 	
-	@Query("from imagen i where i.tipo = ?1")
+	@Query("from Imagen i where i.tipo = ?1")
 	public List<Imagen> findByTipo(String tipo);
 
 }

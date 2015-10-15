@@ -1,12 +1,20 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.dataaccess.ImagenDao;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
 
+/**
+ * 
+ * @author Lucho
+ *
+ */
+
+@Component
 public class ImagenDaoImpl implements ImagenDao{
 	
 	@Autowired

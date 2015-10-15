@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
-import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.dataaccess.ImagenDao;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 
