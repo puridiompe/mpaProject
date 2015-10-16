@@ -56,4 +56,21 @@ public class RegistroNoticiaController extends BaseController{
 		
 		return response;		
 	}
+	
+	@RequestMapping(value = "/getLatest", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetNoticiasResponse> getLatestNews()			
+			throws BusinessException {		
+		
+		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getAllByEstado();
+		
+		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
+		
+		GetNoticiasResponse noticiasResponse = new GetNoticiasResponse();
+		
+		noticiasResponse.setNoticias(noticiasObject);
+		
+		response.setBody(noticiasResponse);
+		
+		return response;		
+	}
 }

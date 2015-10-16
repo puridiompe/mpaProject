@@ -14,5 +14,6 @@ import com.puridiompe.mpa.common.annotation.SafeMethod;
 public interface GestionarNoticiaBusiness {
 	
 	//@SafeMethod
-	public List<NoticiaDto> getAllByEstado();	
+	public List<NoticiaDto> getAllByEstado();
+	public List<NoticiaDto> getLatestNews();
 }

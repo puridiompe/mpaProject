@@ -25,5 +25,10 @@ public class GestionarNoticiaBusinessImpl implements GestionarNoticiaBusiness{
 	public List<NoticiaDto> getAllByEstado() {
 		return noticiaDao.findByEstado();
 	}
+	
+	@Override
+	public List<NoticiaDto> getLatestNews(){
+		return noticiaDao.getLatestNews();
+	}
 
 }

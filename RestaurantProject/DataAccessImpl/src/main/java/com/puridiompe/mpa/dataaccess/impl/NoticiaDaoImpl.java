@@ -45,5 +45,36 @@ public class NoticiaDaoImpl implements NoticiaDao{
 		
 		return noticiasObject;
 	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public List<NoticiaDto> getLatestNews() {
+		
+		List<NoticiaDto> noticiasObject = new ArrayList<NoticiaDto>();
+		List<Noticia> noticias = noticiaRepository.findByEstado();
+		
+		if(noticias != null){
+			
+			int latestNews = 0;
+			
+			if(noticias.size() >= 10){
+				latestNews = 10;
+			}else{
+				latestNews = noticias.size();
+			}
+			
+			for(int i = 0; i < latestNews; i++ ){
+				NoticiaDto noticiaDtoTmp = new NoticiaDto();
+				Noticia noticiatmp = noticias.get(i);
+				BeanUtils.copyProperties(noticiatmp, noticiaDtoTmp);
+				
+				noticiaDtoTmp.setFecPub(new Datetime(noticiatmp.getFecPub()));
+				noticiasObject.add(noticiaDtoTmp);				
+			}	
+		}else{
+			return null;
+		}
+		return noticiasObject;
+	}
 }
 
