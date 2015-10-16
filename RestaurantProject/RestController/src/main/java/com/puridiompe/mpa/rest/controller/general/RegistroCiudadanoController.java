@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,14 +40,20 @@ public class RegistroCiudadanoController {
 	}
 	
 	@RequestMapping(value = "/setAndUpdate ", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean setCiudadano(@RequestBody @Valid RequestMessage<GetCiudadanoRequest> request) throws BusinessException, SecurityException{
-		
+	public boolean setCiudadano(@RequestBody @Valid RequestMessage<GetCiudadanoRequest> request, BindingResult result) throws BusinessException, SecurityException{
+			
 		GetCiudadanoRequest ciudadanoRequest = request.getBody();
 		
-		gestionarCiudadano.setCiudadano(ciudadanoRequest.getCiudadano().getDni(), ciudadanoRequest.getCiudadano().getApellidoPaterno(),
-				ciudadanoRequest.getCiudadano().getApellidoMaterno(), ciudadanoRequest.getCiudadano().getNombres(),ciudadanoRequest.getCiudadano().getEmail()); 
+		if(result.hasErrors()){
+			return false;
+		
+		}else{	
+			gestionarCiudadano.setCiudadano(ciudadanoRequest.getCiudadano().getDni(), ciudadanoRequest.getCiudadano().getApellidoPaterno(),
+					ciudadanoRequest.getCiudadano().getApellidoMaterno(), ciudadanoRequest.getCiudadano().getNombres(),ciudadanoRequest.getCiudadano().getEmail()); 
 
-		return true;
+			return true;
+		}
+
 
 	}
 	

@@ -24,7 +24,18 @@ public class GetCiudadanoValidator implements Validator{
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors,
 							"body.ciudadano.dni",
 							"validation.request.pedidos.comentario.required");
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+				"body.ciudadano.apellidoPaterno",
+				"validation.request.pedidos.comentario.required");
 		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+				"body.ciudadano.apellidoMaterno",
+				"validation.request.pedidos.comentario.required");
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors,
+				"body.ciudadano.email",
+				"validation.request.pedidos.comentario.required");
 	}
 
 }
