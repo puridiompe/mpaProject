@@ -11,8 +11,6 @@ public class ApplicationResponse extends ResponseBody {
 	
 	private List<String> roles;
 	
-	private Boolean registeredDevice;
-	
 	public ApplicationResponse(){
 		roles= new ArrayList<>();
 	}
@@ -33,14 +31,5 @@ public class ApplicationResponse extends ResponseBody {
 		this.roles = roles;
 	}
 
-	public Boolean getRegisteredDevice() {
-		return registeredDevice;
-	}
-
-	public void setRegisteredDevice(Boolean registeredDevice) {
-		this.registeredDevice = registeredDevice;
-	}
-	
-	
 }
 

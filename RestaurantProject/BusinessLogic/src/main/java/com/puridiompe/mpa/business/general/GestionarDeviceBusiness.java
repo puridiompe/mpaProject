@@ -3,6 +3,7 @@ package com.puridiompe.mpa.business.general;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.DeviceDto;
+import com.puridiompe.mpa.common.security.exception.RegisteredPublicImeiException;
 
 /**
  * 
@@ -14,7 +15,7 @@ public interface GestionarDeviceBusiness {
 	
 	public DeviceDto getDeviceByImei(String imei);
 	
-	public boolean checkDeviceByImei(String imei);
+	public void checkDeviceByImei(String imei) throws RegisteredPublicImeiException;
 
 	public List<DeviceDto> getAll();	
 	

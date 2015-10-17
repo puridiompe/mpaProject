@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarDeviceBusiness;
 import com.puridiompe.mpa.business.general.dto.DeviceDto;
+import com.puridiompe.mpa.common.security.exception.RegisteredPublicImeiException;
 import com.puridiompe.mpa.dataaccess.DeviceDao;
 
 /**
@@ -27,14 +28,12 @@ public class GestionarDeviceBusinessImpl implements GestionarDeviceBusiness{
 	}
 
 	@Override
-	public boolean checkDeviceByImei(String imei){
+	public void checkDeviceByImei(String imei) throws RegisteredPublicImeiException {
 		
 		DeviceDto deviceDto = deviceDao.checkDeviceByImei(imei);
 		
-		if(deviceDto == null){
-			return false;
-		}else{
-			return true;
+		if(deviceDto != null){
+			throw new RegisteredPublicImeiException("Dispositivo está registrado en la minicipalidad");
 		}
 	}
 	
