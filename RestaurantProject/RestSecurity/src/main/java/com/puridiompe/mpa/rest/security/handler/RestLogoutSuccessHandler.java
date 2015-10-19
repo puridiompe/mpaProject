@@ -37,7 +37,10 @@ public class RestLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 	private MappingJackson2HttpMessageConverter messageConverter;
 
 	private ObjectMapper mapper;
-
+	
+	@Autowired
+	private HeaderAuthenticationHandler authenticationHandler;
+	
 	@Override
 	public void onLogoutSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)
@@ -50,7 +53,9 @@ public class RestLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.setStatus(HttpServletResponse.SC_OK);
-
+		
+		authenticationHandler.resetHeader(response);
+		
 		LogoutResponse logoutResponse = new LogoutResponse();
 
 		logoutResponse.setStatus("OK");

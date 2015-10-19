@@ -94,6 +94,9 @@ public class HeaderAuthenticationHandler {
         return null;
     }
 
+    public void resetHeader(HttpServletResponse response) {
+    	 response.setHeader(HEADER_NAME, "");
+    }
     public void addHeader(HttpServletResponse response, String userName, String imei) {
         try {
             String encryptedValue = createAuthToken(userName, imei);
