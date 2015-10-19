@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.movil.domain.persistence.Ciudadano;
 
@@ -17,6 +18,7 @@ public interface CiudadanoRepository extends JpaRepository<Ciudadano, Integer>{
 	public Ciudadano findByImei (String imei);
 	
 	@Modifying
-	@Query("update Ciudadano p set p.apellidoPaterno = ?1, p.apellidoMaterno = ?2, p.nombres = ?3, p.email = ?4, p.fechaModificacion = ?5 where p.dni = ?6")
-	void updateCiudadano(String apePat, String apeMat, String nombres, String email, Date fecMod, Integer dni);
+	@Query("update Ciudadano p set p.dni = ?1, p.apellidoPaterno = ?2, p.apellidoMaterno = ?3, p.nombres = ?4, p.email = ?5, p.fechaModificacion = ?6 where p.imei = ?7")
+	@Transactional
+	public void updateCiudadano(Integer dni, String apePat, String apeMat, String nombres, String email, Date fecMod, String imei);
 }
