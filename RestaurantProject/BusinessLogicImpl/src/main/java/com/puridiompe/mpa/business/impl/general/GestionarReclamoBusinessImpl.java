@@ -38,25 +38,27 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 				String fileType = elementBase64.substring(11, 14);
 				String elementBase64toDecode = elementBase64.substring(22);
 				byte[] data = Base64.getDecoder().decode(elementBase64toDecode);				
-									
-				Long name = new Date().getTime();
-				String fileName = name.toString();
-				
-				
-				filePath += fileName;				
-				filePath += ".";
-				filePath += fileType;		
-				
-				try (OutputStream stream = new FileOutputStream(filePath)) {
-				    stream.write(data);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+						
+				synchronized (this)
+				{
+					Long name = new Date().getTime();
+					String fileName = name.toString();
+					
+					filePath += fileName;				
+					filePath += ".";
+					filePath += fileType;		
+					
+					try (OutputStream stream = new FileOutputStream(filePath)) {
+						stream.write(data);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					imagenDao.setImagen("REC", fileName, fileType, data.length);
 				}
-				imagenDao.setImagen("REC", fileName, fileType, data.length);
 				filePath ="/home/puridiompe/";
 			}
 					
