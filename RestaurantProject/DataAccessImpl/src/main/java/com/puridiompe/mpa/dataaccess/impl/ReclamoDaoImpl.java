@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
@@ -76,11 +77,11 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				
 				Imagen imagen = new Imagen();				
 				
-				imagen.setTipoEntidad("REC");
+				imagen.setTipoEntidad(ImageType.RECLAMO.toString());
 				imagen.setNombre(fileName);
 				imagen.setTipo(fileType);
 				imagen.setTamanho(fileSize);
-				imagen.setFechaCreacion(new Date());
+				imagen.setFecCre(new Date());				
 				imagen.setIdPadre(reclamoId);
 				
 				imagenRepository.save(imagen);

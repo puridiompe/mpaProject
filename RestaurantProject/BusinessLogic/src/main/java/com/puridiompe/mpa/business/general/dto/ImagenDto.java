@@ -14,8 +14,6 @@ public class ImagenDto {
 		
 	private Integer tamanho;
 	
-	private Datetime fechaCreacion;
-	
 	private Integer idPadre;
 	
 	public ImagenDto(){
@@ -60,14 +58,6 @@ public class ImagenDto {
 
 	public void setTamanho(Integer tamanho) {
 		this.tamanho = tamanho;
-	}
-
-	public Datetime getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(Datetime fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
 	}
 
 	public Integer getIdPadre() {

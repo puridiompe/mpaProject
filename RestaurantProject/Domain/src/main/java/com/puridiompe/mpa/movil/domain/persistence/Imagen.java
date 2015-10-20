@@ -1,7 +1,5 @@
 package com.puridiompe.mpa.movil.domain.persistence;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "\"TrMov_Imagen\"")
-public class Imagen {
+public class Imagen extends PersistenceAuditableEntity<Integer>{
 	
 	@Id
 	@Column(name = "\"idEntidad\"", unique = true, nullable = false)
@@ -31,9 +32,6 @@ public class Imagen {
 	
 	@Column(name = "\"tamanho\"")
 	private Integer tamanho;
-	
-	@Column(name = "\"fecCre\"")
-	private Date fechaCreacion;
 	
 	@Column(name = "\"idPadre\"")
 	private Integer idPadre;
@@ -92,17 +90,6 @@ public class Imagen {
 	public void setTamanho(Integer tamanho) {
 		this.tamanho = tamanho;
 	}
-
-
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
 
 	public Integer getIdPadre() {
 		return idPadre;
