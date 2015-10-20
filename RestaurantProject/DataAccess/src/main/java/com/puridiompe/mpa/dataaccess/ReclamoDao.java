@@ -6,7 +6,7 @@ import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 
 public interface ReclamoDao {
 
-	public void setReclamo (Integer dni, String descripcion, String vehiculo);
+	public void saveReclamo (Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64);
 	
 	public List<ReclamoDto> getReclamosFrecuentes();
 }
