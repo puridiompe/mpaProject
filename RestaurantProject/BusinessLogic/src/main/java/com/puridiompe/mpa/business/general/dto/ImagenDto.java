@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.business.general.dto;
 
+import com.puridiompe.mpa.common.type.Datetime;
+
 public class ImagenDto {
 	
 	private Integer idEntidad;
@@ -11,6 +13,10 @@ public class ImagenDto {
 	private String tipo;
 		
 	private Integer tamanho;
+	
+	private Datetime fechaCreacion;
+	
+	private Integer idPadre;
 	
 	public ImagenDto(){
 		
@@ -54,6 +60,22 @@ public class ImagenDto {
 
 	public void setTamanho(Integer tamanho) {
 		this.tamanho = tamanho;
+	}
+
+	public Datetime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Datetime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Integer getIdPadre() {
+		return idPadre;
+	}
+
+	public void setIdPadre(Integer idPadre) {
+		this.idPadre = idPadre;
 	}
 	
 

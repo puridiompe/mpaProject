@@ -53,7 +53,10 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		reclamoRepository.save(reclamo);
 		
 		if((imagenesBase64 != null) && (!imagenesBase64.isEmpty())){
+			
 			int arraySize = imagenesBase64.size();
+			
+			Integer reclamoId = reclamo.getIdReclamo();
 			
 			for(int pos = 0; pos < arraySize; pos++){
 				
@@ -71,12 +74,14 @@ public class ReclamoDaoImpl implements ReclamoDao {
 					fileSize = fileRepository.saveBase64(fileName, elementBase64toDecode);
 				}
 				
-				Imagen imagen = new Imagen();
+				Imagen imagen = new Imagen();				
 				
 				imagen.setTipoEntidad("REC");
 				imagen.setNombre(fileName);
 				imagen.setTipo(fileType);
 				imagen.setTamanho(fileSize);
+				imagen.setFechaCreacion(new Date());
+				imagen.setIdPadre(reclamoId);
 				
 				imagenRepository.save(imagen);
 			}

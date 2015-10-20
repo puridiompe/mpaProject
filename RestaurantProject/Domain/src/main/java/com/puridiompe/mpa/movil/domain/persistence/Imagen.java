@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.movil.domain.persistence;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +31,12 @@ public class Imagen {
 	
 	@Column(name = "\"tamanho\"")
 	private Integer tamanho;
+	
+	@Column(name = "\"fecCre\"")
+	private Date fechaCreacion;
+	
+	@Column(name = "\"idPadre\"")
+	private Integer idPadre;
 	
 	
 	public Imagen (){
@@ -83,6 +91,26 @@ public class Imagen {
 
 	public void setTamanho(Integer tamanho) {
 		this.tamanho = tamanho;
+	}
+
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+
+	public Integer getIdPadre() {
+		return idPadre;
+	}
+
+
+	public void setIdPadre(Integer idPadre) {
+		this.idPadre = idPadre;
 	}
 	
 }
