@@ -38,7 +38,9 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 	@Override
 	public void setCiudadanoBatch(List<CiudadanoDto> ciudadanoArray){
 		
-		for(int i = 0; i < ciudadanoArray.size(); i++){
+		int arraySize = ciudadanoArray.size();
+		
+		for(int i = 0; i < arraySize; i++){
 			String currentImei = null;
 			try {
 				currentImei = SecurityContextHelper.getCurrentImei();
@@ -46,7 +48,11 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			ciudadanoDao.setCiudadano(ciudadanoArray.get(i).getDni(), ciudadanoArray.get(i).getApellidoPaterno(), ciudadanoArray.get(i).getApellidoMaterno(), ciudadanoArray.get(i).getNombres(), ciudadanoArray.get(i).getEmail(), currentImei);
+			if(i == arraySize-1){
+				ciudadanoDao.setCiudadano(ciudadanoArray.get(i).getDni(), ciudadanoArray.get(i).getApellidoPaterno(), ciudadanoArray.get(i).getApellidoMaterno(), ciudadanoArray.get(i).getNombres(), ciudadanoArray.get(i).getEmail(), currentImei);
+			}else{
+				ciudadanoDao.setCiudadano(ciudadanoArray.get(i).getDni(), ciudadanoArray.get(i).getApellidoPaterno(), ciudadanoArray.get(i).getApellidoMaterno(), ciudadanoArray.get(i).getNombres(), ciudadanoArray.get(i).getEmail(), "");
+			}
 		}
 		
 	}

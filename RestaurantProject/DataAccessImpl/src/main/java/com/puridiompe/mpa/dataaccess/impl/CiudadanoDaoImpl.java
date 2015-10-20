@@ -43,18 +43,16 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 		Date fechaCreacion = new Date();
 		Ciudadano ciudadano = new Ciudadano();
 		List<Ciudadano> lista = ciudadanoRepository.findByImei(imei);
-		Ciudadano ciudadanoExists = null;
+		Ciudadano dniExists = ciudadanoRepository.findByDni(dni);		
+		Ciudadano imeiExists = null;
+		
 		if(lista.isEmpty() || lista.size() == 0){
-			ciudadanoExists = null;			
+			imeiExists = null;			
 		}else{
-			ciudadanoExists = lista.get(0);
+			imeiExists = lista.get(0);
 		}
 		
-		if(ciudadanoExists != null){
-//			fechaCreacion = ciudadanoExists.getFechaCreacion();
-			ciudadanoRepository.updateCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres,
-			email, new Date(), imei);
-		}else{
+		if(dniExists == null){
 			fechaCreacion = new Date();
 			ciudadano.setDni(dni);
 			ciudadano.setApellidoPaterno(apellidoPaterno);
@@ -66,6 +64,14 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 			ciudadano.setFechaModificacion(new Date());
 			
 			ciudadanoRepository.save(ciudadano);
+		}else{
+			if(imeiExists != null){
+				ciudadanoRepository.updateCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres,
+						email, new Date(), imei);	
+			}else{
+				ciudadanoRepository.updateCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres,
+						email, new Date(), imei);
+			}
 		}
 	}
 
