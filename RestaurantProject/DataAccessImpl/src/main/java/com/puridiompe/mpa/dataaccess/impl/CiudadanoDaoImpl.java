@@ -24,10 +24,12 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 	public CiudadanoDto getCiudadano(String imei){
 		
 		CiudadanoDto objectCiudadano = new CiudadanoDto();
-		Ciudadano ciudadano = ciudadanoRepository.findByImei(imei).get(0);
 		
-		if(ciudadano != null){
-			BeanUtils.copyProperties(ciudadano, objectCiudadano);
+//		Ciudadano ciudadano = ciudadanoRepository.findByImei(imei).get(0);
+		List<Ciudadano> ciudadano = ciudadanoRepository.findByImei(imei);
+		
+		if(!ciudadano.isEmpty()){
+			BeanUtils.copyProperties(ciudadano.get(0), objectCiudadano);
 		}else{
 			return null;
 		}
