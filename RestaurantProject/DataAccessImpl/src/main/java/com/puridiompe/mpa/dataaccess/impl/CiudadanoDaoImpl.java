@@ -1,6 +1,7 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 	public CiudadanoDto getCiudadano(String imei){
 		
 		CiudadanoDto objectCiudadano = new CiudadanoDto();
-		Ciudadano ciudadano = ciudadanoRepository.findByImei(imei);
+		Ciudadano ciudadano = ciudadanoRepository.findByImei(imei).get(0);
 		
 		if(ciudadano != null){
 			BeanUtils.copyProperties(ciudadano, objectCiudadano);
@@ -40,8 +41,15 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 			String email, String imei) {
 		
 		Date fechaCreacion = new Date();
-		Ciudadano ciudadano = new Ciudadano();	
-		Ciudadano ciudadanoExists = ciudadanoRepository.findByImei(imei);
+		Ciudadano ciudadano = new Ciudadano();
+		List<Ciudadano> lista = ciudadanoRepository.findByImei(imei);
+		Ciudadano ciudadanoExists = null;
+		if(lista.isEmpty() || lista.size() == 0){
+			ciudadanoExists = null;			
+		}else{
+			ciudadanoExists = lista.get(0);
+		}
+		
 		if(ciudadanoExists != null){
 //			fechaCreacion = ciudadanoExists.getFechaCreacion();
 			ciudadanoRepository.updateCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres,

@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.business.general;
 
+import java.util.List;
+
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
@@ -7,6 +9,9 @@ import com.puridiompe.mpa.common.security.exception.SecurityException;
 public interface GestionarCiudadanoBusiness {
 
 	public CiudadanoDto getCiudadano (String imei);
+	
 	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,
 			String email) throws BusinessException, SecurityException;
+	
+	public void setCiudadanoBatch(List<CiudadanoDto> ciudadanoArray);
 }

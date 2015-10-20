@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.rest.controller.general;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarCiudadanoBusiness;
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
+import com.puridiompe.mpa.common.exception.SaveCiudadanoException;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
+import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoArrayRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetCiudadanoValidator; 
@@ -40,18 +44,22 @@ public class RegistroCiudadanoController {
 	}
 	
 	@RequestMapping(value = "/setAndUpdate ", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean setCiudadano(@RequestBody @Valid RequestMessage<GetCiudadanoRequest> request, BindingResult result) throws BusinessException, SecurityException{
-			
-		GetCiudadanoRequest ciudadanoRequest = request.getBody();
+	public Integer setCiudadano(@RequestBody RequestMessage<GetCiudadanoArrayRequest> request, BindingResult result) 
+			throws BusinessException, SecurityException, SaveCiudadanoException{		
+		
+		List<CiudadanoDto> cuidadanoArray = request.getBody().getCiudadanoArray();
 		
 		if(result.hasErrors()){
-			return false;
+			throw new SaveCiudadanoException("No se pudieron guardar los ciudadanos enviados");
 		
-		}else{	
-			gestionarCiudadano.setCiudadano(ciudadanoRequest.getCiudadano().getDni(), ciudadanoRequest.getCiudadano().getApellidoPaterno(),
-					ciudadanoRequest.getCiudadano().getApellidoMaterno(), ciudadanoRequest.getCiudadano().getNombres(),ciudadanoRequest.getCiudadano().getEmail()); 
+		}else{
+			if(cuidadanoArray != null && !cuidadanoArray.isEmpty()){				
+				gestionarCiudadano.setCiudadanoBatch(cuidadanoArray);				
+			}else{
+				throw new SaveCiudadanoException("El array de ciudadanos está vacio o es nulo");				
+			}
 
-			return true;
+			return cuidadanoArray.size();
 		}
 
 

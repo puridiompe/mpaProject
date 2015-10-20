@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.business.impl.general;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,22 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 			String currentImei = SecurityContextHelper.getCurrentImei();
 
 			ciudadanoDao.setCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres, email, currentImei);
+	}
+	
+	@Override
+	public void setCiudadanoBatch(List<CiudadanoDto> ciudadanoArray){
+		
+		for(int i = 0; i < ciudadanoArray.size(); i++){
+			String currentImei = null;
+			try {
+				currentImei = SecurityContextHelper.getCurrentImei();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ciudadanoDao.setCiudadano(ciudadanoArray.get(i).getDni(), ciudadanoArray.get(i).getApellidoPaterno(), ciudadanoArray.get(i).getApellidoMaterno(), ciudadanoArray.get(i).getNombres(), ciudadanoArray.get(i).getEmail(), currentImei);
+		}
+		
 	}
 
 }

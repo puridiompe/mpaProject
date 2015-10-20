@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.rest.controller.general.message;
 
+
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 import com.puridiompe.mpa.common.rest.message.RequestBody;
 
