@@ -12,7 +12,9 @@ public class CiudadanoDto {
 	
 	private String email;
 	
-	private String imei;
+//	private String imei;
+//	
+//	private Long offlineTime;
 	
 	/**
 	 * Default Constructor
@@ -65,12 +67,20 @@ public class CiudadanoDto {
 		this.email = email;
 	}
 
-	public String getImei() {
-		return imei;
-	}
-
-	public void setImei(String imei) {
-		this.imei = imei;
-	}
+//	public String getImei() {
+//		return imei;
+//	}
+//
+//	public void setImei(String imei) {
+//		this.imei = imei;
+//	}
+//
+//	public Long getOfflineTime() {
+//		return offlineTime;
+//	}
+//
+//	public void setOfflineTime(Long offlineTime) {
+//		this.offlineTime = offlineTime;
+//	}
 
 }

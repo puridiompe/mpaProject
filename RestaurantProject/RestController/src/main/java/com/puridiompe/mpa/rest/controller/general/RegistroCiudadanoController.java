@@ -23,7 +23,7 @@ import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
-import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoArrayRequest;
+import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanosRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetCiudadanoValidator; 
@@ -44,22 +44,22 @@ public class RegistroCiudadanoController {
 	}
 	
 	@RequestMapping(value = "/setAndUpdate ", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Integer setCiudadano(@RequestBody RequestMessage<GetCiudadanoArrayRequest> request, BindingResult result) 
+	public Integer setCiudadano(@RequestBody RequestMessage<GetCiudadanosRequest> request, BindingResult result) 
 			throws BusinessException, SecurityException, SaveCiudadanoException{		
 		
-		List<CiudadanoDto> cuidadanoArray = request.getBody().getCiudadanoArray();
+		List<CiudadanoDto> ciudadanos = request.getBody().getCiudadanos();
 		
 		if(result.hasErrors()){
 			throw new SaveCiudadanoException("No se pudieron guardar los ciudadanos enviados");
 		
 		}else{
-			if(cuidadanoArray != null && !cuidadanoArray.isEmpty()){				
-				gestionarCiudadano.setCiudadanoBatch(cuidadanoArray);				
+			if(ciudadanos != null && !ciudadanos.isEmpty()){				
+				gestionarCiudadano.setCiudadanoBatch(ciudadanos);				
 			}else{
 				throw new SaveCiudadanoException("El array de ciudadanos está vacio o es nulo");				
 			}
 
-			return cuidadanoArray.size();
+			return ciudadanos.size();
 		}
 
 
@@ -69,10 +69,11 @@ public class RegistroCiudadanoController {
 	public @ResponseBody ResponseMessage<GetCiudadanoResponse> updateCiudadano(@RequestBody RequestMessage<GetCiudadanoRequest> request)
 			throws BusinessException, SecurityException {
 		
-		String currentImei = SecurityContextHelper.getCurrentImei();
+//		String currentImei = SecurityContextHelper.getCurrentImei();	
 		
-		//GetCiudadanoRequest ciudadanoRequest = request.getBody();
-		CiudadanoDto ciudadanoObject = gestionarCiudadano.getCiudadano(currentImei);//ciudadanoRequest.getCiudadano().getImei());
+		
+		GetCiudadanoRequest ciudadanoRequest = request.getBody();
+		CiudadanoDto ciudadanoObject = gestionarCiudadano.getCiudadano(ciudadanoRequest.getCiudadano().getDni());
 		
 		ResponseMessage<GetCiudadanoResponse> response = new ResponseMessage<GetCiudadanoResponse>();
 		GetCiudadanoResponse ciudadanoResponse = new GetCiudadanoResponse();

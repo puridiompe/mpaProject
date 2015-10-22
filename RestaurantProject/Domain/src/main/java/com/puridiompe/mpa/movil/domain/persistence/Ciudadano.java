@@ -27,8 +27,8 @@ public class Ciudadano {
 	@Column(name = "\"email\"", nullable = true)
 	private String email;
 	
-	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
-	private String imei;
+//	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
+//	private String imei;
 	
 	@Column(name = "\"fecCre\"", nullable = false)
 	private Date fechaCreacion;
@@ -87,13 +87,13 @@ public class Ciudadano {
 		this.email = email;
 	}
 
-	public String getImei() {
-		return imei;
-	}
-
-	public void setImei(String imei) {
-		this.imei = imei;
-	}
+//	public String getImei() {
+//		return imei;
+//	}
+//
+//	public void setImei(String imei) {
+//		this.imei = imei;
+//	}
 
 	public Date getFechaCreacion() {
 		return fechaCreacion;

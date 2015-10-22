@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.common.security.SecurityContextHelper;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 
 @Service
@@ -16,14 +18,21 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	private ReclamoDao reclamoDao;
 	
 	@Override
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64) {
+	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64) throws SecurityException {
 		
-		reclamoDao.saveReclamo(dni, descripcion, vehiculo, imagenesBase64);
+		String currentImei = SecurityContextHelper.getCurrentImei(); 
+		
+		reclamoDao.saveReclamo(dni, descripcion, vehiculo, imagenesBase64, currentImei);
 	}
 
 	@Override
 	public List<ReclamoDto> getReclamosFrecuentes() {
 		return reclamoDao.getReclamosFrecuentes();
+	}
+	
+	@Override
+	public Integer getLastDniByImei(String imei){
+		return reclamoDao.getLastDniByImei(imei);
 	}
 
 }

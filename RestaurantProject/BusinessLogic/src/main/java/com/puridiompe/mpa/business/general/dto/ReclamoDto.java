@@ -18,6 +18,8 @@ public class ReclamoDto {
 	
 	private List<String> imagenesBase64;
 	
+	private String imei;
+	
 	
 	public ReclamoDto (){
 		imagenesBase64 = new ArrayList<String>();		
@@ -80,6 +82,16 @@ public class ReclamoDto {
 
 	public void setImagenesBase64(List<String> imagenesBase64) {
 		this.imagenesBase64 = imagenesBase64;
+	}
+
+
+	public String getImei() {
+		return imei;
+	}
+
+
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 	
 }

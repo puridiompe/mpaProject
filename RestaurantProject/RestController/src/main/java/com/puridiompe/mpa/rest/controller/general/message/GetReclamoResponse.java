@@ -7,14 +7,14 @@ import com.puridiompe.mpa.common.rest.message.ResponseBody;
 
 public class GetReclamoResponse extends ResponseBody{
 	
-	private ReclamoDto gps;
+	private ReclamoDto reclamo;
 
-	public ReclamoDto getGps() {
-		return gps;
+	public ReclamoDto getReclamo() {
+		return reclamo;
 	}
 
-	public void setGps(ReclamoDto gps) {
-		this.gps = gps;
+	public void setReclamo(ReclamoDto reclamo) {
+		this.reclamo = reclamo;
 	}
 	
 	private List<ReclamoDto> reclamosFrecuentes;

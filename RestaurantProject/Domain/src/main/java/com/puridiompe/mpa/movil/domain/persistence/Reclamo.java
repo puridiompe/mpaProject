@@ -32,6 +32,9 @@ public class Reclamo {
 	@Column(name = "\"fecCre\"")
 	private Date fechaCreacion;
 	
+	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
+	private String imei;
+	
 	
 	public Reclamo (){
 		
@@ -76,5 +79,15 @@ public class Reclamo {
 
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+
+
+	public String getImei() {
+		return imei;
+	}
+
+
+	public void setImei(String imei) {
+		this.imei = imei;
 	}
 }

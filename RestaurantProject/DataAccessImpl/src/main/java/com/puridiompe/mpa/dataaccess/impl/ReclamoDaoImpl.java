@@ -42,7 +42,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
-	public void saveReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64) {
+	public void saveReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String imei) {
 		
 		Reclamo reclamo =  new Reclamo();		
 		
@@ -50,6 +50,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		reclamo.setDescripcion(descripcion);
 		reclamo.setVehiculo(vehiculo);
 		reclamo.setFechaCreacion(new Date());
+		reclamo.setImei(imei);
 		
 		reclamoRepository.save(reclamo);
 		
@@ -105,5 +106,13 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		else return null;
 		
 		return reclamosFrecuentesObject;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public Integer getLastDniByImei(String imei){
+		List<Reclamo> lastReclamosByImei = reclamoRepository.findByImei(imei);
+		
+		return lastReclamosByImei.get(0).getDni();
 	}
 }

@@ -8,7 +8,7 @@ import com.puridiompe.mpa.common.security.exception.SecurityException;
 
 public interface GestionarCiudadanoBusiness {
 
-	public CiudadanoDto getCiudadano (String imei);
+	public CiudadanoDto getCiudadano (Integer dni);
 	
 	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,
 			String email) throws BusinessException, SecurityException;

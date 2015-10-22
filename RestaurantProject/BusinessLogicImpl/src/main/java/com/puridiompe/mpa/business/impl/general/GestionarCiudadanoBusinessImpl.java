@@ -19,9 +19,9 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 	CiudadanoDao ciudadanoDao;
 	
 	@Override
-	public CiudadanoDto getCiudadano(String imei){
+	public CiudadanoDto getCiudadano(Integer dni){
 		
-		CiudadanoDto ciudadanoDto = ciudadanoDao.getCiudadano(imei);
+		CiudadanoDto ciudadanoDto = ciudadanoDao.getCiudadano(dni);
 		
 		return ciudadanoDto;
 	}
@@ -32,27 +32,30 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 
 			String currentImei = SecurityContextHelper.getCurrentImei();
 
-			ciudadanoDao.setCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres, email, currentImei);
+			ciudadanoDao.setCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres, email);
 	}
 	
 	@Override
-	public void setCiudadanoBatch(List<CiudadanoDto> ciudadanoArray){
+	public void setCiudadanoBatch(List<CiudadanoDto> ciudadanos){
 		
-		int arraySize = ciudadanoArray.size();
+		int arraySize = ciudadanos.size();
+//		boolean isLast = false;
 		
 		for(int i = 0; i < arraySize; i++){
-			String currentImei = null;
-			try {
-				currentImei = SecurityContextHelper.getCurrentImei();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(i == arraySize-1){
-				ciudadanoDao.setCiudadano(ciudadanoArray.get(i).getDni(), ciudadanoArray.get(i).getApellidoPaterno(), ciudadanoArray.get(i).getApellidoMaterno(), ciudadanoArray.get(i).getNombres(), ciudadanoArray.get(i).getEmail(), currentImei);
-			}else{
-				ciudadanoDao.setCiudadano(ciudadanoArray.get(i).getDni(), ciudadanoArray.get(i).getApellidoPaterno(), ciudadanoArray.get(i).getApellidoMaterno(), ciudadanoArray.get(i).getNombres(), ciudadanoArray.get(i).getEmail(), "");
-			}
+//			String currentImei = null;
+//			try {
+//				currentImei = SecurityContextHelper.getCurrentImei();
+//			} catch (SecurityException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			if(i == arraySize-1){
+//				isLast = true;
+//				ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail(), currentImei, ciudadanos.get(i).getOfflineTime(), isLast);
+//			}else{				
+//				ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail(), currentImei, ciudadanos.get(i).getOfflineTime(), isLast);
+//			}
+			ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail());
 		}
 		
 	}

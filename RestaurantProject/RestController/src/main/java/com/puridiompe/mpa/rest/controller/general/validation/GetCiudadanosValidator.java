@@ -6,10 +6,10 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
-import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanoArrayRequest;
+import com.puridiompe.mpa.rest.controller.general.message.GetCiudadanosRequest;
 
 @Component
-public class GetCiudadanoArrayValidator implements Validator{
+public class GetCiudadanosValidator implements Validator{
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -19,10 +19,10 @@ public class GetCiudadanoArrayValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		RequestMessage<GetCiudadanoArrayRequest> request = (RequestMessage<GetCiudadanoArrayRequest>) target;		
+		RequestMessage<GetCiudadanosRequest> request = (RequestMessage<GetCiudadanosRequest>) target;		
 		
 		
-		for(Integer i = 0; i < request.getBody().getCiudadanoArray().size(); i++){
+		for(Integer i = 0; i < request.getBody().getCiudadanos().size(); i++){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
 								"body.ciudadanoArray["+i.toString()+"].dni",
 								"validation.request.pedidos.comentario.required");

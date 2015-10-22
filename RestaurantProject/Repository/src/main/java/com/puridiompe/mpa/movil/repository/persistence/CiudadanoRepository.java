@@ -15,11 +15,16 @@ public interface CiudadanoRepository extends JpaRepository<Ciudadano, Integer>{
 	@Query("from  Ciudadano p where p.dni = ?1")
 	public Ciudadano findByDni (Integer dni);
 	
-	@Query("from Ciudadano p where p.imei = ?1")
-	public List<Ciudadano> findByImei (String imei);
+//	@Query("from Ciudadano p where p.imei = ?1")
+//	public List<Ciudadano> findByImei (String imei);
 	
-	@Modifying
-	@Query("update Ciudadano p set p.dni = ?1, p.apellidoPaterno = ?2, p.apellidoMaterno = ?3, p.nombres = ?4, p.email = ?5, p.fechaModificacion = ?6 where p.imei = ?7")
-	@Transactional
-	public void updateCiudadano(Integer dni, String apePat, String apeMat, String nombres, String email, Date fecMod, String imei);
+//	@Modifying
+//	@Query("update Ciudadano p set p.dni = ?1, p.apellidoPaterno = ?2, p.apellidoMaterno = ?3, p.nombres = ?4, p.email = ?5, p.fechaModificacion = ?6 where p.imei = ?7")
+//	@Transactional
+//	public void updateCiudadano(Integer dni, String apePat, String apeMat, String nombres, String email, Date fecMod, String imei);
+//	
+//	@Modifying
+//	@Query("update Ciudadano p set p.apellidoPaterno = ?2, p.apellidoMaterno = ?3, p.nombres = ?4, p.email = ?5, p.fechaModificacion = ?6, p.imei = ?7 where p.dni = ?1")
+//	@Transactional
+//	public void updateByDni(Integer dni, String apePat, String apeMat, String nombres, String email, Date fecMod, String imei);
 }
