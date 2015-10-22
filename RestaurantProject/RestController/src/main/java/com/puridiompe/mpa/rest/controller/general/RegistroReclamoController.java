@@ -15,6 +15,7 @@ import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
+import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
@@ -60,9 +61,11 @@ public class RegistroReclamoController {
 	@RequestMapping(value = "/getLastDniByImei", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetReclamoResponse> getLastDniByImei(
 			@RequestBody RequestMessage<GetReclamoRequest> request)
-					throws BusinessException{
+					throws BusinessException, SecurityException{
 		
-		Integer dni = gestionarReclamo.getLastDniByImei(request.getBody().getReclamo().getImei());
+		String currentImei = SecurityContextHelper.getCurrentImei();
+		
+		Integer dni = gestionarReclamo.getLastDniByImei(currentImei);//request.getBody().getReclamo().getImei());
 		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();		
 		
 		GetReclamoResponse lastDnibyImeiResponse = new GetReclamoResponse();

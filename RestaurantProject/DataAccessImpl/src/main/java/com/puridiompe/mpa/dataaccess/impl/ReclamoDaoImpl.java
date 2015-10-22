@@ -113,6 +113,11 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	public Integer getLastDniByImei(String imei){
 		List<Reclamo> lastReclamosByImei = reclamoRepository.findByImei(imei);
 		
-		return lastReclamosByImei.get(0).getDni();
+		if(lastReclamosByImei.isEmpty()){
+			return null;
+		}else{
+			return lastReclamosByImei.get(0).getDni();
+		}
+		
 	}
 }
