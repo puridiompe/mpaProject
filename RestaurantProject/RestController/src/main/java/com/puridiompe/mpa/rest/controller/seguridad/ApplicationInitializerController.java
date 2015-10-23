@@ -52,7 +52,7 @@ public class ApplicationInitializerController extends BaseController {
 
 		String imei = Network.getClientImei(deviceRequest.getDevice().getImei(), servletRequest);
 
-		gestionarDeviceBusiness.checkDeviceByImei(imei);
+//		gestionarDeviceBusiness.checkDeviceByImei(imei);
 
 		ApplicationResponse applicationResponse = new ApplicationResponse();
 
