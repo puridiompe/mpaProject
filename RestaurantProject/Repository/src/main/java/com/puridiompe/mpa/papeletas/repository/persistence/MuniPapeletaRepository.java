@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.puridiompe.mpa.papeletas.domain.persistence.MuniPapeleta;
 
+import java.util.List;
+
 public interface MuniPapeletaRepository extends JpaRepository<MuniPapeleta, Integer>{
 	
 	/**
@@ -14,7 +16,7 @@ public interface MuniPapeletaRepository extends JpaRepository<MuniPapeleta, Inte
 	 * @return
 	 */
 	@Query("from MuniPapeleta p where p.placa = ?1")
-	public MuniPapeleta findByPlaca(String placa);
+	public List<MuniPapeleta> findByPlaca(String placa);
 	
 	/**
 	 * find MuniPapeleta by licencia

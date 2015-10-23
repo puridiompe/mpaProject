@@ -1,139 +1,49 @@
-package com.puridiompe.mpa.papeletas.domain.persistence;
+package com.puridiompe.mpa.business.general.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class PapeletaDto {
 
-/**
- * @author PuridiomPe
- * @version 1.0
- * 
- *
- */
-@Entity
-@Table(name = "\"muni_papeleta\"")
-public class MuniPapeleta {
-
-	@Id
-	@Column(name = "\"nupap\"", length = 8)
 	private String numeroPapeleta;
-	
-	@Column(name = "\"placa\"", length = 8)
 	private String placa;
-	
-	@Column(name = "\"fecha\"")
 	private Date fecha;
-	
-	@Column(name = "\"fecvenc\"")
 	private Date fechaVencimiento;
-	
-	@Column(name = "\"cdpar\"", length = 1)
 	private String codigopar;
-	
-	@Column(name = "\"cdinf\"", length = 4)
 	private String codigoInfraccion;
-	
-	@Column(name = "\"dsinf\"", length = 90)
 	private String descripcionInfraccion;
-	
-	@Column(name = "\"monto\"", precision = 10, scale = 2)
 	private BigDecimal monto;
-	
-	@Column(name = "\"porce\"", length = 90)
 	private String porcentaje;
-	
-	@Column(name = "\"rebaja\"", precision = 10, scale = 2)
 	private BigDecimal rebaja;
-	
-	@Column(name = "\"valor\"", precision = 10, scale = 2)
 	private BigDecimal valor;
-	
-	@Column(name = "\"clase\"", length = 20)
 	private String clase;
-	
-	@Column(name = "\"marca\"", length = 30)
 	private String marca;
-	
-	@Column(name = "\"modelo\"", length = 30)
 	private String modelo;
-	
-	@Column(name = "\"estado\"", length = 20)
 	private String estado;
-	
-	@Column(name = "\"licencia\"", length = 10)
 	private String licencia;
-	
-	@Column(name = "\"cdpro\"", length = 8)
 	private String codigoProceso;
-	
-	@Column(name = "\"nmcompleto\"", length = 90)
 	private String nombreCompleto;
-	
-	@Column(name = "\"cdlic\"", length = 8)
 	private String codigoLicencia;
-	
-	@Column(name = "\"nmcomplet1\"", length = 90)
 	private String nombreCompleto1;
-	
-	@Column(name = "\"ndocide\"", length = 15)
 	private String numeroDocumentoIdentificacion;
-	
-	@Column(name = "\"dsdomicili\"", length = 100)
 	private String descripcionDomicilio;
-	
-	@Column(name = "\"duple\"", length = 1)
 	private String duple;
-	
-	@Column(name = "\"cdco\"", length = 6)
 	private String codigoCo;
-	
-	@Column(name = "\"cdde\"", length = 6)
 	private String codigoDe;
-	
-	@Column(name = "\"peri\"", length = 4)
 	private String peri;
-	
-	@Column(name = "\"cdex\"", length = 12)
 	private String cedex;
-	
-	@Column(name = "\"nrdo\"", length = 12)
 	private String numeroDo;
-	
-	@Column(name = "\"recibo\"", length = 9)
 	private String recibo;
-	
-	@Column(name = "\"fecha1\"")
 	private Date fecha1;
-	
-	@Column(name = "\"nroconst\"", length = 7)
 	private String numeroConstante;
-	
-	@Column(name = "\"nrre\"")
 	private BigDecimal nrre;
-	
-	@Column(name = "\"fere\"")
 	private Date fere;
-	
-	@Column(name = "\"fecnot\"")
 	private Date fecnot;
 	
-	
-	/**
-	 * Default Constructor
-	 */
-	public MuniPapeleta() {
+	public PapeletaDto() {
 
 	}
 	
-
-	/**
-	 * Getters and Setters
-	 * @return
-	 */
 	public String getNumeroPapeleta() {
 		return numeroPapeleta;
 	}
@@ -473,5 +383,5 @@ public class MuniPapeleta {
 	public void setFecnot(Date fecnot) {
 		this.fecnot = fecnot;
 	}
-
+	
 }

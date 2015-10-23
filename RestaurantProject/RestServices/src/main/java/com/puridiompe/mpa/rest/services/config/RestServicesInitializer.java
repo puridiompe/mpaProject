@@ -18,6 +18,7 @@ import com.puridiompe.mpa.business.security.config.SecurityMethodConfiguration;
 import com.puridiompe.mpa.dataaccess.config.DataAccessConfiguration;
 import com.puridiompe.mpa.repository.config.FileRepositoryConfiguration;
 import com.puridiompe.mpa.repository.config.MovilRepositoryConfiguration;
+import com.puridiompe.mpa.repository.config.PapeletasRepositoryConfiguration;
 import com.puridiompe.mpa.repository.config.SistranRepositoryConfiguration;
 import com.puridiompe.mpa.rest.security.config.SecurityConfiguration;
 
@@ -41,7 +42,7 @@ public class RestServicesInitializer implements WebApplicationInitializer {
 	//	rootCtx.register(BusinessConfiguration.class, // --->> 
 				DataAccessConfiguration.class,
 				SistranRepositoryConfiguration.class,
-//				PapeletasRepositoryConfiguration.class,
+				PapeletasRepositoryConfiguration.class,
 				MovilRepositoryConfiguration.class, 
 				FileRepositoryConfiguration.class);
 
