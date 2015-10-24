@@ -11,5 +11,8 @@ public interface ImagenRepository  extends JpaRepository<Imagen, Integer>{
 	
 	@Query("from Imagen i where i.tipo = ?1")
 	public List<Imagen> findByTipo(String tipo);
+	
+	@Query("from Imagen i where i.idPadre = ?1")
+	public List<Imagen> findByidPadre(Integer idPadre);
 
 }
