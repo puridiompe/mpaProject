@@ -26,7 +26,7 @@ public class RegistroReclamosController {
 	private GestionarReclamosBusiness gestionarReclamos;
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetReclamosResponse> updateCiudadano(@RequestBody RequestMessage<GetReclamosRequest> request)
+	public @ResponseBody ResponseMessage<GetReclamosResponse> updateCiudadano()
 			throws BusinessException, SecurityException{
 		
 
