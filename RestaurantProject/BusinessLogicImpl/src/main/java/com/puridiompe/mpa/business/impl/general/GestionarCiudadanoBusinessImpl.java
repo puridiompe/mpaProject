@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.business.impl.general;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 			String currentImei = SecurityContextHelper.getCurrentImei();
 
 			ciudadanoDao.setCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres, email);
+
 	}
 	
 	@Override
@@ -55,7 +57,9 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 //			}else{				
 //				ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail(), currentImei, ciudadanos.get(i).getOfflineTime(), isLast);
 //			}
+
 			ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail());
+
 		}
 		
 	}
