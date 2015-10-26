@@ -14,11 +14,15 @@ public class ReclamoDto {
 	
 	private String vehiculo;
 	
-	private Date fechaCreacion;
+//	private Date fechaCreacion;
 	
 	private List<String> imagenesBase64;
 	
 	private String imei;
+	
+//	private String estado;
+	
+	private String numRec;
 	
 	
 	public ReclamoDto (){
@@ -65,14 +69,14 @@ public class ReclamoDto {
 		this.vehiculo = vehiculo;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
+//	public Date getFechaCreacion() {
+//		return fechaCreacion;
+//	}
+//
+//
+//	public void setFechaCreacion(Date fechaCreacion) {
+//		this.fechaCreacion = fechaCreacion;
+//	}
 
 
 	public List<String> getImagenesBase64() {
@@ -93,5 +97,25 @@ public class ReclamoDto {
 	public void setImei(String imei) {
 		this.imei = imei;
 	}
+
+
+	public String getNumRec() {
+		return numRec;
+	}
+
+
+	public void setNumRec(String numRec) {
+		this.numRec = numRec;
+	}
+
+//
+//	public String getEstado() {
+//		return estado;
+//	}
+//
+//
+//	public void setEstado(String estado) {
+//		this.estado = estado;
+//	}
 	
 }

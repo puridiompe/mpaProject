@@ -1,7 +1,5 @@
 package com.puridiompe.mpa.movil.domain.persistence;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.Transient;
+
+import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "\"TrMov_Reclamo\"")
-public class Reclamo {
+public class Reclamo extends PersistenceAuditableEntity<Integer>{
 	
 	@Id
 	@Column(name = "\"idRec\"", unique = true, nullable = false)
@@ -29,11 +32,11 @@ public class Reclamo {
 	@Column(name = "\"vehiculo\"")
 	private String vehiculo;
 	
-	@Column(name = "\"fecCre\"")
-	private Date fechaCreacion;
-	
 	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
-	private String imei;
+	private String imei;	
+	
+	@Column(name = "\"numRec\"", length = 10, insertable = false)
+	private String numRec;
 	
 	
 	public Reclamo (){
@@ -73,21 +76,21 @@ public class Reclamo {
 		this.vehiculo = vehiculo;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-
 	public String getImei() {
 		return imei;
 	}
 
-
 	public void setImei(String imei) {
 		this.imei = imei;
 	}
+
+	
+	public String getNumRec() {
+		return numRec;
+	}
+	
+	public void setNumRec(String numRec) {
+		this.numRec = numRec;
+	}
+
 }

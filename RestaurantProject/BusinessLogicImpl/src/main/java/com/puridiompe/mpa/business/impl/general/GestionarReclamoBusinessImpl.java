@@ -18,11 +18,11 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	private ReclamoDao reclamoDao;
 	
 	@Override
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64) throws SecurityException {
+	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String estado) throws SecurityException {
 		
 		String currentImei = SecurityContextHelper.getCurrentImei(); 
 		
-		reclamoDao.saveReclamo(dni, descripcion, vehiculo, imagenesBase64, currentImei);
+		reclamoDao.saveReclamo(dni, descripcion, vehiculo, imagenesBase64, currentImei, estado);
 	}
 
 	@Override
@@ -33,6 +33,11 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	@Override
 	public Integer getLastDniByImei(String imei){
 		return reclamoDao.getLastDniByImei(imei);
+	}
+	
+	@Override
+	public List<ReclamoDto> getAll(){
+		return reclamoDao.getAll();
 	}
 
 }
