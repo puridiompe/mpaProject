@@ -22,6 +22,7 @@ import com.puridiompe.mpa.common.security.SystemRole;
 public class GestionarUserRightsBusinessImpl implements
 		GestionarUserRightsBusiness {
 
+	
 	@Override
 	public boolean hasModuleRight(UserDetails user, SystemModule module) {
 		// TODO Auto-generated method stub
