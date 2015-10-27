@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
@@ -21,6 +22,7 @@ import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetReclamosResponse;
 
 @RestController
 @RequestMapping("/transportes/reclamo")
@@ -123,19 +125,37 @@ public class RegistroReclamoController {
 	}
 
 	@RequestMapping(value = "/getAllReclamo", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetReclamoResponse> getAll()
+	public @ResponseBody ResponseMessage<GetReclamosResponse> getAll()
 			throws BusinessException {
 
-		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		ResponseMessage<GetReclamosResponse> response = new ResponseMessage<GetReclamosResponse>();
 
-		GetReclamoResponse reclamoResponse = new GetReclamoResponse();
+		GetReclamosResponse reclamoResponse = new GetReclamosResponse();
 
-		List<ReclamoDto> forResponse = gestionarReclamo.getAll();
+		ReclamosDto forResponse = gestionarReclamo.getAll();
 
-		reclamoResponse.setReclamosFrecuentes(forResponse);
+		reclamoResponse.setReclamos(forResponse);
 
 		response.setBody(reclamoResponse);
 
+		return response;
+	}
+	
+	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamosResponse> getAllByImei()
+			throws BusinessException, SecurityException{
+		
+
+		String currentImei = SecurityContextHelper.getCurrentImei();
+//		GetReclamosRequest reclamosRequest = request.getBody();
+		ReclamosDto reclamosObject = gestionarReclamo.getReclamosByImei(currentImei);
+		
+		ResponseMessage<GetReclamosResponse> response = new ResponseMessage<GetReclamosResponse>();
+		GetReclamosResponse reclamosResponse = new GetReclamosResponse();
+		
+		reclamosResponse.setReclamos(reclamosObject);
+		response.setBody(reclamosResponse);
+		
 		return response;
 	}
 }

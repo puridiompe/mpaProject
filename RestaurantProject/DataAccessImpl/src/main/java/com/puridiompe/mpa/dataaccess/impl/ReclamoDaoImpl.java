@@ -1,11 +1,6 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -14,17 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
+import com.puridiompe.mpa.business.general.dto.ImagenDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.business.general.dto.ReclamosDto;
+import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.ImageType;
-import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
+import com.puridiompe.mpa.movil.domain.persistence.Ciudadano;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
 import com.puridiompe.mpa.movil.domain.persistence.ReclamoFrecuente;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
+import com.puridiompe.mpa.movil.repository.persistence.CiudadanoRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoFrecuenteRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoRepository;
@@ -42,7 +42,10 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	private ImagenRepository imagenRepository;
 	
 	@Autowired
-	private FileRepository fileRepository; 
+	private FileRepository fileRepository;
+	
+	@Autowired
+	private CiudadanoRepository ciudadanoRepository; 
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
@@ -141,25 +144,6 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
-	public List<ReclamoDto> getAll(){
-		List<Reclamo> reclamos = reclamoRepository.findAll();
-		List<ReclamoDto> forResponse = new ArrayList<ReclamoDto>();
-		
-		if(reclamos.isEmpty()){
-			return null;
-		}else{
-			for(int i = 0; i < reclamos.size(); i++){
-				ReclamoDto reclamo = new ReclamoDto();
-				BeanUtils.copyProperties(reclamos.get(i), reclamo);
-				forResponse.add(reclamo);
-			}
-			return forResponse;
-		}
-		
-	}
-	
-	@Transactional(value = "movilTransactionManager", readOnly = true)
-	@Override
 	public ReclamoDto getById(Integer idReclamo){
 		
 		Reclamo reclamo = reclamoRepository.findById(idReclamo);	 
@@ -173,5 +157,97 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			return reclamoDto;
 		}
 		
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public ReclamosDto getReclamosByImei(String imei) {
+		
+		ReclamosDto objectReclamos = new ReclamosDto();
+		
+		List<Reclamo> reclamo =  reclamoRepository.findByImei(imei);
+		
+		if(!reclamo.isEmpty()){
+						
+			for(int i = 0; i < reclamo.size(); i++){
+				
+				ReclamoDto objectReclamo = new ReclamoDto();
+				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
+
+				CiudadanoDto objectCiudadano = new CiudadanoDto();
+				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
+				BeanUtils.copyProperties(ciudadano, objectCiudadano);
+				
+				ImagenDto objectImagenDto = new ImagenDto();
+				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
+				ResumenImagenDto resumenImagen = new ResumenImagenDto();
+
+				if(!imagen.isEmpty()){
+					
+					resumenImagen.setNumeroImagenes(imagen.size());
+					for(int j = 0; j < imagen.size(); j++){
+						resumenImagen.getPesoImagen().add(Integer.toString(imagen.get(j).getTamanho()));
+					}
+				}else{
+					resumenImagen.setNumeroImagenes(0);
+					resumenImagen.getPesoImagen().add("");
+				}
+				
+				objectReclamos.getListImagen().add(resumenImagen);
+				objectReclamos.getListCiudadano().add(objectCiudadano);
+				objectReclamos.getListReclamo().add(objectReclamo);
+			}
+
+		}else{
+			return null;
+		}
+		
+		return objectReclamos;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public ReclamosDto getAll() {
+		
+		ReclamosDto objectReclamos = new ReclamosDto();
+		
+		List<Reclamo> reclamo =  reclamoRepository.findAll();
+		
+		if(!reclamo.isEmpty()){
+						
+			for(int i = 0; i < reclamo.size(); i++){
+				
+				ReclamoDto objectReclamo = new ReclamoDto();
+				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
+
+				CiudadanoDto objectCiudadano = new CiudadanoDto();
+				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
+				BeanUtils.copyProperties(ciudadano, objectCiudadano);
+				
+				ImagenDto objectImagenDto = new ImagenDto();
+				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
+				ResumenImagenDto resumenImagen = new ResumenImagenDto();
+
+				if(!imagen.isEmpty()){
+					
+					resumenImagen.setNumeroImagenes(imagen.size());
+					for(int j = 0; j < imagen.size(); j++){
+						resumenImagen.getPesoImagen().add(Integer.toString(imagen.get(j).getTamanho()));
+					}
+				}else{
+					resumenImagen.setNumeroImagenes(0);
+					resumenImagen.getPesoImagen().add("");
+				}
+				
+				objectReclamos.getListImagen().add(resumenImagen);
+				objectReclamos.getListCiudadano().add(objectCiudadano);
+				objectReclamos.getListReclamo().add(objectReclamo);
+			}
+
+		}else{
+			return null;
+		}
+		
+		return objectReclamos;
 	}
 }

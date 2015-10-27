@@ -3,6 +3,7 @@ package com.puridiompe.mpa.dataaccess;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 
 public interface ReclamoDao {
@@ -13,7 +14,9 @@ public interface ReclamoDao {
 	
 	public Integer getLastDniByImei(String imei);
 
-	public List<ReclamoDto> getAll();
+	public ReclamosDto getAll();
 	
 	public ReclamoDto getById(Integer idReclamo);
+	
+	public ReclamosDto getReclamosByImei(String imei);
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
@@ -37,8 +38,18 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public List<ReclamoDto> getAll(){
+	public ReclamosDto getAll(){
 		return reclamoDao.getAll();
+	}
+	
+	@Override
+	public ReclamosDto getReclamosByImei(String imei) {
+		
+//		String currentImei = SecurityContextHelper.getCurrentImei();
+		
+		ReclamosDto reclamosDto = reclamoDao.getReclamosByImei(imei); 
+		
+		return reclamosDto;
 	}
 
 }
