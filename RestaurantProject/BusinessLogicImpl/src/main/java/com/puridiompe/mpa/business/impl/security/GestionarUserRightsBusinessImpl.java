@@ -37,6 +37,7 @@ public class GestionarUserRightsBusinessImpl implements
 				case INFRACCIONES:return true;
 				case NOTICIAS:return true;
 				case CIUDADANO:return true;
+				case RECLAMOS:return true;
 				default: return false;
 				}
 			case INSPECTOR:
@@ -54,6 +55,7 @@ public class GestionarUserRightsBusinessImpl implements
 				case PAPELETAS:return true;
 				case GEO_LOCALIZACION:return true;
 				case CIUDADANO:return true;
+				case RECLAMOS:return true;
 				default: return false;
 				}
 			case ADMINISTRADOR:
