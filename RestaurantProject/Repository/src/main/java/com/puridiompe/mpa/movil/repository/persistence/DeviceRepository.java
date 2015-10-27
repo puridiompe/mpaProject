@@ -26,6 +26,7 @@ public interface DeviceRepository extends JpaRepository<Device, Integer>{
 	@Query("from Device i where i.usuarioId = ?1")
 	public List<Device> findByUserId(Integer usuario_id);
 	
-	
+	@Query("from Device i where i.usuarioId = ?1 order by i.fecCre desc")
+	public List<Device> findByLastUserId(Integer usuario_id);
 
 }
