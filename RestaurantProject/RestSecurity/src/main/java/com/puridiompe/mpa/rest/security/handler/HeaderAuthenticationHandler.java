@@ -60,6 +60,25 @@ public class HeaderAuthenticationHandler {
         return StringUtils.isNotBlank(header) ? extractImei(header) : null;
     }
 
+    public String getUser(HttpServletRequest request){
+    	String header = request.getHeader(HEADER_NAME);
+    	return StringUtils.isNotBlank(header) ? extractUser(header) : null;
+    }
+    private String extractUser(String value) {
+
+        try {
+            String decryptedValue = encryptionUtil.decrypt(value, seed);
+            String[] split = decryptedValue.split("\\|");
+            String username = split[0];
+            return username;
+            
+        } catch (IOException | GeneralSecurityException e) {
+        	//Logger.debug(this, "Unable to decrypt header" + e);
+        }
+        return null;
+    }
+    
+    
     private String extractUserName(String value) {
 
         try {
@@ -85,9 +104,10 @@ public class HeaderAuthenticationHandler {
             String username = split[0];
             String imei = split[1]; 
             DateTime timestamp =  new DateTime(Long.parseLong(split[2]));
-            if (timestamp.isAfter(DateTime.now().minus(sessionMaxAge))) {
+            //if (timestamp.isAfter(DateTime.now().minus(sessionMaxAge))) {
                 return imei;
-            }
+            //}
+            	
         } catch (IOException | GeneralSecurityException e) {
 //            Logger.debug(this, "Unable to decrypt header" + e);
         }

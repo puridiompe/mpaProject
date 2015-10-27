@@ -54,6 +54,7 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 						.getAuthentication().getPrincipal();
 				String userName = usuario.getUsername();
 				String imei = usuario.getImei();
+				//aqui se le agrega el token  
 				authenticationHandler.addHeader((HttpServletResponse) response, userName, imei);
 			}
 			filterChain.doFilter(request, response);
@@ -85,12 +86,18 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 	}
 
 	private UserDetails loadUserDetails(HttpServletRequest request) {
-		String username = authenticationHandler.getUserName(request);
-
-		if (userDetailsService.isAnonymusUser(username)) {
+		String user= authenticationHandler.getUser(request);
+		//traer fecha de authenticationHandler 
+	
+		if (userDetailsService.isAnonymusUser(user)) { // ciudadano carga ignorar si es un ciudadano 
 			String imei = authenticationHandler.getImei(request);
-			return userDetailsService.loadAnonymusUser(username, imei);
+			return userDetailsService.loadAnonymusUser(user, imei);
 		} else {
+			
+			String username = authenticationHandler.getUserName(request);
+			String imei = authenticationHandler.getImei(request); // obtener imei del token 
+			// verificar que el imei  ===  DEVICES username
+		
 			return username != null ? userDetailsService
 					.loadUserByUsername(username) : null;
 		}
