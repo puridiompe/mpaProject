@@ -183,6 +183,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 			return false;
 	}
 	
+	/*
 	@Transactional(value = "movilTransactionManager")
 	@Override
 	public Boolean setLastLogin(String username) {
@@ -200,7 +201,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		else 
 			return false;
 	}
-
+	 */
 }
 
 

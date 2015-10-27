@@ -17,6 +17,7 @@ public interface UsuarioDao {
 	
 	public Boolean setCurrentDevice(String username,String imei);
 	
-	public Boolean setLastLogin(String username);
+	//public Boolean setLastLogin(String username);
+	
 	
 }

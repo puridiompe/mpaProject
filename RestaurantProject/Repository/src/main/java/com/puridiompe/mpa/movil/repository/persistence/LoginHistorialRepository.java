@@ -13,4 +13,7 @@ public interface LoginHistorialRepository extends JpaRepository<LoginHistorial, 
 	@Query("from  LoginHistorial p  where p.username = ?1 ")
 	public List<LoginHistorial> findByIdUsuario(String username);
 	
+	@Query("from  LoginHistorial p  where   p.username = ?1 AND p.imei = ?2 ORDER BY p.fechaHora DESC")
+	public List<LoginHistorial> findByIdImei(String username ,String imei);
+	
 }

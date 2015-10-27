@@ -3,6 +3,8 @@
  */
 package com.puridiompe.mpa.rest.controller.seguridad;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarDeviceBusiness;
+import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
@@ -41,6 +44,9 @@ public class ApplicationInitializerController extends BaseController {
 	@Autowired
 	private GestionarUserDetailsBusiness gestionarUserDetailsBusiness;
 
+	@Autowired
+	GestionarLoginHistorialBusiness  gestionarLoginHistorialBusiness;
+	
 	@Autowired
 	private GestionarDeviceBusiness gestionarDeviceBusiness;
 
@@ -71,9 +77,9 @@ public class ApplicationInitializerController extends BaseController {
 		applicationResponse.setPerfil(user.getAuthorities());
 		ResponseMessage<ApplicationResponse> responseMessage = new ResponseMessage<ApplicationResponse>();
 		responseMessage.setBody(applicationResponse);
-
+		
 		authenticationHandler.addHeader(response, user.getUsername(), imei);
-
+		gestionarLoginHistorialBusiness.setLoginHistorial(user.getUsername(),imei);
 		return responseMessage;
 	}
 

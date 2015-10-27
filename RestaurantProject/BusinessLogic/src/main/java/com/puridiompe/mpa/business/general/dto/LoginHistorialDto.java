@@ -2,12 +2,15 @@ package com.puridiompe.mpa.business.general.dto;
 
 import java.util.Date;
 
+
 public class LoginHistorialDto {
 
 	private Integer idLogHist;
-	private Integer idUsuario;
+	private String username;
 	private Date fechaHora;
 //	private Boolean estado;
+	private String imei;
+	private Date fechaToken;
 	
 	public LoginHistorialDto(){}
 
@@ -19,12 +22,14 @@ public class LoginHistorialDto {
 		this.idLogHist = idLogHist;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Date getFechaHora() {
@@ -34,6 +39,23 @@ public class LoginHistorialDto {
 	public void setFechaHora(Date fechaHora) {
 		this.fechaHora = fechaHora;
 	}
+
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
+	public Date getFechaToken() {
+		return fechaToken;
+	}
+
+	public void setFechaToken(Date fechaToken) {
+		this.fechaToken = fechaToken;
+	}
+	
 
 //	public Boolean getEstado() {
 //		return estado;

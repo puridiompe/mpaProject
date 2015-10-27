@@ -4,6 +4,8 @@
 package com.puridiompe.mpa.rest.security.filter;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,14 +14,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.common.security.entity.LoginAuthenticationToken;
@@ -36,6 +40,8 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 	
 	private HeaderAuthenticationHandler authenticationHandler;
 
+	private GestionarLoginHistorialBusiness loginHistorialService;
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
@@ -91,20 +97,43 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 	
 		if (userDetailsService.isAnonymusUser(user)) { // ciudadano carga ignorar si es un ciudadano 
 			String imei = authenticationHandler.getImei(request);
-			return userDetailsService.loadAnonymusUser(user, imei);
-		} else {
+			DateTime  fechaToken = authenticationHandler.getTimestamp(request);
+			if (fechaToken != null && imei!=null){
+				verifyDateOfIncomingToken(user,imei,fechaToken.toDate());
+			}
 			
+			return userDetailsService.loadAnonymusUser(user, imei);
+			
+		} else {
 			String username = authenticationHandler.getUserName(request);
-			String imei = authenticationHandler.getImei(request); // obtener imei del token 
-			// verificar que el imei  ===  DEVICES username
-		
+			if(username != null){
+				String imei = authenticationHandler.getImei(request); 
+				DateTime  fechaToken = authenticationHandler.getTimestamp(request);
+				if (fechaToken != null && imei!=null){
+					verifyDateOfIncomingToken(username,imei,fechaToken.toDate());
+				}
+			}
+			// verificar que el imei y username  ===  DEVICES imei y username
+			
 			return username != null ? userDetailsService
 					.loadUserByUsername(username) : null;
 		}
 	}
 
+	public void verifyDateOfIncomingToken(String username,String imei, Date fechaToken){
+		try {
+			loginHistorialService.updateFechaToken(username,imei, fechaToken);
+		} catch (GeneralSecurityException e) {
+
+			e.printStackTrace();
+		}
+	}
 	public void userDetailsService(GestionarUserDetailsBusiness userDetailsService) {
 		this.userDetailsService = userDetailsService;
+	}
+	
+	public void loginHistorialService(GestionarLoginHistorialBusiness loginHistorialService) {
+		this.loginHistorialService = loginHistorialService;
 	}
 
 	public void authenticationHandler(HeaderAuthenticationHandler headerAuthenticationHandler) {

@@ -3,6 +3,8 @@
  */
 package com.puridiompe.mpa.rest.security.provider;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -13,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.common.security.entity.LoginAuthenticationToken;
 
@@ -26,8 +29,12 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 	private GestionarUserDetailsBusiness gestionarUserDetailsBusiness;
 
 	@Autowired
+	GestionarLoginHistorialBusiness  gestionarLoginHistorialBusiness;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
@@ -52,10 +59,10 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 		}
 		
 		// invocar funcion  actualizar el device  userdaetail
-		String imei = ((LoginAuthenticationToken) authentication).getImei(); 
-		
+		 String imei = ((LoginAuthenticationToken) authentication).getImei(); 
+		 
 		 gestionarUserDetailsBusiness.setCurrentDevice(userDetails, imei);
-		 gestionarUserDetailsBusiness.setLastLogin(userDetails.getUsername());
+		 gestionarLoginHistorialBusiness.setLoginHistorial(userDetails.getUsername(),imei);
 	}
 
 	@Override

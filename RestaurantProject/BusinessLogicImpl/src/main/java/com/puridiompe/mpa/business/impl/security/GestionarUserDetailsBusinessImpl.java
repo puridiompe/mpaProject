@@ -3,6 +3,7 @@
  */
 package com.puridiompe.mpa.business.impl.security;
 
+import java.util.Date;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
+import com.puridiompe.mpa.business.general.dto.LoginHistorialDto;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.PerfilDto;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
@@ -31,7 +34,7 @@ public class GestionarUserDetailsBusinessImpl implements
 
 	@Autowired
 	private UsuarioDao usuarioDao;
-	
+		
 	@Override
 	public UserDetails createAnonymusUser() {
 		UsuarioDto userObject =  new UsuarioDto();
@@ -83,11 +86,14 @@ public class GestionarUserDetailsBusinessImpl implements
 		return usuarioDao.getUsuarioByUsername(username);
 	}
 
+	/*
 	@Override
-	public boolean setLastLogin(String username) {
-		return usuarioDao.setLastLogin(username);
+	public void setLastLogin(String username,String imei,Date fechaToken) {
+		
+		//return usuarioDao.setLastLogin(username);
 	}
-
+	*/
+	
 	@Override
 	public boolean setCurrentDevice(UserDetails user,String imei) {
 		UsuarioDto userObject = (UsuarioDto) user;
