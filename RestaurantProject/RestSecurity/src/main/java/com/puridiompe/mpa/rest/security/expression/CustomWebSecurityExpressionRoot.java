@@ -42,6 +42,9 @@ public class CustomWebSecurityExpressionRoot extends WebSecurityExpressionRoot {
 		return hasAccess(SystemModule.CIUDADANO);
 	}
 
+	public boolean hasAccessReclamo() {
+		return hasAccess(SystemModule.RECLAMOS);
+	}
 	public boolean hasAccessGps() {
 		return hasAccess(SystemModule.GEO_LOCALIZACION);
 	}

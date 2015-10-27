@@ -11,7 +11,7 @@ public enum SystemModule {
 
 	ADMINISTRACION("ADM", "administracion"), PERMISOS("PER", "permisos"), PAPELETAS(
 			"PAP", "papeletas"), INFRACCIONES("INF", "infracciones"), NOTICIAS(
-			"NOT", "noticias"), CIUDADANO("CIU", "ciudadano"), GEO_LOCALIZACION("GEO", "geolocalizacion");
+			"NOT", "noticias"), CIUDADANO("CIU", "ciudadano"), RECLAMOS("REC","reclamos"),GEO_LOCALIZACION("GEO", "geolocalizacion");
 
 	private final String typeValue;
 

@@ -122,6 +122,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/transportes/infraccion/**").access("hasAccessInfraccion()")
 		.antMatchers(HttpMethod.POST, "/transportes/noticia/**").access("hasAccessNoticia()")
 		.antMatchers("/transportes/ciudadano/**").access("hasAccessCiudadano()")
+		.antMatchers("/transportes/reclamo/**").access("hasAccessReclamo()")
 		.antMatchers("/transportes/gps/**").access("hasAccessGps()")
 		.anyRequest().authenticated();
 		
