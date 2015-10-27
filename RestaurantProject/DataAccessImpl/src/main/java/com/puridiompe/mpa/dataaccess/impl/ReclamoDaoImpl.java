@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.common.type.ImageType;
+import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
@@ -42,15 +43,18 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
-	public void saveReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String imei) {
+	public void saveReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String imei, String estado) {
 		
-		Reclamo reclamo =  new Reclamo();		
+		Reclamo reclamo =  new Reclamo();
+		Date fechaActual = new Date();
 		
 		reclamo.setDni(dni);
 		reclamo.setDescripcion(descripcion);
 		reclamo.setVehiculo(vehiculo);
-		reclamo.setFechaCreacion(new Date());
-		reclamo.setImei(imei);
+		reclamo.setFecCre(fechaActual);
+		reclamo.setFecMod(fechaActual);
+		reclamo.setImei(imei);		
+		reclamo.setEstado(estado);
 		
 		reclamoRepository.save(reclamo);
 		
@@ -117,6 +121,25 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			return null;
 		}else{
 			return lastReclamosByImei.get(0).getDni();
+		}
+		
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public List<ReclamoDto> getAll(){
+		List<Reclamo> reclamos = reclamoRepository.findAll();
+		List<ReclamoDto> forResponse = new ArrayList<ReclamoDto>();
+		
+		if(reclamos.isEmpty()){
+			return null;
+		}else{
+			for(int i = 0; i < reclamos.size(); i++){
+				ReclamoDto reclamo = new ReclamoDto();
+				BeanUtils.copyProperties(reclamos.get(i), reclamo);
+				forResponse.add(reclamo);
+			}
+			return forResponse;
 		}
 		
 	}

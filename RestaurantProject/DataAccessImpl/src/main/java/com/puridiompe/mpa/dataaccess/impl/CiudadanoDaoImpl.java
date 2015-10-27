@@ -3,13 +3,13 @@ package com.puridiompe.mpa.dataaccess.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.aspectj.weaver.patterns.IfPointcut.IfFalsePointcut;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
+import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.CiudadanoDao;
 import com.puridiompe.mpa.movil.domain.persistence.Ciudadano;
 import com.puridiompe.mpa.movil.repository.persistence.CiudadanoRepository;
@@ -55,7 +55,8 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 //		}else{
 //			imeiExists = lista.get(0);
 //		}
-		Date fechaActual = new Date();
+		
+		Date fechaActual = DateUtil.getCurrentDate();//new Date();
 		ciudadano.setDni(dni);
 		ciudadano.setApellidoPaterno(apellidoPaterno);
 		ciudadano.setApellidoMaterno(apellidoMaterno);
