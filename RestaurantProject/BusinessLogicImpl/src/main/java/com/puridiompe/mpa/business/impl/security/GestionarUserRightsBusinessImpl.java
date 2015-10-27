@@ -3,6 +3,7 @@
  */
 package com.puridiompe.mpa.business.impl.security;
 
+
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +22,6 @@ import com.puridiompe.mpa.common.security.SystemRole;
 public class GestionarUserRightsBusinessImpl implements
 		GestionarUserRightsBusiness {
 
-	
 	@Override
 	public boolean hasModuleRight(UserDetails user, SystemModule module) {
 		// TODO Auto-generated method stub
