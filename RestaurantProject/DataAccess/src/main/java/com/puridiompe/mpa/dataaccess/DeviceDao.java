@@ -16,6 +16,8 @@ public interface DeviceDao {
 
 	public DeviceDto checkDeviceByImei(String imei);
 	
+	public DeviceDto getImeiByUsername(String username);
+	
 	public List<DeviceDto> findAll();	
 
 }

@@ -38,6 +38,12 @@ public class GestionarDeviceBusinessImpl implements GestionarDeviceBusiness{
 	}
 	
 	@Override
+	public DeviceDto getDeviceByUsername(String username){
+		
+		return deviceDao.getImeiByUsername(username);
+	}
+	
+	@Override
 	public List<DeviceDto> getAll() {
 		return deviceDao.findAll();
 	}

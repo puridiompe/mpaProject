@@ -27,7 +27,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
+
+import com.puridiompe.mpa.business.general.GestionarDeviceBusiness;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.common.config.RestCommonConfiguration;
 import com.puridiompe.mpa.rest.security.expression.CustomWebSecurityExpressionHandler;
@@ -71,6 +74,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private GestionarUserDetailsBusiness userDetailsService;
+	
+	@Autowired
+	private GestionarDeviceBusiness gestionarDeviceBusiness;
 	
 	
 	@Autowired
@@ -179,9 +185,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private Filter authenticationFilter() {
         HeaderAuthenticationFilter headerAuthenticationFilter = new HeaderAuthenticationFilter();
+        headerAuthenticationFilter.gestionarDeviceBusiness(gestionarDeviceBusiness);
         headerAuthenticationFilter.userDetailsService(userDetailsService);
         headerAuthenticationFilter.loginHistorialService(loginHistorialService);
         headerAuthenticationFilter.authenticationHandler(headerAuthenticationHandler);
+        headerAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         return headerAuthenticationFilter;
     }
 
