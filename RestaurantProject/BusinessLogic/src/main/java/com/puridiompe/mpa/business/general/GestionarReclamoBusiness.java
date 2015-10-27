@@ -7,7 +7,7 @@ import com.puridiompe.mpa.common.security.exception.SecurityException;;
 
 public interface GestionarReclamoBusiness {
 
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String estado) throws SecurityException;
+	public ReclamoDto setReclamo(ReclamoDto request) throws SecurityException;
 	
 	public List<ReclamoDto> getReclamosFrecuentes();
 	

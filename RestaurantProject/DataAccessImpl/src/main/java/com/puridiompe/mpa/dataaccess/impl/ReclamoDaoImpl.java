@@ -15,8 +15,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.common.security.SecurityContextHelper;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.common.type.ReclamoState;
+import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
@@ -43,22 +46,32 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
-	public void saveReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String imei, String estado) {
+	public Integer saveReclamo(ReclamoDto request) throws SecurityException {
 		
+		String currentImei = SecurityContextHelper.getCurrentImei(); 
 		Reclamo reclamo =  new Reclamo();
-		Date fechaActual = new Date();
+		Date fechaActual = DateUtil.getCurrentDate();
 		
-		reclamo.setDni(dni);
-		reclamo.setDescripcion(descripcion);
-		reclamo.setVehiculo(vehiculo);
+		if(request.getIdReclamo() != null){
+			reclamo.setIdReclamo(request.getIdReclamo());
+		}
+		if(request.getNumRec() != null){
+			reclamo.setNumRec(request.getNumRec());
+		}
+		reclamo.setDni(request.getDni());
+		reclamo.setDescripcion(request.getDescripcion());
+		reclamo.setVehiculo(request.getVehiculo());
 		reclamo.setFecCre(fechaActual);
 		reclamo.setFecMod(fechaActual);
-		reclamo.setImei(imei);		
-		reclamo.setEstado(estado);
+		reclamo.setImei(currentImei);		
+		reclamo.setEstado(request.getEstado());
 		
 		reclamoRepository.save(reclamo);
+		Integer reclamoID = reclamo.getIdReclamo();
+
 		
-		if((imagenesBase64 != null) && (!imagenesBase64.isEmpty())){
+		List<String> imagenesBase64 = request.getImagenesBase64();
+		if((imagenesBase64  != null) && (!imagenesBase64.isEmpty())){
 			
 			int arraySize = imagenesBase64.size();
 			
@@ -90,9 +103,10 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				imagen.setIdPadre(reclamoId);
 				
 				imagenRepository.save(imagen);
-			}
-					
-		}		
+			}					
+		}
+		
+		return reclamoID;
 	}
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
@@ -140,6 +154,23 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				forResponse.add(reclamo);
 			}
 			return forResponse;
+		}
+		
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public ReclamoDto getById(Integer idReclamo){
+		
+		Reclamo reclamo = reclamoRepository.findById(idReclamo);	 
+		
+		if(reclamo == null){
+			return null;
+		}else{			
+			ReclamoDto reclamoDto = new ReclamoDto();
+			BeanUtils.copyProperties(reclamo, reclamoDto);			
+			
+			return reclamoDto;
 		}
 		
 	}

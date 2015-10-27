@@ -18,11 +18,12 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	private ReclamoDao reclamoDao;
 	
 	@Override
-	public void setReclamo(Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String estado) throws SecurityException {
+	public ReclamoDto setReclamo(ReclamoDto request) throws SecurityException {		
 		
-		String currentImei = SecurityContextHelper.getCurrentImei(); 
+		Integer idReclamo =  reclamoDao.saveReclamo(request);
 		
-		reclamoDao.saveReclamo(dni, descripcion, vehiculo, imagenesBase64, currentImei, estado);
+		return reclamoDao.getById(idReclamo);	
+		
 	}
 
 	@Override

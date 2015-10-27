@@ -30,40 +30,58 @@ public class RegistroReclamoController {
 	private GestionarReclamoBusiness gestionarReclamo;
 
 	@RequestMapping(value = "/setReclamo", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean addReclamo(@RequestBody RequestMessage<GetReclamoRequest> request)
-			throws BusinessException, SecurityException {
+	public @ResponseBody ResponseMessage<GetReclamoResponse>  addReclamo(@RequestBody RequestMessage<GetReclamoRequest> request)
+			throws BusinessException, SecurityException {		
+			
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		
+		ReclamoDto toSave = request.getBody().getReclamo();
+		toSave.setEstado(ReclamoState.RECIBIDO.toString());
 
-		GetReclamoRequest reclamoRequest = request.getBody();
-
-		gestionarReclamo.setReclamo(reclamoRequest.getReclamo().getDni(), reclamoRequest.getReclamo().getDescripcion(),
-				reclamoRequest.getReclamo().getVehiculo(), reclamoRequest.getReclamo().getImagenesBase64(), ReclamoState.RECIBIDO.toString());
-
-		return true;
+		ReclamoDto reclamo = gestionarReclamo.setReclamo(toSave);
+		
+		GetReclamoResponse reclamoResponse = new GetReclamoResponse();
+		reclamoResponse.setReclamo(reclamo);
+		response.setBody(reclamoResponse);
+		
+		return response;
 
 	}
 	
-	@RequestMapping(value = "/setToEnProceso", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean setToEnProceso(@RequestBody RequestMessage<GetReclamoRequest> request)
+	@RequestMapping(value = "/enProceso", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamoResponse>  enProceso(@RequestBody RequestMessage<GetReclamoRequest> request)
 			throws BusinessException, SecurityException {
+				
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		
+		ReclamoDto toUpdate = request.getBody().getReclamo();
+		toUpdate.setEstado(ReclamoState.ENPROCESO.toString());
 
-		GetReclamoRequest reclamoRequest = request.getBody();
-
-		gestionarReclamo.setReclamo(reclamoRequest.getReclamo().getDni(), reclamoRequest.getReclamo().getDescripcion(),
-				reclamoRequest.getReclamo().getVehiculo(), reclamoRequest.getReclamo().getImagenesBase64(), ReclamoState.ENPROCESO.toString());
-
-		return true;
+		ReclamoDto reclamo = gestionarReclamo.setReclamo(toUpdate);
+		
+		GetReclamoResponse reclamoResponse = new GetReclamoResponse();
+		reclamoResponse.setReclamo(reclamo);
+		response.setBody(reclamoResponse);
+		
+		return response;
 	}
 	
-	@RequestMapping(value = "/setToArchivado", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean setToArchivado(@RequestBody RequestMessage<GetReclamoRequest> request)
+	@RequestMapping(value = "/archivado", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamoResponse>  setToArchivado(@RequestBody RequestMessage<GetReclamoRequest> request)
 			throws BusinessException, SecurityException {
 
-		GetReclamoRequest reclamoRequest = request.getBody();
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		
+		ReclamoDto toUpdate = request.getBody().getReclamo();	
+		toUpdate.setEstado(ReclamoState.ARCHIVADO.toString());
 
-		gestionarReclamo.setReclamo(reclamoRequest.getReclamo().getDni(), reclamoRequest.getReclamo().getDescripcion(),
-				reclamoRequest.getReclamo().getVehiculo(), reclamoRequest.getReclamo().getImagenesBase64(), ReclamoState.ARCHIVADO.toString());
-
-		return true;
+		ReclamoDto reclamo = gestionarReclamo.setReclamo(toUpdate);
+		
+		GetReclamoResponse reclamoResponse = new GetReclamoResponse();
+		reclamoResponse.setReclamo(reclamo);
+		response.setBody(reclamoResponse);
+		
+		return response;
 
 	}
 

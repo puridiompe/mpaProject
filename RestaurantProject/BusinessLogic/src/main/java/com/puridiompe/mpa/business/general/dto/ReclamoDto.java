@@ -20,7 +20,7 @@ public class ReclamoDto {
 	
 	private String imei;
 	
-//	private String estado;
+	private String estado;
 	
 	private String numRec;
 	
@@ -108,14 +108,14 @@ public class ReclamoDto {
 		this.numRec = numRec;
 	}
 
-//
-//	public String getEstado() {
-//		return estado;
-//	}
-//
-//
-//	public void setEstado(String estado) {
-//		this.estado = estado;
-//	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	
 }

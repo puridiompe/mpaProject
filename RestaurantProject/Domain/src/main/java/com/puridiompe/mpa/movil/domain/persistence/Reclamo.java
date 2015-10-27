@@ -33,7 +33,7 @@ public class Reclamo extends PersistenceAuditableEntity<Integer>{
 	private String vehiculo;
 	
 	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
-	private String imei;	
+	private String imei;
 	
 	@Column(name = "\"numRec\"", length = 10, insertable = false)
 	private String numRec;
