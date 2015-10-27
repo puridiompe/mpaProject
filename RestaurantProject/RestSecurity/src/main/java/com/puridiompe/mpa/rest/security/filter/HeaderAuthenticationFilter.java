@@ -112,7 +112,7 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 		return SecurityContextHolder.createEmptyContext();
 	}
 
-	private UserDetails loadUserDetails(HttpServletRequest request) throws SessionException {
+	private UserDetails loadUserDetails(HttpServletRequest request) {
 		String user= authenticationHandler.getUser(request);
 		//traer fecha de authenticationHandler 
 	
@@ -120,7 +120,7 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 			String imei = authenticationHandler.getImei(request);
 			DateTime  fechaToken = authenticationHandler.getTimestamp(request);
 			if (fechaToken != null && imei!=null){
-				verifyDateOfIncomingToken(user,imei,fechaToken.toDate());
+				loginHistorialService.updateFechaToken(user,imei, fechaToken.toDate());
 			}
 
 			
@@ -133,7 +133,7 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 				String imei = authenticationHandler.getImei(request); 
 				DateTime  fechaToken = authenticationHandler.getTimestamp(request);
 				if (fechaToken != null && imei!=null){
-					verifyDateOfIncomingToken(username,imei,fechaToken.toDate());
+					loginHistorialService.updateFechaToken(username,imei, fechaToken.toDate());
 				
 			
 			// verificar que el imei y username  ===  DEVICES imei y username
@@ -152,14 +152,7 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 		}
 	}
 
-	public void verifyDateOfIncomingToken(String username,String imei, Date fechaToken){
-		try {
-			loginHistorialService.updateFechaToken(username,imei, fechaToken);
-		} catch (GeneralSecurityException e) {
 
-			e.printStackTrace();
-		}
-	}
 	public void userDetailsService(GestionarUserDetailsBusiness userDetailsService) {
 		this.userDetailsService = userDetailsService;
 	}

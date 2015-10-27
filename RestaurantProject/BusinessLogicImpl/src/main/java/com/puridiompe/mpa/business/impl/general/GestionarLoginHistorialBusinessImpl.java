@@ -1,6 +1,5 @@
 package com.puridiompe.mpa.business.impl.general;
 
-import java.security.GeneralSecurityException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
 import com.puridiompe.mpa.business.general.dto.LoginHistorialDto;
+import com.puridiompe.mpa.common.security.exception.InvalidTokenException;
 import com.puridiompe.mpa.dataaccess.LoginHistorialDao;
 
 
@@ -29,7 +29,7 @@ public class GestionarLoginHistorialBusinessImpl implements GestionarLoginHistor
 	}
 
 	@Override
-	public void updateFechaToken(String username ,String imei,Date newFechaToken) throws GeneralSecurityException {
+	public void updateFechaToken(String username ,String imei,Date newFechaToken) throws InvalidTokenException {
 		LoginHistorialDto lastLogin = loginHistorialDao.getLastbyImei(username,imei);
 	
 		if(lastLogin != null && imei != null && newFechaToken != null){
@@ -44,7 +44,7 @@ public class GestionarLoginHistorialBusinessImpl implements GestionarLoginHistor
 				lastLogin.setFechaToken(newFechaToken);
 				loginHistorialDao.setLoginHistorial(lastLogin);
 			}else{
-				throw new GeneralSecurityException("La fecha del token enviada no es correcta");
+				throw new InvalidTokenException("La fecha del token enviada no es correcta");
 						
 			}
 			
