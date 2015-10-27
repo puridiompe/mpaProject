@@ -39,6 +39,27 @@ public class RegistroReclamoController {
 		
 		ReclamoDto toSave = request.getBody().getReclamo();
 		toSave.setEstado(ReclamoState.RECIBIDO.toString());
+		
+		//If a citizen manages to send Comentarios, then null them
+		toSave.setReclamoComentarios(new ArrayList<String>());
+
+		ReclamoDto reclamo = gestionarReclamo.setReclamo(toSave);
+		
+		GetReclamoResponse reclamoResponse = new GetReclamoResponse();
+		reclamoResponse.setReclamo(reclamo);
+		response.setBody(reclamoResponse);
+		
+		return response;
+
+	}
+	
+	@RequestMapping(value = "/setReclamoSupervisor", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamoResponse>  addReclamoSupervisor(@RequestBody RequestMessage<GetReclamoRequest> request)
+			throws BusinessException, SecurityException {		
+			
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		
+		ReclamoDto toSave = request.getBody().getReclamo();			
 
 		ReclamoDto reclamo = gestionarReclamo.setReclamo(toSave);
 		

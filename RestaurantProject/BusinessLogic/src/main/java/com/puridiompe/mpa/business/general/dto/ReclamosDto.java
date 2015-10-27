@@ -12,7 +12,7 @@ public class ReclamosDto {
 	public ReclamosDto() {
 		this.listReclamo = new ArrayList<ReclamoDto> ();
 		this.listCiudadano = new ArrayList<CiudadanoDto> ();
-		this.listImagen = new ArrayList<ResumenImagenDto> ();
+		this.listImagen = new ArrayList<ResumenImagenDto> ();		
 	}
 
 	public List<ReclamoDto> getListReclamo() {
@@ -38,5 +38,4 @@ public class ReclamosDto {
 	public void setListImagen(List<ResumenImagenDto> listImagen) {
 		this.listImagen = listImagen;
 	}	
-	
 }

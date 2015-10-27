@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 import com.puridiompe.mpa.business.general.dto.ImagenDto;
+import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
@@ -22,10 +24,12 @@ import com.puridiompe.mpa.dataaccess.ReclamoDao;
 import com.puridiompe.mpa.movil.domain.persistence.Ciudadano;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
+import com.puridiompe.mpa.movil.domain.persistence.ReclamoComentario;
 import com.puridiompe.mpa.movil.domain.persistence.ReclamoFrecuente;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
 import com.puridiompe.mpa.movil.repository.persistence.CiudadanoRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
+import com.puridiompe.mpa.movil.repository.persistence.ReclamoComentarioRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoFrecuenteRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoRepository;
 
@@ -45,14 +49,17 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	private FileRepository fileRepository;
 	
 	@Autowired
-	private CiudadanoRepository ciudadanoRepository; 
+	private CiudadanoRepository ciudadanoRepository;
+	
+	@Autowired
+	private ReclamoComentarioRepository reclamoComentarioRepository; 
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
 	public Integer saveReclamo(ReclamoDto request) throws SecurityException {
 		
 		String currentImei = SecurityContextHelper.getCurrentImei(); 
-		Reclamo reclamo =  new Reclamo();
+		Reclamo reclamo =  new Reclamo();		
 		Date fechaActual = DateUtil.getCurrentDate();
 		
 		if(request.getIdReclamo() != null){
@@ -60,7 +67,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 		if(request.getNumRec() != null){
 			reclamo.setNumRec(request.getNumRec());
-		}
+		}		
 		reclamo.setDni(request.getDni());
 		reclamo.setDescripcion(request.getDescripcion());
 		reclamo.setVehiculo(request.getVehiculo());
@@ -71,7 +78,16 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		
 		reclamoRepository.save(reclamo);
 		Integer reclamoID = reclamo.getIdReclamo();
-
+		
+		if( (request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())){
+			for(int r = 0; r < request.getReclamoComentarios().size(); r++){
+				ReclamoComentario reclamoComentario = new ReclamoComentario();
+				reclamoComentario.setComentario(request.getReclamoComentarios().get(r));
+				reclamoComentario.setId(reclamoID);
+				reclamoComentarioRepository.save(reclamoComentario);
+			}
+		}
+		
 		
 		List<String> imagenesBase64 = request.getImagenesBase64();
 		if((imagenesBase64  != null) && (!imagenesBase64.isEmpty())){
@@ -227,6 +243,18 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				ImagenDto objectImagenDto = new ImagenDto();
 				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
 				ResumenImagenDto resumenImagen = new ResumenImagenDto();
+				
+				List<ReclamoComentarioDto> objectReclamoComentario = new ArrayList<ReclamoComentarioDto>();
+				List<ReclamoComentario> reclamoComentarios =  reclamoComentarioRepository.findByiDReclamo(reclamo.get(i).getIdReclamo());				
+				
+				List<String> arrayComentarios = new ArrayList<String>();
+				if(!reclamoComentarios.isEmpty() || reclamoComentarios != null){	
+					
+					for(int r = 0; r < reclamoComentarios.size(); r++){												
+						arrayComentarios.add(reclamoComentarios.get(r).getComentario());						
+					}
+				}
+				objectReclamo.setReclamoComentarios(arrayComentarios);
 
 				if(!imagen.isEmpty()){
 					
@@ -241,7 +269,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				
 				objectReclamos.getListImagen().add(resumenImagen);
 				objectReclamos.getListCiudadano().add(objectCiudadano);
-				objectReclamos.getListReclamo().add(objectReclamo);
+				objectReclamos.getListReclamo().add(objectReclamo);				
 			}
 
 		}else{
