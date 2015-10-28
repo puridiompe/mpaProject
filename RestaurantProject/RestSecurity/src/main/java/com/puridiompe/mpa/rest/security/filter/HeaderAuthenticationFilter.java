@@ -135,10 +135,6 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 				if (fechaToken != null && imei!=null){
 					loginHistorialService.updateFechaToken(username,imei, fechaToken.toDate());
 				
-			
-			// verificar que el imei y username  ===  DEVICES imei y username
-			
-		
 					DeviceDto deviceObject = gestionarDeviceBusiness.getDeviceByUsername(username);
 					if(!imei.equals(deviceObject.getImei())){
 						throw new SessionException("Sesion iniciada en otro dispositivo");				

@@ -3,8 +3,6 @@
  */
 package com.puridiompe.mpa.rest.controller.seguridad;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -78,8 +76,16 @@ public class ApplicationInitializerController extends BaseController {
 		ResponseMessage<ApplicationResponse> responseMessage = new ResponseMessage<ApplicationResponse>();
 		responseMessage.setBody(applicationResponse);
 		
-		authenticationHandler.addHeader(response, user.getUsername(), imei);
 		gestionarLoginHistorialBusiness.setLoginHistorial(user.getUsername(),imei);
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		authenticationHandler.addHeader(response, user.getUsername(), imei);
 		return responseMessage;
 	}
 

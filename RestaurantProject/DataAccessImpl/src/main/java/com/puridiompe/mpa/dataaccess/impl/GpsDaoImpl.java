@@ -18,6 +18,7 @@ import com.puridiompe.mpa.business.general.dto.UsuarioDto;
 import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.type.Datetime;
+import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.GpsDao;
 import com.puridiompe.mpa.movil.domain.persistence.Gps;
 import com.puridiompe.mpa.movil.domain.persistence.GpsInspector;
@@ -50,7 +51,8 @@ public class GpsDaoImpl implements GpsDao {
 
 		BeanUtils.copyProperties(gps, gpsToSave);
 		
-		Date dateToSave = new Date();
+//		Date dateToSave = new Date();
+		Date dateToSave = DateUtil.getCurrentDate();
 		dateToSave.setTime(timetoSave);
 		
 		gpsToSave.setDate(dateToSave);

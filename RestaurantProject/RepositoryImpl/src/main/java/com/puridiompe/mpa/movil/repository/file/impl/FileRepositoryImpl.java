@@ -28,7 +28,7 @@ public class FileRepositoryImpl implements FileRepository {
 
 	@Override
 	public Integer saveBase64(String fileName, String base64toDecode) {
-		String filePath = env.getProperty("file.store.image.path");		
+		String filePath = env.getProperty("file.store.image.path");
 		
 		byte[] data = Base64.getDecoder().decode(base64toDecode);
 
