@@ -77,17 +77,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		reclamo.setEstado(request.getEstado());
 		
 		reclamoRepository.save(reclamo);
-		Integer reclamoID = reclamo.getIdReclamo();
-		
-		if( (request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())){
-			for(int r = 0; r < request.getReclamoComentarios().size(); r++){
-				ReclamoComentario reclamoComentario = new ReclamoComentario();
-				reclamoComentario.setComentario(request.getReclamoComentarios().get(r));
-				reclamoComentario.setId(reclamoID);
-				reclamoComentarioRepository.save(reclamoComentario);
-			}
-		}
-		
+		Integer reclamoID = reclamo.getIdReclamo();		
 		
 		List<String> imagenesBase64 = request.getImagenesBase64();
 		if((imagenesBase64  != null) && (!imagenesBase64.isEmpty())){
@@ -126,6 +116,23 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 		
 		return reclamoID;
+	}
+	
+	@Transactional(value = "movilTransactionManager")
+	@Override
+	public boolean saveReclamoComentario(ReclamoDto request) {
+		
+		if( (request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())){
+			for(int r = 0; r < request.getReclamoComentarios().size(); r++){
+				ReclamoComentario reclamoComentario = new ReclamoComentario();
+				reclamoComentario.setComentario(request.getReclamoComentarios().get(r));
+				reclamoComentario.setIdReclamo(request.getIdReclamo());
+				reclamoComentarioRepository.save(reclamoComentario);
+			}
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
@@ -227,7 +234,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
-		List<Reclamo> reclamo =  reclamoRepository.findAll();
+		List<Reclamo> reclamo =  reclamoRepository.findAll();	
 		
 		if(!reclamo.isEmpty()){
 						

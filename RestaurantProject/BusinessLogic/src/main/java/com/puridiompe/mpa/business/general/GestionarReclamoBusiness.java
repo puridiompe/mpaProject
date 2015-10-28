@@ -10,6 +10,8 @@ public interface GestionarReclamoBusiness {
 
 	public ReclamoDto setReclamo(ReclamoDto request) throws SecurityException;
 	
+	public boolean setReclamoComentario(ReclamoDto request);
+	
 	public List<ReclamoDto> getReclamosFrecuentes();
 	
 	public Integer getLastDniByImei(String imei);

@@ -26,6 +26,11 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 		return reclamoDao.getById(idReclamo);	
 		
 	}
+	
+	@Override
+	public boolean setReclamoComentario(ReclamoDto request){
+		return reclamoDao.saveReclamoComentario(request);
+	}
 
 	@Override
 	public List<ReclamoDto> getReclamosFrecuentes() {
