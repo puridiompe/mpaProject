@@ -228,6 +228,8 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
 		List<Reclamo> reclamo =  reclamoRepository.findAll();
+		List<Ciudadano> ciudadanoAll = ciudadanoRepository.findAllByDni();
+		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre();
 		
 		if(!reclamo.isEmpty()){
 						
@@ -237,11 +239,11 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
 
 				CiudadanoDto objectCiudadano = new CiudadanoDto();
-				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
+//				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
 				BeanUtils.copyProperties(ciudadano, objectCiudadano);
 				
 				ImagenDto objectImagenDto = new ImagenDto();
-				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
+//				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
 				ResumenImagenDto resumenImagen = new ResumenImagenDto();
 				
 				List<ReclamoComentarioDto> objectReclamoComentario = new ArrayList<ReclamoComentarioDto>();
