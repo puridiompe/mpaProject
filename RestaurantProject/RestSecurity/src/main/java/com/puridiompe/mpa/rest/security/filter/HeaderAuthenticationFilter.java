@@ -119,9 +119,9 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 		if (userDetailsService.isAnonymusUser(user)) { // ciudadano carga ignorar si es un ciudadano 
 			String imei = authenticationHandler.getImei(request);
 			DateTime  fechaToken = authenticationHandler.getTimestamp(request);
-			if (fechaToken != null && imei!=null){
-				loginHistorialService.updateFechaToken(user,imei, fechaToken.toDate());
-			}
+//			if (fechaToken != null && imei!=null){
+//				loginHistorialService.updateFechaToken(user,imei, fechaToken.toDate());
+//			}
 
 			
 			return userDetailsService.loadAnonymusUser(user, imei);
@@ -133,7 +133,7 @@ public class HeaderAuthenticationFilter extends GenericFilterBean {
 				String imei = authenticationHandler.getImei(request); 
 				DateTime  fechaToken = authenticationHandler.getTimestamp(request);
 				if (fechaToken != null && imei!=null){
-					loginHistorialService.updateFechaToken(username,imei, fechaToken.toDate());
+//					loginHistorialService.updateFechaToken(username,imei, fechaToken.toDate());
 				
 					DeviceDto deviceObject = gestionarDeviceBusiness.getDeviceByUsername(username);
 					if(!imei.equals(deviceObject.getImei())){

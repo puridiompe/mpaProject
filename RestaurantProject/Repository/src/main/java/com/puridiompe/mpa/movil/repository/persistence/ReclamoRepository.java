@@ -15,7 +15,7 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 	@Query("from  Reclamo r where r.imei = ?1 ORDER BY fecCre DESC")
 	public List<Reclamo> findByImei (String imei);
 	
-	@Query("from  Reclamo r ORDER BY fecCre DESC")
+	@Query("from  Reclamo r ")//ORDER BY fecCre DESC")
 	public List<Reclamo> findAll ();
 	
 	@Query("from  Reclamo r where r.idReclamo = ?1")

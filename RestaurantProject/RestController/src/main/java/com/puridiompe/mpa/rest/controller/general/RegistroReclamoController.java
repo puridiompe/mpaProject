@@ -20,13 +20,14 @@ import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.ReclamoState;
+import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamosResponse;
 
 @RestController
 @RequestMapping("/transportes/reclamo")
-public class RegistroReclamoController {
+public class RegistroReclamoController extends BaseController{
 
 	@Autowired
 	private GestionarReclamoBusiness gestionarReclamo;
@@ -41,7 +42,7 @@ public class RegistroReclamoController {
 		toSave.setEstado(ReclamoState.RECIBIDO.toString());
 		
 		//If a citizen manages to send Comentarios, then null them
-		toSave.setReclamoComentarios(new ArrayList<String>());
+		toSave.setReclamoComentarios(new ArrayList<String>());		
 
 		ReclamoDto reclamo = gestionarReclamo.setReclamo(toSave);
 		
@@ -52,7 +53,20 @@ public class RegistroReclamoController {
 		return response;
 
 	}
-	
+
+
+	@RequestMapping(value = "/updateComentario", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean updateComentario(@RequestBody RequestMessage<GetReclamoRequest> request)
+			throws BusinessException, SecurityException {		
+		
+		ReclamoDto toSave = request.getBody().getReclamo();	
+
+		boolean response = gestionarReclamo.setReclamoComentario(toSave);		
+		
+		return response;
+
+	}
+		
 	@RequestMapping(value = "/setReclamoSupervisor", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetReclamoResponse>  addReclamoSupervisor(@RequestBody RequestMessage<GetReclamoRequest> request)
 			throws BusinessException, SecurityException {		

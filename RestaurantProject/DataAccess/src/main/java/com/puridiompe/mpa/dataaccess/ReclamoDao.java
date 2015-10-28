@@ -10,6 +10,8 @@ public interface ReclamoDao {
 
 	public Integer saveReclamo (ReclamoDto request) throws SecurityException;
 	
+	public boolean saveReclamoComentario(ReclamoDto request);
+	
 	public List<ReclamoDto> getReclamosFrecuentes();
 	
 	public Integer getLastDniByImei(String imei);

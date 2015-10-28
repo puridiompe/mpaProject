@@ -77,17 +77,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		reclamo.setEstado(request.getEstado());
 		
 		reclamoRepository.save(reclamo);
-		Integer reclamoID = reclamo.getIdReclamo();
-		
-		if( (request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())){
-			for(int r = 0; r < request.getReclamoComentarios().size(); r++){
-				ReclamoComentario reclamoComentario = new ReclamoComentario();
-				reclamoComentario.setComentario(request.getReclamoComentarios().get(r));
-				reclamoComentario.setId(reclamoID);
-				reclamoComentarioRepository.save(reclamoComentario);
-			}
-		}
-		
+		Integer reclamoID = reclamo.getIdReclamo();		
 		
 		List<String> imagenesBase64 = request.getImagenesBase64();
 		if((imagenesBase64  != null) && (!imagenesBase64.isEmpty())){
@@ -126,6 +116,23 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 		
 		return reclamoID;
+	}
+	
+	@Transactional(value = "movilTransactionManager")
+	@Override
+	public boolean saveReclamoComentario(ReclamoDto request) {
+		
+		if( (request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())){
+			for(int r = 0; r < request.getReclamoComentarios().size(); r++){
+				ReclamoComentario reclamoComentario = new ReclamoComentario();
+				reclamoComentario.setComentario(request.getReclamoComentarios().get(r));
+				reclamoComentario.setIdReclamo(request.getIdReclamo());
+				reclamoComentarioRepository.save(reclamoComentario);
+			}
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
@@ -227,10 +234,14 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
+
 		List<Reclamo> reclamo =  reclamoRepository.findAll();
 		List<Ciudadano> ciudadanoAll = ciudadanoRepository.findAllByDni();
 		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre();
+		List<ReclamoComentario> reclamoComentarios =  reclamoComentarioRepository.findAllByiDReclamo();
 		
+		int contImagenes = 0;
+		int contComentario = 0;
 		if(!reclamo.isEmpty()){
 						
 			for(int i = 0; i < reclamo.size(); i++){
@@ -239,35 +250,69 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
 
 				CiudadanoDto objectCiudadano = new CiudadanoDto();
-//				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
-				BeanUtils.copyProperties(ciudadano, objectCiudadano);
-				
-				ImagenDto objectImagenDto = new ImagenDto();
-//				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
+//				ImagenDto objectImagenDto = new ImagenDto();
 				ResumenImagenDto resumenImagen = new ResumenImagenDto();
-				
-				List<ReclamoComentarioDto> objectReclamoComentario = new ArrayList<ReclamoComentarioDto>();
-				List<ReclamoComentario> reclamoComentarios =  reclamoComentarioRepository.findByiDReclamo(reclamo.get(i).getIdReclamo());				
+
+				for(int j = 0; j < ciudadanoAll.size(); j++){
+					if(reclamo.get(i).getDni().equals(ciudadanoAll.get(j).getDni())){
+						BeanUtils.copyProperties(ciudadanoAll.get(j), objectCiudadano);
+						break;
+					}
+				}
+				int numeroImagenes = 0;
+				while(reclamo.get(i).getIdReclamo().equals(imagenAll.get(contImagenes).getIdPadre()) && contImagenes < imagenAll.size()){
+					resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(contImagenes).getTamanho()));
+					numeroImagenes++;
+					contImagenes++;
+				}
+				resumenImagen.setNumeroImagenes(numeroImagenes);
+//				for(int j = 0; j < imagenAll.size(); j++){
+//					if(reclamo.get(i).getIdReclamo().equals(imagenAll.get(j).getIdPadre())){
+//						resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(j).getTamanho()));
+//						numeroImagenes++;
+//					}
+//				}
 				
 				List<String> arrayComentarios = new ArrayList<String>();
-				if(!reclamoComentarios.isEmpty() || reclamoComentarios != null){	
-					
-					for(int r = 0; r < reclamoComentarios.size(); r++){												
-						arrayComentarios.add(reclamoComentarios.get(r).getComentario());						
-					}
+				while(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(contComentario).getIdReclamo()) && contComentario < reclamoComentarios.size()){
+					arrayComentarios.add(reclamoComentarios.get(contComentario).getComentario());
+					contComentario++;
 				}
+//				for(int j = 0; j < reclamoComentarios.size(); j++){
+//					if(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(j).getIdReclamo())){
+//						arrayComentarios.add(reclamoComentarios.get(j).getComentario());
+//					}
+//				}
+//				List<ReclamoComentarioDto> objectReclamoComentario = new ArrayList<ReclamoComentarioDto>();
+//				List<ReclamoComentario> reclamoComentarios =  reclamoComentarioRepository.findByiDReclamo(reclamo.get(i).getIdReclamo());				
+				
+//				List<String> arrayComentarios = new ArrayList<String>();
+//				if(!reclamoComentarios.isEmpty() || reclamoComentarios != null){	
+//					
+//					for(int r = 0; r < reclamoComentarios.size(); r++){												
+//						arrayComentarios.add(reclamoComentarios.get(r).getComentario());						
+//					}
+//				}
+				
+//				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
+//				BeanUtils.copyProperties(ciudadano, objectCiudadano);
+				
+//				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
+				
+//
+//				if(!imagen.isEmpty()){
+//					
+//					resumenImagen.setNumeroImagenes(imagen.size());
+//					for(int j = 0; j < imagen.size(); j++){
+//						resumenImagen.getPesoImagen().add(Integer.toString(imagen.get(j).getTamanho()));
+//					}
+//				}else{
+//					resumenImagen.setNumeroImagenes(0);
+//					resumenImagen.getPesoImagen().add("");
+//				}
+				
+				
 				objectReclamo.setReclamoComentarios(arrayComentarios);
-
-				if(!imagen.isEmpty()){
-					
-					resumenImagen.setNumeroImagenes(imagen.size());
-					for(int j = 0; j < imagen.size(); j++){
-						resumenImagen.getPesoImagen().add(Integer.toString(imagen.get(j).getTamanho()));
-					}
-				}else{
-					resumenImagen.setNumeroImagenes(0);
-					resumenImagen.getPesoImagen().add("");
-				}
 				
 				objectReclamos.getListImagen().add(resumenImagen);
 				objectReclamos.getListCiudadano().add(objectCiudadano);
