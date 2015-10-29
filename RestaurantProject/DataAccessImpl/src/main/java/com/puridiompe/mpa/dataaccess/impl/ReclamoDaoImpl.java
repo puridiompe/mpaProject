@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -181,6 +182,32 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 		
 	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public ReclamoDto getImagesByNumRec(String numRec){
+		
+		Reclamo reclamo = reclamoRepository.getImagesByNumRec(numRec);	 
+		List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.getIdReclamo());
+		String imagenCodificada = new String();
+		
+		int imagenesSize = imagen.size();
+		
+		if(reclamo == null){
+			return null;
+		}else{			
+			ReclamoDto reclamoDto = new ReclamoDto();
+			BeanUtils.copyProperties(reclamo, reclamoDto);			
+			
+			if (imagenesSize>0){
+				for (int i=0 ; i<imagenesSize ; i++){
+					imagenCodificada = fileRepository.getBase64(imagen.get(i).getNombre());
+					reclamoDto.getImagenesBase64().add(imagenCodificada);
+				}
+			}
+			return reclamoDto;
+		}	
+	}	
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override

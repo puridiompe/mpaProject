@@ -20,4 +20,7 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 	
 	@Query("from  Reclamo r where r.idReclamo = ?1")
 	public Reclamo findById (Integer idReclamo);
+	
+	@Query("from  Reclamo r where r.numRec = ?1")
+	public Reclamo getImagesByNumRec (String numRec);	
 }

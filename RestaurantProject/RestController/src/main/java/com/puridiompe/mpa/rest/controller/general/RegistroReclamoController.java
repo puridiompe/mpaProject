@@ -193,4 +193,20 @@ public class RegistroReclamoController extends BaseController{
 		
 		return response;
 	}
+	
+	@RequestMapping(value = "/getImages", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamoResponse> getImagesByNumRec(
+			@RequestBody RequestMessage<GetReclamoRequest> request) throws BusinessException, SecurityException {
+
+		String numRec = request.getBody().getNumRec();
+		
+		ReclamoDto reclamoObject = gestionarReclamo.getImagesByNumRec(numRec);
+		
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		GetReclamoResponse reclamoResponse = new GetReclamoResponse();
+		
+		reclamoResponse.setReclamo(reclamoObject);
+		response.setBody(reclamoResponse);
+		return response;
+	}	
 }
