@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 import com.puridiompe.mpa.business.general.dto.ImagenDto;
+import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
@@ -30,8 +32,6 @@ import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoComentarioRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoFrecuenteRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoRepository;
-
-import javassist.compiler.ast.Pair;
 
 @Component
 public class ReclamoDaoImpl implements ReclamoDao {
@@ -188,62 +188,35 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
-		List<Reclamo> reclamo =  reclamoRepository.findByImeiDni(imei);	
+		List<Reclamo> reclamo =  reclamoRepository.findByImei(imei); 		//aqui tus consultas 
+		List<Ciudadano> ciudadanoAll =  ciudadanoRepository.findAllByDni(); //Aqui tus consultas
+		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre(); 		//aqui tus consultas
 		
-		
+		int contImagenes = 0;
 		if(!reclamo.isEmpty()){
-			List<Integer> dnis = new ArrayList<Integer>();
-			List<Integer> dniPos = new ArrayList<Integer>();
-			Integer actualDni = reclamo.get(0).getDni(); 
-			dnis.add(actualDni);
-			dniPos.add(0);
-			
-			for(int i = 1; i < reclamo.size(); i++){
-				if(actualDni != reclamo.get(i).getDni()){
-					actualDni = reclamo.get(i).getDni();
-					dnis.add(actualDni);
-					dniPos.add(i);
-				}else{
-					continue;
-				}
-			}
-			
-			List<Ciudadano> ciudadanos = new ArrayList<Ciudadano>();
-			for(int d = 0; d < dnis.size(); d++){
-				Ciudadano tmp = ciudadanoRepository.findByDni(dnis.get(d));
-				ciudadanos.add(tmp);
-			}
 						
 			for(int i = 0; i < reclamo.size(); i++){
 				
 				ReclamoDto objectReclamo = new ReclamoDto();
 				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
-				
-				CiudadanoDto objectCiudadano = new CiudadanoDto();				
-				int actualPos = 0;				
-				if(i == dniPos.get(actualPos)){				
-					Ciudadano ciudadano = ciudadanos.get(actualPos);
-					BeanUtils.copyProperties(ciudadano, objectCiudadano);
-					actualPos++;					
-				}
-				
-								
-				
-				
-				ImagenDto objectImagenDto = new ImagenDto();
-				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
+
+				CiudadanoDto objectCiudadano = new CiudadanoDto();
 				ResumenImagenDto resumenImagen = new ResumenImagenDto();
 
-				if(!imagen.isEmpty()){
-					
-					resumenImagen.setNumeroImagenes(imagen.size());
-					for(int j = 0; j < imagen.size(); j++){
-						resumenImagen.getPesoImagen().add(Integer.toString(imagen.get(j).getTamanho()));
+				for(int j = 0; j < ciudadanoAll.size(); j++ ){
+					if(reclamo.get(i).getDni().equals(ciudadanoAll.get(j).getDni())){
+						BeanUtils.copyProperties(ciudadanoAll.get(j), objectCiudadano);
+						break;
 					}
-				}else{
-					resumenImagen.setNumeroImagenes(0);
-					resumenImagen.getPesoImagen().add("");
 				}
+
+				int numeroImagenes = 0;
+				while(reclamo.get(i).getIdReclamo().equals(imagenAll.get(contImagenes).getIdPadre()) && contImagenes < imagenAll.size()){
+					resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(contImagenes).getTamanho()));
+					numeroImagenes++;
+					contImagenes++;
+				}
+				resumenImagen.setNumeroImagenes(numeroImagenes);
 				
 				objectReclamos.getListImagen().add(resumenImagen);
 				objectReclamos.getListCiudadano().add(objectCiudadano);
@@ -295,6 +268,13 @@ public class ReclamoDaoImpl implements ReclamoDao {
 					contImagenes++;
 				}
 				resumenImagen.setNumeroImagenes(numeroImagenes);
+				
+				List<String> arrayComentarios = new ArrayList<String>();
+				while(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(contComentario).getIdReclamo()) && contComentario < reclamoComentarios.size()){
+					arrayComentarios.add(reclamoComentarios.get(contComentario).getComentario());
+					contComentario++;
+				}
+				
 //				for(int j = 0; j < imagenAll.size(); j++){
 //					if(reclamo.get(i).getIdReclamo().equals(imagenAll.get(j).getIdPadre())){
 //						resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(j).getTamanho()));
@@ -302,11 +282,6 @@ public class ReclamoDaoImpl implements ReclamoDao {
 //					}
 //				}
 				
-				List<String> arrayComentarios = new ArrayList<String>();
-				while(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(contComentario).getIdReclamo()) && contComentario < reclamoComentarios.size()){
-					arrayComentarios.add(reclamoComentarios.get(contComentario).getComentario());
-					contComentario++;
-				}
 //				for(int j = 0; j < reclamoComentarios.size(); j++){
 //					if(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(j).getIdReclamo())){
 //						arrayComentarios.add(reclamoComentarios.get(j).getComentario());
