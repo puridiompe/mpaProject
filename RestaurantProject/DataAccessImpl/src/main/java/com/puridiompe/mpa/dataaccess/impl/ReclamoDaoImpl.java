@@ -188,8 +188,11 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
-		List<Reclamo> reclamo =  reclamoRepository.findByImei(imei);
+		List<Reclamo> reclamo =  reclamoRepository.findByImei(imei); 		//aqui tus consultas 
+		List<Ciudadano> ciudadanoAll =  ciudadanoRepository.findAllByDni(); //Aqui tus consultas
+		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre(); 		//aqui tus consultas
 		
+		int contImagenes = 0;
 		if(!reclamo.isEmpty()){
 						
 			for(int i = 0; i < reclamo.size(); i++){
@@ -198,23 +201,22 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
 
 				CiudadanoDto objectCiudadano = new CiudadanoDto();
-				Ciudadano ciudadano = ciudadanoRepository.findByDni(reclamo.get(i).getDni());
-				BeanUtils.copyProperties(ciudadano, objectCiudadano);
-				
-				ImagenDto objectImagenDto = new ImagenDto();
-				List<Imagen> imagen = imagenRepository.findByidPadre(reclamo.get(i).getIdReclamo());
 				ResumenImagenDto resumenImagen = new ResumenImagenDto();
 
-				if(!imagen.isEmpty()){
-					
-					resumenImagen.setNumeroImagenes(imagen.size());
-					for(int j = 0; j < imagen.size(); j++){
-						resumenImagen.getPesoImagen().add(Integer.toString(imagen.get(j).getTamanho()));
+				for(int j = 0; j < ciudadanoAll.size(); j++ ){
+					if(reclamo.get(i).getDni().equals(ciudadanoAll.get(j).getDni())){
+						BeanUtils.copyProperties(ciudadanoAll.get(j), objectCiudadano);
+						break;
 					}
-				}else{
-					resumenImagen.setNumeroImagenes(0);
-					resumenImagen.getPesoImagen().add("");
 				}
+
+				int numeroImagenes = 0;
+				while(reclamo.get(i).getIdReclamo().equals(imagenAll.get(contImagenes).getIdPadre()) && contImagenes < imagenAll.size()){
+					resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(contImagenes).getTamanho()));
+					numeroImagenes++;
+					contImagenes++;
+				}
+				resumenImagen.setNumeroImagenes(numeroImagenes);
 				
 				objectReclamos.getListImagen().add(resumenImagen);
 				objectReclamos.getListCiudadano().add(objectCiudadano);
@@ -266,6 +268,13 @@ public class ReclamoDaoImpl implements ReclamoDao {
 					contImagenes++;
 				}
 				resumenImagen.setNumeroImagenes(numeroImagenes);
+				
+				List<String> arrayComentarios = new ArrayList<String>();
+				while(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(contComentario).getIdReclamo()) && contComentario < reclamoComentarios.size()){
+					arrayComentarios.add(reclamoComentarios.get(contComentario).getComentario());
+					contComentario++;
+				}
+				
 //				for(int j = 0; j < imagenAll.size(); j++){
 //					if(reclamo.get(i).getIdReclamo().equals(imagenAll.get(j).getIdPadre())){
 //						resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(j).getTamanho()));
@@ -273,11 +282,6 @@ public class ReclamoDaoImpl implements ReclamoDao {
 //					}
 //				}
 				
-				List<String> arrayComentarios = new ArrayList<String>();
-				while(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(contComentario).getIdReclamo()) && contComentario < reclamoComentarios.size()){
-					arrayComentarios.add(reclamoComentarios.get(contComentario).getComentario());
-					contComentario++;
-				}
 //				for(int j = 0; j < reclamoComentarios.size(); j++){
 //					if(reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(j).getIdReclamo())){
 //						arrayComentarios.add(reclamoComentarios.get(j).getComentario());
