@@ -10,6 +10,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,6 @@ public class Network {
 		}
 
 		if (localAddresses.size() <= 0) {
-
 			synchronized (Network.class) {
 				if (localAddresses.size() <= 0) {
 					setServerIp();
@@ -47,6 +47,9 @@ public class Network {
 		if (localAddresses.contains(imei)) {
 			logger.info("Login in local connection");
 			imei = localIp;
+			Random rnd = new Random();
+			imei += "."+rnd.nextInt(900)+100;
+			//imei += "."+rnd.nextInt(900)+100;
 		}
 
 		return imei;

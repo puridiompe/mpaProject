@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.puridiompe.mpa.common.rest.message.ResponseError;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.rest.util.RestMessage;
+import com.puridiompe.mpa.common.security.exception.SessionException;
 
 /**
  * @author Johnny
@@ -50,7 +51,13 @@ public class RestAuthenticationFailureHandler extends
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		
+		if (exception instanceof SessionException) {
+			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		} else {
+			
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}
 
 		ResponseMessage<ResponseError> responseObject = new ResponseMessage<ResponseError>();
 		
