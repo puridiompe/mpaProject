@@ -202,6 +202,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			if (imagenesSize>0){
 				for (int i=0 ; i<imagenesSize ; i++){
 					imagenCodificada = fileRepository.getBase64(imagen.get(i).getNombre());
+					
 					reclamoDto.getImagenesBase64().add(imagenCodificada);
 				}
 			}
