@@ -215,9 +215,9 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
-		List<Reclamo> reclamo =  reclamoRepository.findAvailableByImei(imei,2); 		//En el futuro etiqueta 
+		List<Reclamo> reclamo =  reclamoRepository.findAvailableByImei(imei,"2"); 		//En el futuro etiqueta 
 		List<Ciudadano> ciudadanoAll =  ciudadanoRepository.findAllByDni(); //Aqui tus consultas
-		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre(2); 		//aqui tus consultas
+		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre("2"); 		//aqui tus consultas
 		
 		int contImagenes = 0;
 		if(!reclamo.isEmpty()){
@@ -264,10 +264,10 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		ReclamosDto objectReclamos = new ReclamosDto();
 		
 
-		List<Reclamo> reclamo =  reclamoRepository.findAllAvailable(2); //por etiqueta en el futuro
+		List<Reclamo> reclamo =  reclamoRepository.findAllAvailable("2"); //por etiqueta en el futuro
 		List<Ciudadano> ciudadanoAll = ciudadanoRepository.findAllByDni();
-		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre(2);
-		List<ReclamoComentario> reclamoComentarios =  reclamoComentarioRepository.findAllByiDReclamo(2);//luego etiqueta
+		List<Imagen> imagenAll =  imagenRepository.findAllByidPadre("2");
+		List<ReclamoComentario> reclamoComentarios =  reclamoComentarioRepository.findAllByiDReclamo("2");//luego etiqueta
 		
 		int contImagenes = 0;
 		int contComentario = 0;
