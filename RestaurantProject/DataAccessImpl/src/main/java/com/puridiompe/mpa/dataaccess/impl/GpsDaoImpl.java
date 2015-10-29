@@ -96,7 +96,7 @@ public class GpsDaoImpl implements GpsDao {
 				Gps gpsToSave = new Gps();				
 				GpsDto listTmp = gps.get(i);				
 				BeanUtils.copyProperties(listTmp, gpsToSave);					
-				Date tmpToInsert = new Date();
+				Date tmpToInsert = DateUtil.getCurrentDate();//new Date();
 					
 				tmpToInsert.setTime(lastTime + listTmp.getOfflineTime());					
 				gpsToSave.setDate(tmpToInsert);
@@ -123,7 +123,7 @@ public class GpsDaoImpl implements GpsDao {
 				Gps gpsToSave = new Gps();				
 				GpsDto listTmp = gps.get(i);				
 				BeanUtils.copyProperties(listTmp, gpsToSave);					
-				Date tmpToInsert = new Date();
+				Date tmpToInsert = DateUtil.getCurrentDate();//new Date();
 					
 				tmpToInsert.setTime(lastTime + listTmp.getOfflineTime());					
 				gpsToSave.setDate(tmpToInsert);

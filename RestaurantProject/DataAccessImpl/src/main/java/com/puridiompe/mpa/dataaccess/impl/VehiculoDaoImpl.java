@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.PropietarioDto;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
+import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.VehiculoDao;
 import com.puridiompe.mpa.movil.domain.persistence.VehiculoHistorial;
 import com.puridiompe.mpa.movil.repository.persistence.VehiculoHistorialRepository;
@@ -76,7 +77,7 @@ public class VehiculoDaoImpl implements VehiculoDao {
 		vehiculoHistorial.setVehiculo(placa);
 		vehiculoHistorial.setUsuario(username);
 		vehiculoHistorial.setImei(imei);
-		vehiculoHistorial.setFecha(new Date());
+		vehiculoHistorial.setFecha(DateUtil.getCurrentDate());//new Date());
 		vehiculoHistorialRepository.save(vehiculoHistorial);
 	}
 
