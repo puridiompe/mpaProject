@@ -16,6 +16,8 @@ public interface GestionarDeviceBusiness {
 	public DeviceDto getDeviceByImei(String imei);
 	
 	public void checkDeviceByImei(String imei) throws RegisteredPublicImeiException;
+	
+	public DeviceDto getDeviceByUsername(String username);
 
 	public List<DeviceDto> getAll();	
 	

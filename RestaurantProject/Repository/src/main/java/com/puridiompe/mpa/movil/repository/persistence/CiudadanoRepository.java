@@ -15,6 +15,9 @@ public interface CiudadanoRepository extends JpaRepository<Ciudadano, Integer>{
 	@Query("from  Ciudadano p where p.dni = ?1")
 	public Ciudadano findByDni (Integer dni);
 	
+	@Query("from  Ciudadano p")
+	public List<Ciudadano> findAllByDni ();
+	
 //	@Query("from Ciudadano p where p.imei = ?1")
 //	public List<Ciudadano> findByImei (String imei);
 	

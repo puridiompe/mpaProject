@@ -60,7 +60,13 @@ public class RestAuthenticationSuccessHandler extends
 //				.getUsername();
 		
 		UsuarioDto user = ((UsuarioDto) authentication.getPrincipal());
-				
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		headerAuthenticationHandler.addHeader(response, user.getUsername(), user.getImei());
 		// response.setHeader(arg0, token);

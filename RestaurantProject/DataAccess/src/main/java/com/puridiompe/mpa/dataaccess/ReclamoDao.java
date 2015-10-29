@@ -3,12 +3,22 @@ package com.puridiompe.mpa.dataaccess;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.business.general.dto.ReclamosDto;
+import com.puridiompe.mpa.common.security.exception.SecurityException;
 
 public interface ReclamoDao {
 
-	public void saveReclamo (Integer dni, String descripcion, String vehiculo, List<String> imagenesBase64, String imei);
+	public Integer saveReclamo (ReclamoDto request) throws SecurityException;
+	
+	public boolean saveReclamoComentario(ReclamoDto request);
 	
 	public List<ReclamoDto> getReclamosFrecuentes();
 	
 	public Integer getLastDniByImei(String imei);
+
+	public ReclamosDto getAll();
+	
+	public ReclamoDto getById(Integer idReclamo);
+	
+	public ReclamosDto getReclamosByImei(String imei);
 }

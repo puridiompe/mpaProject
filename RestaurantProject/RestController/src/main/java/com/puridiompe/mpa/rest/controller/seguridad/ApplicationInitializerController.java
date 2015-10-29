@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarDeviceBusiness;
+import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.business.security.dto.UsuarioDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
@@ -42,6 +43,9 @@ public class ApplicationInitializerController extends BaseController {
 	private GestionarUserDetailsBusiness gestionarUserDetailsBusiness;
 
 	@Autowired
+	GestionarLoginHistorialBusiness  gestionarLoginHistorialBusiness;
+	
+	@Autowired
 	private GestionarDeviceBusiness gestionarDeviceBusiness;
 
 	@RequestMapping(method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +56,7 @@ public class ApplicationInitializerController extends BaseController {
 
 		String imei = Network.getClientImei(deviceRequest.getDevice().getImei(), servletRequest);
 
-		gestionarDeviceBusiness.checkDeviceByImei(imei);
+//		gestionarDeviceBusiness.checkDeviceByImei(imei);
 
 		ApplicationResponse applicationResponse = new ApplicationResponse();
 
@@ -71,9 +75,17 @@ public class ApplicationInitializerController extends BaseController {
 		applicationResponse.setPerfil(user.getAuthorities());
 		ResponseMessage<ApplicationResponse> responseMessage = new ResponseMessage<ApplicationResponse>();
 		responseMessage.setBody(applicationResponse);
-
+		
+		gestionarLoginHistorialBusiness.setLoginHistorial(user.getUsername(),imei);
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		authenticationHandler.addHeader(response, user.getUsername(), imei);
-
 		return responseMessage;
 	}
 

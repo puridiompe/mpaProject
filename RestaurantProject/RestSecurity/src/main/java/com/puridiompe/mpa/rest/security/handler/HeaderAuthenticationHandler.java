@@ -55,11 +55,35 @@ public class HeaderAuthenticationHandler {
         return StringUtils.isNotBlank(header) ? extractUserName(header) : null;
     }
     
+    public DateTime getTimestamp(HttpServletRequest request) {
+        String header = request.getHeader(HEADER_NAME);
+        return StringUtils.isNotBlank(header) ? extractTimestamp(header) : null;
+    }
+    
     public String getImei(HttpServletRequest request) {
         String header = request.getHeader(HEADER_NAME);
         return StringUtils.isNotBlank(header) ? extractImei(header) : null;
     }
 
+    public String getUser(HttpServletRequest request){
+    	String header = request.getHeader(HEADER_NAME);
+    	return StringUtils.isNotBlank(header) ? extractUser(header) : null;
+    }
+    private String extractUser(String value) {
+
+        try {
+            String decryptedValue = encryptionUtil.decrypt(value, seed);
+            String[] split = decryptedValue.split("\\|");
+            String username = split[0];
+            return username;
+            
+        } catch (IOException | GeneralSecurityException e) {
+        	//Logger.debug(this, "Unable to decrypt header" + e);
+        }
+        return null;
+    }
+    
+    
     private String extractUserName(String value) {
 
         try {
@@ -85,15 +109,33 @@ public class HeaderAuthenticationHandler {
             String username = split[0];
             String imei = split[1]; 
             DateTime timestamp =  new DateTime(Long.parseLong(split[2]));
-            if (timestamp.isAfter(DateTime.now().minus(sessionMaxAge))) {
+            //if (timestamp.isAfter(DateTime.now().minus(sessionMaxAge))) {
                 return imei;
-            }
+            //}
+            	
         } catch (IOException | GeneralSecurityException e) {
 //            Logger.debug(this, "Unable to decrypt header" + e);
         }
         return null;
     }
 
+    
+    private DateTime extractTimestamp(String value) {
+
+        try {
+            String decryptedValue = encryptionUtil.decrypt(value, seed);
+            String[] split = decryptedValue.split("\\|");
+            String username = split[0];
+            String imei = split[1]; 
+            DateTime timestamp =  new DateTime(Long.parseLong(split[2]));
+            return timestamp;
+            
+        } catch (IOException | GeneralSecurityException e) {
+        	//Logger.debug(this, "Unable to decrypt header" + e);
+        }
+        return null;
+    }
+    
     public void resetHeader(HttpServletResponse response) {
     	 response.setHeader(HEADER_NAME, "");
     }

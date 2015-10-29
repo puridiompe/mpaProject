@@ -3,6 +3,8 @@
  */
 package com.puridiompe.mpa.business.security;
 
+import java.util.Date;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -24,7 +26,7 @@ public interface GestionarUserDetailsBusiness extends UserDetailsService {
 	
 	public UsuarioDto validateUsuario(String username,String password);
 	
-	public boolean setLastLogin(String username);
+	//public void setLastLogin(String username,String imei,Date fechatoken);
 	
 	public boolean setCurrentDevice(UserDetails user, String imei);
 }

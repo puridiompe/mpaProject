@@ -27,6 +27,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
+import com.puridiompe.mpa.business.general.GestionarLoginHistorialBusiness;
+
+import com.puridiompe.mpa.business.general.GestionarDeviceBusiness;
 import com.puridiompe.mpa.business.security.GestionarUserDetailsBusiness;
 import com.puridiompe.mpa.common.config.RestCommonConfiguration;
 import com.puridiompe.mpa.rest.security.expression.CustomWebSecurityExpressionHandler;
@@ -72,8 +76,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private GestionarUserDetailsBusiness userDetailsService;
 	
 	@Autowired
+	private GestionarDeviceBusiness gestionarDeviceBusiness;
+	
+	
+	@Autowired
+	GestionarLoginHistorialBusiness  loginHistorialService;
+	
+	@Autowired
     private HeaderAuthenticationHandler headerAuthenticationHandler;
 
+	
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -122,6 +134,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.POST, "/transportes/infraccion/**").access("hasAccessInfraccion()")
 		.antMatchers(HttpMethod.POST, "/transportes/noticia/**").access("hasAccessNoticia()")
 		.antMatchers("/transportes/ciudadano/**").access("hasAccessCiudadano()")
+		.antMatchers("/transportes/reclamo/**").access("hasAccessReclamo()")
 		.antMatchers("/transportes/gps/**").access("hasAccessGps()")
 		.anyRequest().authenticated();
 		
@@ -172,8 +185,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	private Filter authenticationFilter() {
         HeaderAuthenticationFilter headerAuthenticationFilter = new HeaderAuthenticationFilter();
+        headerAuthenticationFilter.gestionarDeviceBusiness(gestionarDeviceBusiness);
         headerAuthenticationFilter.userDetailsService(userDetailsService);
+        headerAuthenticationFilter.loginHistorialService(loginHistorialService);
         headerAuthenticationFilter.authenticationHandler(headerAuthenticationHandler);
+        headerAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         return headerAuthenticationFilter;
     }
 

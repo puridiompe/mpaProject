@@ -26,7 +26,7 @@ public class LoginHistorial {
 //	@Column(name = "\"idUsuario\"", nullable = false)
 //	private Integer idUsuario;
 	
-	@Column(name = "\"username\"", nullable = false)
+	@Column(name = "\"username\"") //nullable = false
 	private String username;
 	
 	@Column(name = "\"fecha\"", nullable = false)
@@ -35,6 +35,12 @@ public class LoginHistorial {
 //	@Column(name = "\"estado\"", nullable = true)
 //	private Boolean estado;
 
+	@Column(name = "\"imei\"")
+	private String imei;
+	
+	@Column(name = "\"fechaToken\"")
+	private Date fechaToken;
+	
 	public LoginHistorial(){}
 
 	public Integer getIdLogHist() {
@@ -61,6 +67,25 @@ public class LoginHistorial {
 		this.fechaHora = fechaHora;
 	}
 
+	public String getImei() {
+		return imei;
+	}
+
+	public void setImei(String imei) {
+		this.imei = imei;
+	}
+
+	public Date getFechaToken() {
+		return fechaToken;
+	}
+
+	public void setFechaToken(Date fechaToken) {
+		this.fechaToken = fechaToken;
+	}
+
+
+
+	
 //	public Boolean getEstado() {
 //		return estado;
 //	}

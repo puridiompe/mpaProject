@@ -14,11 +14,19 @@ public class ReclamoDto {
 	
 	private String vehiculo;
 	
-	private Date fechaCreacion;
+	private Date fecCre;
+	
+	private Date fecMod;
 	
 	private List<String> imagenesBase64;
 	
 	private String imei;
+	
+	private String estado;
+	
+	private String numRec;
+	
+	private List<String> reclamoComentarios;
 	
 	
 	public ReclamoDto (){
@@ -65,15 +73,6 @@ public class ReclamoDto {
 		this.vehiculo = vehiculo;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
 
 	public List<String> getImagenesBase64() {
 		return imagenesBase64;
@@ -92,6 +91,56 @@ public class ReclamoDto {
 
 	public void setImei(String imei) {
 		this.imei = imei;
+	}
+
+
+	public String getNumRec() {
+		return numRec;
+	}
+
+
+	public void setNumRec(String numRec) {
+		this.numRec = numRec;
+	}
+
+
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
+	public Date getFecCre() {
+		return fecCre;
+	}
+
+
+	public void setFecCre(Date fecCre) {
+		this.fecCre = fecCre;
+	}
+
+
+	public Date getFecMod() {
+		return fecMod;
+	}
+
+
+	public void setFecMod(Date fecMod) {
+		this.fecMod = fecMod;
+	}
+
+
+	public List<String> getReclamoComentarios() {
+		return reclamoComentarios;
+	}
+
+
+	public void setReclamoComentarios(List<String> reclamoComentarios) {
+		this.reclamoComentarios = reclamoComentarios;
 	}
 	
 }

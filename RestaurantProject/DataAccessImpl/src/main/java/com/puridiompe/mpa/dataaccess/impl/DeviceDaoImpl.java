@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.puridiompe.mpa.business.general.dto.DeviceDto;
 import com.puridiompe.mpa.dataaccess.DeviceDao;
 import com.puridiompe.mpa.movil.domain.persistence.Device;
+import com.puridiompe.mpa.movil.domain.persistence.Usuario;
 import com.puridiompe.mpa.movil.repository.persistence.DeviceRepository;
+import com.puridiompe.mpa.movil.repository.persistence.UsuarioRepository;
 
 /**
  * @author Lucho
@@ -23,6 +25,9 @@ import com.puridiompe.mpa.movil.repository.persistence.DeviceRepository;
 
 @Component
 public class DeviceDaoImpl implements DeviceDao{
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	private DeviceRepository deviceRepository;
@@ -56,6 +61,28 @@ public class DeviceDaoImpl implements DeviceDao{
 		
 		if(device != null){
 			BeanUtils.copyProperties(device, deviceObject);
+		}else{
+			return null;
+		}
+		
+		return deviceObject;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public DeviceDto getImeiByUsername(String username){
+		
+		DeviceDto deviceObject = new DeviceDto();
+		
+		Usuario usuario = usuarioRepository.findByUsername(username);
+		
+		if(usuario != null){
+			int idUsuario = usuario.getIdUsuario();
+			List<Device> devices = deviceRepository.findByLastUserId(idUsuario);
+			if(!devices.isEmpty()){
+				BeanUtils.copyProperties(devices.get(0), deviceObject);
+			}
+			
 		}else{
 			return null;
 		}
