@@ -70,7 +70,7 @@ public class FileRepositoryImpl implements FileRepository {
 		}
 		
 		int dotIndex = fileName.indexOf("."); 
-		String fileType = fileName.substring(dotIndex, fileName.length());
+		String fileType = fileName.substring(dotIndex+1, fileName.length());
 		
 		res = "data:image/" + fileType + ";base64," + res;
 		
