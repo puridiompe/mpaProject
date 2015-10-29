@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.dataaccess;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
@@ -21,4 +22,6 @@ public interface ReclamoDao {
 	public ReclamoDto getById(Integer idReclamo);
 	
 	public ReclamosDto getReclamosByImei(String imei);
+	
+	public ReclamoDto getImagesByNumRec(String numRec);	
 }

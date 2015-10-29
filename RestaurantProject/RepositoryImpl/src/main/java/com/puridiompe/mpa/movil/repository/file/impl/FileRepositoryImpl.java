@@ -3,11 +3,18 @@
  */
 package com.puridiompe.mpa.movil.repository.file.impl;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Base64;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,5 +51,27 @@ public class FileRepositoryImpl implements FileRepository {
 		
 		return data.length;
 	}
+	
+	@Override
+	public String getBase64(String fileName){/*
+		String filePath = env.getProperty("file.store.image.path");		
+		String res = new String();
+		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+		BufferedImage img;
+		try {
+			img = ImageIO.read(new File(filePath,fileName));
+			ImageIO.write(img, "jpg", baos);
+			baos.flush();
+			res = Base64.getEncoder().encodeToString(baos.toByteArray());
+			baos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		String ress = "9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAEMuMjoyKkM6NjpLR0NPZKZsZFxcZMySmnmm8dT++u3U6eX//////////+Xp////////////////////////////2wBDAUdLS2RXZMRsbMT//+n/////////////////////////////////////////////////////////////////////wAARCABkADgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwC1S0UtUSFGKWikAlIadTTTAb/EKKUdSaKQxwpaBS0CCiiigBKQ06mmgBvYmij+GimBCLg+lKLg+magzSikOxP9oP8AdpftH+zUFFAWJ/tA9DQsoc46Gq9JnBzQFiy7EJx1xRTdwZc0UagVxilpoHNO/GkMXIPSijFGKBhSUYpKAHI2047GimEUU7isLS0gpfwqRhS0lGKACg0YFJ0oAQ0UGimAtKKbmlzUjFoozSZ9qYC0lGaQmgBDRRmigAFLRRSAKUUUUwAim0UUAFFFFAH/2Q==";
+				
+		return ress;
+	}	
 
 }

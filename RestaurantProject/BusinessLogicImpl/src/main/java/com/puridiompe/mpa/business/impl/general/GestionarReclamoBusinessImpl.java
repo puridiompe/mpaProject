@@ -56,5 +56,16 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 		
 		return reclamosDto;
 	}
+	
+	@Override
+	public ReclamoDto getImagesByNumRec(String numRec) {
+		ReclamoDto reclamoTmp = reclamoDao.getImagesByNumRec(numRec);
+		
+		
+		
+		
+		
+		return reclamoTmp;
+	}	
 
 }

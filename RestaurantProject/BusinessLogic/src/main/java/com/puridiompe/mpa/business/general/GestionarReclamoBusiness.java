@@ -19,4 +19,6 @@ public interface GestionarReclamoBusiness {
 	public ReclamosDto getAll();
 	
 	public ReclamosDto getReclamosByImei(String imei);
+	
+	public ReclamoDto getImagesByNumRec(String numRec);	
 }
