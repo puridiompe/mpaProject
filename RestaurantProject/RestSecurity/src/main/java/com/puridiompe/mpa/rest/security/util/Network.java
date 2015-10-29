@@ -47,8 +47,7 @@ public class Network {
 		if (localAddresses.contains(imei)) {
 			logger.info("Login in local connection");
 			imei = localIp;
-			Random rnd = new Random();
-			imei += "."+rnd.nextInt(900)+100;
+			//Random rnd = new Random();
 			//imei += "."+rnd.nextInt(900)+100;
 		}
 
