@@ -16,10 +16,10 @@ import com.puridiompe.mpa.papeletas.repository.persistence.MuniPapeletaRepositor
 @Component
 public class PapeletaDaoImpl implements PapeletaDao{
 
-	@Autowired
+//	@Autowired
 	private MuniPapeletaRepository papeletaRepository;
 	
-	@Transactional(value = "papeletasTransactionManager", readOnly = true)
+//	@Transactional(value = "papeletasTransactionManager", readOnly = true)
 	@Override
 	public List<PapeletaDto> getPapeletasByPlaca(String placa) {
 		List<PapeletaDto> papeletasObject = new ArrayList<PapeletaDto>();
