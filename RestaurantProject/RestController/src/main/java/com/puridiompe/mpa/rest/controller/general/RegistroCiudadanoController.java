@@ -55,11 +55,12 @@ public class RegistroCiudadanoController {
 		}else{
 			if(ciudadanos != null && !ciudadanos.isEmpty()){				
 				gestionarCiudadano.setCiudadanoBatch(ciudadanos);				
-			}else{
-				throw new SaveCiudadanoException("El array de ciudadanos está vacio o es nulo");				
 			}
+//			else{
+//				throw new SaveCiudadanoException("El array de ciudadanos está vacio o es nulo");				
+//			}
 
-			return ciudadanos.size();
+			return (ciudadanos != null) ? ciudadanos.size() : 0;
 		}
 
 
