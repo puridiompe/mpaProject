@@ -28,10 +28,7 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 	public Reclamo getImagesByNumRec (String numRec);	
 	
 	@Query("from  Reclamo r where r.estado != ?1 ORDER BY idReclamo ASC")
-	public List<Reclamo> findAllAvailable (String estado);
-	
-	@Query("from  Reclamo r where r.imei = ?1, AND r.estado != ?2 ORDER BY idReclamo DESC")
-	public List<Reclamo> findAvailableByImei (String imei, Integer estado);
+	public List<Reclamo> findAllAvailable (String estado);	
 
 	@Query("from  Reclamo r where r.imei = ?1 AND r.estado != ?2 ORDER BY idReclamo DESC")
 	public List<Reclamo> findAvailableByImei (String imei, String estado);
