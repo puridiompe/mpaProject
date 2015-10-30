@@ -222,10 +222,10 @@ public class ReclamoDaoImpl implements ReclamoDao {
 																					// el
 																					// futuro
 																					// etiqueta
-		List<Ciudadano> ciudadanoAll = ciudadanoRepository.findAllByDni(); // Aqui
+		List<Ciudadano> ciudadanoAll = ciudadanoRepository.findByReclamoDni(imei, "2"); // Aqui
 																			// tus
 																			// consultas
-		List<Imagen> imagenAll = imagenRepository.findAllByidPadre("2"); // aqui
+		List<Imagen> imagenAll = imagenRepository.findAllByImei(imei, "2"); // aqui
 																			// tus
 																			// consultas
 
