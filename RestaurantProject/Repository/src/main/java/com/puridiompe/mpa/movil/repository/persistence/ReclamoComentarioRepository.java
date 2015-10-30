@@ -15,6 +15,6 @@ public interface ReclamoComentarioRepository  extends JpaRepository<ReclamoComen
 	@Query("from  ReclamoComentario rc WHERE rc.estado != ?1 ORDER BY idReclamo ASC ")
 	public List<ReclamoComentario> findAllByiDReclamo (String estado);
 	
-	@Query("from  ReclamoComentario rc WHERE rc.estado = ?1 ORDER BY idReclamo ASC ")
+	@Query("from  ReclamoComentario rc WHERE rc.estado != ?1 ORDER BY idReclamo ASC ")
 	public List<ReclamoComentario> findAllAvailable(String estado);
 }

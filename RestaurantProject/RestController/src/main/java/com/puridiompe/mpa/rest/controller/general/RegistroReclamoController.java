@@ -56,12 +56,19 @@ public class RegistroReclamoController extends BaseController{
 
 
 	@RequestMapping(value = "/updateComentario", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean updateComentario(@RequestBody RequestMessage<GetReclamoRequest> request)
+	public @ResponseBody ResponseMessage<GetReclamoResponse> updateComentario(@RequestBody RequestMessage<GetReclamoRequest> request)
 			throws BusinessException, SecurityException {		
 		
 		ReclamoDto toSave = request.getBody().getReclamo();	
-
-		boolean response = gestionarReclamo.setReclamoComentario(toSave);		
+		
+		 
+		ReclamoDto reclamo = gestionarReclamo.setReclamoComentario(toSave);
+		
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+		GetReclamoResponse body = new GetReclamoResponse(); 
+		body.setReclamo(reclamo);
+		response.setBody(body);
+		
 		
 		return response;
 

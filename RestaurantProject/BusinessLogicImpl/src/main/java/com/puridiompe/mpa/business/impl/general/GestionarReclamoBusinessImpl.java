@@ -28,7 +28,7 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public boolean setReclamoComentario(ReclamoDto request){
+	public ReclamoDto setReclamoComentario(ReclamoDto request){
 		return reclamoDao.saveReclamoComentario(request);
 	}
 
