@@ -27,4 +27,13 @@ public class GetReclamoResponse extends ResponseBody{
 		this.reclamosFrecuentes = reclamosFrecuentes;
 	}
 	
+	private Integer numeroReclamos;
+
+	public Integer getNumeroReclamos() {
+		return numeroReclamos;
+	}
+
+	public void setNumeroReclamos(Integer numeroReclamos) {
+		this.numeroReclamos = numeroReclamos;
+	}
 }

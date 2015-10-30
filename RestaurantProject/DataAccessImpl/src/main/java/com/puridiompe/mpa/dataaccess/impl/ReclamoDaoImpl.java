@@ -385,4 +385,11 @@ public class ReclamoDaoImpl implements ReclamoDao {
 
 		return objectReclamos;
 	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public Integer countReclamosByImei(String imei){
+		
+		return reclamoRepository.countReclamosByImei(imei);
+	} 
 }

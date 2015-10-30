@@ -24,4 +24,6 @@ public interface ReclamoDao {
 	public ReclamosDto getReclamosByImei(String imei);
 	
 	public ReclamoDto getImagesByNumRec(String numRec);	
+	
+	public Integer countReclamosByImei(String imei);
 }

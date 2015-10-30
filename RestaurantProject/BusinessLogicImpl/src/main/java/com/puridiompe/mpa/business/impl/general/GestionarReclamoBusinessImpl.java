@@ -59,13 +59,16 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	
 	@Override
 	public ReclamoDto getImagesByNumRec(String numRec) {
+		
 		ReclamoDto reclamoTmp = reclamoDao.getImagesByNumRec(numRec);
-		
-		
-		
-		
-		
 		return reclamoTmp;
-	}	
+	}
+	
+	@Override
+	public Integer getCountReclamoByImei() throws SecurityException{
+		
+		String currentImei = SecurityContextHelper.getCurrentImei();
+		return reclamoDao.countReclamosByImei(currentImei);
+	}
 
 }
