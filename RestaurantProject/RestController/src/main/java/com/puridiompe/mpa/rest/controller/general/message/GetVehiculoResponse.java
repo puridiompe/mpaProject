@@ -24,7 +24,18 @@ public class GetVehiculoResponse extends ResponseBody {
 	/**
 	 * @param vehiculo the vehiculo to set
 	 */
+	
 	public void setVehiculo(VehiculoDto vehiculo) {
 		this.vehiculo = vehiculo;
+	}
+	
+	private Integer numeroVehiculos;
+
+	public Integer getNumeroVehiculos() {
+		return numeroVehiculos;
+	}
+
+	public void setNumeroVehiculos(Integer numeroVehiculos) {
+		this.numeroVehiculos = numeroVehiculos;
 	}
 }

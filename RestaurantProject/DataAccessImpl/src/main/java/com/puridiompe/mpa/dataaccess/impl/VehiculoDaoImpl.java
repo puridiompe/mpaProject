@@ -80,5 +80,12 @@ public class VehiculoDaoImpl implements VehiculoDao {
 		vehiculoHistorial.setFecha(DateUtil.getCurrentDate());//new Date());
 		vehiculoHistorialRepository.save(vehiculoHistorial);
 	}
+	
+	@Transactional(value = "sistranTransactionManager", readOnly = true)
+	@Override
+	public Integer countVehiculosByImei(String imei){
+		
+		return vehiculoHistorialRepository.findNumeroVehiculosByImei(imei);
+	}
 
 }

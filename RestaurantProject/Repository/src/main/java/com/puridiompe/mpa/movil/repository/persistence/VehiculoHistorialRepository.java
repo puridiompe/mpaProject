@@ -10,6 +10,6 @@ import com.puridiompe.mpa.movil.domain.persistence.VehiculoHistorial;
 
 public interface VehiculoHistorialRepository extends JpaRepository<VehiculoHistorial, Integer>{
 
-//	@Query("from  VehiculoHistorial p  where p.username = ?1 ")
-//	public List<VehiculoHistorial> findByUsername(Integer username);
+	@Query("select count (*) from  VehiculoHistorial p  where p.imei = ?1 ")
+	public Integer findNumeroVehiculosByImei(String imei);
 }
