@@ -24,7 +24,7 @@ public interface ImagenRepository  extends JpaRepository<Imagen, Integer>{
 	@Query("select i from Imagen i, Reclamo r where r.estado != ?2 and r.imei = ?1 and i.tipoEntidad = 'REC' and i.idPadre = r.idReclamo order by i.idPadre asc" )
 	public List<Imagen> findAllByImei(String imei, String estado);
 	
-	@Query("select i from Imagen i where i.estado != ?1 and i.tipoEntidad = 'REC' order by i.idPadre asc" )
+	@Query("select i from Imagen i where i.estado != ?1 and i.tipoEntidad = 'REC' and r.idReclamo = i.idPadre order by i.idPadre asc" )
 	public List<Imagen> findAllByReclamo(String estado);
 
 }

@@ -26,7 +26,9 @@ public class ReclamoDto {
 	
 	private String numRec;
 	
-	private List<String> reclamoComentarios;
+	private List<ReclamoComentarioDto> reclamoComentarios;
+	
+//	private List<String> reclamoComentarios;
 	
 	
 	public ReclamoDto (){
@@ -132,15 +134,26 @@ public class ReclamoDto {
 	public void setFecMod(Date fecMod) {
 		this.fecMod = fecMod;
 	}
-
-
-	public List<String> getReclamoComentarios() {
+	
+	
+	
+	public List<ReclamoComentarioDto> getReclamoComentarios() {
 		return reclamoComentarios;
 	}
 
 
-	public void setReclamoComentarios(List<String> reclamoComentarios) {
+	public void setReclamoComentarios(List<ReclamoComentarioDto> reclamoComentarios) {
 		this.reclamoComentarios = reclamoComentarios;
 	}
+
+
+//	public List<String> getReclamoComentarios() {
+//		return reclamoComentarios;
+//	}
+//
+//
+//	public void setReclamoComentarios(List<String> reclamoComentarios) {
+//		this.reclamoComentarios = reclamoComentarios;
+//	}
 	
 }

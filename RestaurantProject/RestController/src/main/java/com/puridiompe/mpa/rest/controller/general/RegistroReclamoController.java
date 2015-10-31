@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
+import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
@@ -42,7 +43,7 @@ public class RegistroReclamoController extends BaseController{
 		toSave.setEstado(ReclamoState.RECIBIDO.toString());
 		
 		//If a citizen manages to send Comentarios, then null them
-		toSave.setReclamoComentarios(new ArrayList<String>());		
+		toSave.setReclamoComentarios(new ArrayList<ReclamoComentarioDto>());		
 
 		ReclamoDto reclamo = gestionarReclamo.setReclamo(toSave);
 		
