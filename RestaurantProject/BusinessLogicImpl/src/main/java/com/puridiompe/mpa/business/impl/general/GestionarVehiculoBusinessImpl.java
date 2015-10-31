@@ -42,4 +42,10 @@ public class GestionarVehiculoBusinessImpl implements GestionarVehiculoBusiness 
 
 		return vehiculoDto;
 	}
+	
+	public Integer countVehiculosByImei() throws SecurityException{
+		
+		String currentImei = SecurityContextHelper.getCurrentImei();
+		return vehiculoDao.countVehiculosByImei(currentImei);
+	}
 }

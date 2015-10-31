@@ -17,4 +17,6 @@ public interface GestionarVehiculoBusiness {
 	//@SafeMethod
 	public VehiculoDto getVehiculo(String placa) throws BusinessException, SecurityException;
 	
+	public Integer countVehiculosByImei() throws SecurityException;
+	
 }

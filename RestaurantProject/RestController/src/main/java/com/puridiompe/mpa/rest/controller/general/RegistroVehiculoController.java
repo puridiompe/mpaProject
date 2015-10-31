@@ -96,4 +96,20 @@ public class RegistroVehiculoController extends BaseController {
 		return response;		
 	}
 	
+	@RequestMapping(value = "/getNumeroVehiculos", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetVehiculoResponse> getNumeroVehiculos() throws SecurityException {	
+		
+		Integer numeroVehiculos = gestionarVehiculoBusiness.countVehiculosByImei();
+		
+		ResponseMessage<GetVehiculoResponse> response = new ResponseMessage<GetVehiculoResponse>();
+		
+		GetVehiculoResponse numeroVehiculosResponse = new GetVehiculoResponse();
+		
+		numeroVehiculosResponse.setNumeroVehiculos(numeroVehiculos);
+		
+		response.setBody(numeroVehiculosResponse);
+		
+		return response;
+	}
+	
 }
