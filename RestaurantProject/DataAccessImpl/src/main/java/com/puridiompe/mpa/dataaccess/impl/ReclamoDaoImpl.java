@@ -124,13 +124,13 @@ public class ReclamoDaoImpl implements ReclamoDao {
 
 		ReclamoDto response = request;
 
-		if ((request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())) {
-			for (int r = 0; r < request.getReclamoComentarios().size(); r++) {
-				ReclamoComentario reclamoComentario = new ReclamoComentario();
-				reclamoComentario.setComentario(request.getReclamoComentarios().get(r).getComentario());
-				reclamoComentario.setIdReclamo(request.getIdReclamo());
-				reclamoComentarioRepository.save(reclamoComentario);
-			}
+		if ((request.getReclamoComentarios() != null) && (!request.getReclamoComentarios().isEmpty())) {			
+			ReclamoComentario reclamoComentario = new ReclamoComentario();
+			reclamoComentario.setComentario(request.getReclamoComentarios().get(0).getComentario());
+			reclamoComentario.setIdReclamo(request.getIdReclamo());
+			reclamoComentarioRepository.save(reclamoComentario);
+			
+			response.getReclamoComentarios().get(0).setFecCre(reclamoComentario.getFecCre());
 			return response;
 		} else {
 			return null;
@@ -364,7 +364,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				int cantImagenes = 0;
 				for(int k = imagenIndex; k < imagenes.size(); k++){
 					if(reclamos.get(i).getIdReclamo().equals(imagenes.get(k).getIdPadre())){						
-						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho()));
+						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho() / 1024));
 						cantImagenes++;
 						imagenIndex++;
 					}else{
