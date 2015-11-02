@@ -258,7 +258,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				int cantImagenes = 0;
 				for(int k = imagenIndex; k < imagenes.size(); k++){
 					if(reclamos.get(i).getIdReclamo().equals(imagenes.get(k).getIdPadre())){						
-						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho()));
+						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho() / 1024) + " KB");
 						cantImagenes++;
 						imagenIndex++;
 					}else{
@@ -364,7 +364,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 				int cantImagenes = 0;
 				for(int k = imagenIndex; k < imagenes.size(); k++){
 					if(reclamos.get(i).getIdReclamo().equals(imagenes.get(k).getIdPadre())){						
-						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho() / 1024));
+						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho() / 1024)+ " KB");
 						cantImagenes++;
 						imagenIndex++;
 					}else{
