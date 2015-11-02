@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamosDto;
+import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
@@ -23,7 +24,9 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 		
 		Integer idReclamo =  reclamoDao.saveReclamo(request);
 		
-		return reclamoDao.getById(idReclamo);	
+		ResumenImagenDto resumen = new ResumenImagenDto();
+		
+		return reclamoDao.getById(idReclamo);
 		
 	}
 	

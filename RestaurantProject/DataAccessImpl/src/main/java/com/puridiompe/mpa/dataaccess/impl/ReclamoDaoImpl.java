@@ -1,6 +1,5 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
-import com.puridiompe.mpa.business.general.dto.ImagenDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamosDto;
@@ -173,12 +170,27 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	public ReclamoDto getById(Integer idReclamo) {
 
 		Reclamo reclamo = reclamoRepository.findById(idReclamo);
+		List<Imagen> imagen = imagenRepository.findByidPadre(idReclamo);
+		
+		ResumenImagenDto resumenImagen =  new ResumenImagenDto();
+		
+		if(imagen == null){
+			resumenImagen = null;			
+		}else{
+			List<String> pesos = new ArrayList<String>(); 
+			for(int i = 0; i < imagen.size(); i++){
+				pesos.add(Integer.toString(imagen.get(i).getTamanho() / 1024) + " KB");
+			}
+			resumenImagen.setNumeroImagenes(imagen.size());
+			resumenImagen.setPesoImagen(pesos);
+		}
 
 		if (reclamo == null) {
 			return null;
 		} else {
 			ReclamoDto reclamoDto = new ReclamoDto();
 			BeanUtils.copyProperties(reclamo, reclamoDto);
+			reclamoDto.setResumenImagen(resumenImagen);
 
 			return reclamoDto;
 		}

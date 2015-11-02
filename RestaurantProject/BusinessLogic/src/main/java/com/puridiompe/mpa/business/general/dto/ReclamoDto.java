@@ -28,6 +28,8 @@ public class ReclamoDto {
 	
 	private List<ReclamoComentarioDto> reclamoComentarios;
 	
+	private ResumenImagenDto resumenImagen;
+	
 //	private List<String> reclamoComentarios;
 	
 	
@@ -144,6 +146,16 @@ public class ReclamoDto {
 
 	public void setReclamoComentarios(List<ReclamoComentarioDto> reclamoComentarios) {
 		this.reclamoComentarios = reclamoComentarios;
+	}
+
+
+	public ResumenImagenDto getResumenImagen() {
+		return resumenImagen;
+	}
+
+
+	public void setResumenImagen(ResumenImagenDto resumenImagen) {
+		this.resumenImagen = resumenImagen;
 	}
 
 
