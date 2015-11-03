@@ -60,7 +60,9 @@ public class FileRepositoryImpl implements FileRepository {
 		BufferedImage img;
 		try {
 			img = ImageIO.read(new File(filePath,fileName));
-			ImageIO.write(img, "jpg", baos);
+			int dotIndex = fileName.indexOf(".");
+			String fileType = fileName.substring(dotIndex+1, fileName.length()); 
+			ImageIO.write(img, fileType, baos);
 			baos.flush();
 			res = Base64.getEncoder().encodeToString(baos.toByteArray());
 			baos.close();
@@ -69,7 +71,7 @@ public class FileRepositoryImpl implements FileRepository {
 			e.printStackTrace();
 		}
 		
-		int dotIndex = fileName.indexOf("."); 
+		int dotIndex = fileName.indexOf(".");
 		String fileType = fileName.substring(dotIndex+1, fileName.length());
 		
 		res = "data:image/" + fileType + ";base64," + res;
