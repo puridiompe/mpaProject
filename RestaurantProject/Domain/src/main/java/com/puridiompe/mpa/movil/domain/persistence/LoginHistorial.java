@@ -38,7 +38,7 @@ public class LoginHistorial {
 	@Column(name = "\"imei\"")
 	private String imei;
 	
-	@Column(name = "\"fechaToken\"")
+	@Column(name = "\"fecTok\"")
 	private Date fechaToken;
 	
 	public LoginHistorial(){}
