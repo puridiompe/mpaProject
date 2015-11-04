@@ -16,12 +16,12 @@ import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
 public class Imagen extends PersistenceAuditableEntity<Integer>{
 	
 	@Id
-	@Column(name = "\"idEntidad\"", unique = true, nullable = false)
+	@Column(name = "\"idIma\"", unique = true, nullable = false)
 	@SequenceGenerator(name = "imagen_sequence", sequenceName = "\"TrMov_Imagen_idEntidad_seq\"", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "imagen_sequence")
 	private Integer idEntidad;
 	
-	@Column(name = "\"tipoEntidad\"", nullable = false, length = 10)
+	@Column(name = "\"tipEnt\"", nullable = false, length = 10)
 	private String tipoEntidad;
 	
 	@Column(name = "\"nombre\"", nullable = false)
@@ -30,10 +30,10 @@ public class Imagen extends PersistenceAuditableEntity<Integer>{
 	@Column(name = "\"tipo\"", nullable = false, length = 10)
 	private String tipo;
 	
-	@Column(name = "\"tamanho\"")
+	@Column(name = "\"tamanio\"")
 	private Integer tamanho;
 	
-	@Column(name = "\"idPadre\"")
+	@Column(name = "\"idEnt\"")
 	private Integer idPadre;
 	
 	
