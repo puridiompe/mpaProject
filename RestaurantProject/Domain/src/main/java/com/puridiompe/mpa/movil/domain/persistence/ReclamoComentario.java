@@ -16,7 +16,7 @@ import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
 public class ReclamoComentario extends PersistenceAuditableEntity<Integer>{
 	
 	@Id
-	@Column(name = "\"id\"", unique = true, nullable = false)
+	@Column(name = "\"idComRec\"", unique = true, nullable = false)
 	@SequenceGenerator(name = "reclamoComentario_sequence", sequenceName = "\"TrMov_ComRec_idComRec_seq\"", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "reclamoComentario_sequence")
 	private Integer id;
