@@ -34,7 +34,11 @@ public class GestionarLoginHistorialBusinessImpl implements GestionarLoginHistor
 	
 		if(lastLogin != null && imei != null && newFechaToken != null){
 			Date curFechatoken = lastLogin.getFechaToken();
-			if(curFechatoken.getTime() < newFechaToken.getTime()){
+			Long diferencia = 0L;
+			diferencia =  newFechaToken.getTime() - curFechatoken.getTime();
+			diferencia = (diferencia)/ (60 * 1000);
+			if(diferencia >= -1){
+			//if(curFechatoken.getTime() < newFechaToken.getTime()){
 				System.out.println("Algo para comparar"+curFechatoken);
 				System.out.println("Algo para comparar"+curFechatoken.getTime());
 				System.out.println("Algo para comparar"+newFechaToken);
