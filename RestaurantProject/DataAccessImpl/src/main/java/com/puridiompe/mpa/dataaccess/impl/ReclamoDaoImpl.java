@@ -51,14 +51,26 @@ public class ReclamoDaoImpl implements ReclamoDao {
 
 	@Autowired
 	private ReclamoComentarioRepository reclamoComentarioRepository;
+	
 
 	@Transactional(value = "movilTransactionManager")
 	@Override
-	public Integer saveReclamo(ReclamoDto request) throws SecurityException {
-
+	public Integer saveReclamo(ReclamoDto request) throws SecurityException {	
+		
 		String currentImei = SecurityContextHelper.getCurrentImei();
+		Reclamo numRec = reclamoRepository.getImagesByNumRec(request.getNumRec());
+		
 		Reclamo reclamo = new Reclamo();
 		Date fechaActual = DateUtil.getCurrentDate();
+		
+		if(request.getNumRec() == null){
+			reclamo.setFecCre(fechaActual);
+			reclamo.setImei(currentImei);	
+		}else{
+			reclamo.setImei(numRec.getImei());
+			reclamo.setFecCre(numRec.getFecCre());
+		}		
+		
 
 		if (request.getIdReclamo() != null) {
 			reclamo.setIdReclamo(request.getIdReclamo());
@@ -68,10 +80,8 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 		reclamo.setDni(request.getDni());
 		reclamo.setDescripcion(request.getDescripcion());
-		reclamo.setVehiculo(request.getVehiculo());
-		reclamo.setFecCre(fechaActual);
-		reclamo.setFecMod(fechaActual);
-		reclamo.setImei(currentImei);
+		reclamo.setVehiculo(request.getVehiculo());		
+		reclamo.setFecMod(fechaActual);		
 		reclamo.setEstado(request.getEstado());
 
 		reclamoRepository.save(reclamo);

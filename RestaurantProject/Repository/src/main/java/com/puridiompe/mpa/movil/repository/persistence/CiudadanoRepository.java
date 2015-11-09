@@ -18,10 +18,10 @@ public interface CiudadanoRepository extends JpaRepository<Ciudadano, Integer>{
 	@Query("from  Ciudadano p")
 	public List<Ciudadano> findAllByDni ();
 	
-	@Query("select c from Ciudadano c, Reclamo r where r.estado != ?2 and r.imei = ?1 and r.dni = c.dni order by r.idReclamo asc")
+	@Query("select c from Ciudadano c, Reclamo r where r.estado != ?2 and r.imei = ?1 and r.dni = c.dni order by r.idReclamo DESC")
 	public List<Ciudadano> findByImei (String imei, String estado);
 	
-	@Query("select c from Ciudadano c, Reclamo r where r.estado != ?1  and r.dni = c.dni order by r.idReclamo asc")
+	@Query("select c from Ciudadano c, Reclamo r where r.estado != ?1  and r.dni = c.dni order by r.idReclamo DESC")
 	public List<Ciudadano> findByReclamo (String estado);
 	
 //	@Query("from Ciudadano p where p.imei = ?1")
