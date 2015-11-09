@@ -51,6 +51,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 
 	@Autowired
 	private ReclamoComentarioRepository reclamoComentarioRepository;
+	
 
 	@Transactional(value = "movilTransactionManager")
 	@Override
@@ -60,22 +61,16 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		Reclamo numRec = reclamoRepository.getImagesByNumRec(request.getNumRec());
 		
 		Reclamo reclamo = new Reclamo();
+		Date fechaActual = DateUtil.getCurrentDate();
 		
 		if(request.getNumRec() == null){
-			reclamo.setImei(currentImei);			
+			reclamo.setFecCre(fechaActual);
+			reclamo.setImei(currentImei);	
 		}else{
-			reclamo.setImei(numRec.getImei());			
-		}
+			reclamo.setImei(numRec.getImei());
+			reclamo.setFecCre(numRec.getFecCre());
+		}		
 		
-		
-//		if(currentImei.equals(numRec.getImei())){
-//			reclamo.setImei(currentImei);			
-//		}else{
-//			reclamo.setImei(numRec.getImei());
-//		}
-		
-		
-		Date fechaActual = DateUtil.getCurrentDate();
 
 		if (request.getIdReclamo() != null) {
 			reclamo.setIdReclamo(request.getIdReclamo());
@@ -85,8 +80,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 		reclamo.setDni(request.getDni());
 		reclamo.setDescripcion(request.getDescripcion());
-		reclamo.setVehiculo(request.getVehiculo());
-		reclamo.setFecCre(fechaActual);
+		reclamo.setVehiculo(request.getVehiculo());		
 		reclamo.setFecMod(fechaActual);		
 		reclamo.setEstado(request.getEstado());
 
