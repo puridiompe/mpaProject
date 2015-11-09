@@ -11,7 +11,7 @@ public interface GestionarCiudadanoBusiness {
 	public CiudadanoDto getCiudadano (Integer dni);
 	
 	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,
-			String email) throws BusinessException, SecurityException;
+			String email, String estado) throws BusinessException, SecurityException;
 	
 	public void setCiudadanoBatch(List<CiudadanoDto> ciudadanoArray);
 }

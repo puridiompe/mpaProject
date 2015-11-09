@@ -43,7 +43,7 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 	
 	@Transactional(value = "movilTransactionManager")
 	@Override
-	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,String email) {
+	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,String email, String estado) {
 		
 		Ciudadano ciudadano = new Ciudadano();
 //		List<Ciudadano> lista = ciudadanoRepository.findByImei(imei);
@@ -62,8 +62,9 @@ public class CiudadanoDaoImpl implements CiudadanoDao {
 		ciudadano.setApellidoMaterno(apellidoMaterno);
 		ciudadano.setNombres(nombres);
 		ciudadano.setEmail(email);			
-		ciudadano.setFechaCreacion(fechaActual);
-		ciudadano.setFechaModificacion(fechaActual);			
+		ciudadano.setFecCre(fechaActual);
+		ciudadano.setFecMod(fechaActual);
+		ciudadano.setEstado(estado);
 //		if(isLast){
 //			ciudadano.setImei(imei);				
 //		}else{

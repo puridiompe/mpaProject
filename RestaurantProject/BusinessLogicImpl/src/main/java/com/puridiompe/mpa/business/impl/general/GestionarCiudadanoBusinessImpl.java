@@ -29,11 +29,11 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 	
 	@Override
 	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,
-			String email) throws BusinessException, SecurityException {
+			String email, String estado) throws BusinessException, SecurityException {
 
 			String currentImei = SecurityContextHelper.getCurrentImei();
 
-			ciudadanoDao.setCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres, email);
+			ciudadanoDao.setCiudadano(dni, apellidoPaterno, apellidoMaterno, nombres, email, estado);
 
 	}
 	
@@ -58,7 +58,7 @@ public class GestionarCiudadanoBusinessImpl implements GestionarCiudadanoBusines
 //				ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail(), currentImei, ciudadanos.get(i).getOfflineTime(), isLast);
 //			}
 
-			ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail());
+			ciudadanoDao.setCiudadano(ciudadanos.get(i).getDni(), ciudadanos.get(i).getApellidoPaterno(), ciudadanos.get(i).getApellidoMaterno(), ciudadanos.get(i).getNombres(), ciudadanos.get(i).getEmail(), ciudadanos.get(i).getEstado());
 
 		}
 		
