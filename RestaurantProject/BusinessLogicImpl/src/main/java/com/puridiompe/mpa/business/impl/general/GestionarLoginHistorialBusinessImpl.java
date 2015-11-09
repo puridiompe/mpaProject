@@ -37,14 +37,15 @@ public class GestionarLoginHistorialBusinessImpl implements GestionarLoginHistor
 			Long diferencia = 0L;
 			diferencia =  newFechaToken.getTime() - curFechatoken.getTime();
 			diferencia = (diferencia)/ (60 * 1000);
+			System.out.println("La diferencia"+diferencia);
 			if(diferencia >= -1){
 			//if(curFechatoken.getTime() < newFechaToken.getTime()){
-				System.out.println("Algo para comparar"+curFechatoken);
-				System.out.println("Algo para comparar"+curFechatoken.getTime());
-				System.out.println("Algo para comparar"+newFechaToken);
-				System.out.println("Algo para comparar"+newFechaToken.getTime());
+				//System.out.println("Algo para comparar"+curFechatoken);
+				System.out.println("Actual: "+curFechatoken.getTime());
+				//System.out.println("Algo para comparar"+newFechaToken);
+				System.out.println("Nueva: "+newFechaToken.getTime());
 				Date toSave = new Date (newFechaToken.getTime());
-				System.out.println("Algo para guardar"+toSave);
+				//System.out.println("Algo para guardar"+toSave);
 				lastLogin.setFechaToken(newFechaToken);
 				loginHistorialDao.setLoginHistorial(lastLogin);
 			}else{
