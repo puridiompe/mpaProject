@@ -18,13 +18,13 @@ public interface ImagenRepository  extends JpaRepository<Imagen, Integer>{
 	@Query("from Imagen i where i.estado != ?1 and i.tipoEntidad = 'REC' ORDER BY idPadre ASC")
 	public List<Imagen> findAllByidPadre(String estado);
 	
-	@Query("select i from Imagen i, Reclamo r where i.estado != ?1 and i.tipoEntidad = 'REC' and i.idPadre = r.idReclamo ORDER BY idPadre ASC")
+	@Query("select i from Imagen i, Reclamo r where i.estado != ?1 and i.tipoEntidad = 'REC' and i.idPadre = r.idReclamo ORDER BY idPadre DESC")
 	public List<Imagen> findAllByidReclamo(String estado);
 	
-	@Query("select i from Imagen i, Reclamo r where r.estado != ?2 and r.imei = ?1 and i.tipoEntidad = 'REC' and i.idPadre = r.idReclamo order by i.idPadre asc" )
+	@Query("select i from Imagen i, Reclamo r where r.estado != ?2 and r.imei = ?1 and i.tipoEntidad = 'REC' and i.idPadre = r.idReclamo order by i.idPadre DESC" )
 	public List<Imagen> findAllByImei(String imei, String estado);
 	
-	@Query("select i from Imagen i, Reclamo r where r.estado != ?1 and i.tipoEntidad = 'REC' and r.idReclamo = i.idPadre order by i.idPadre asc" )
+	@Query("select i from Imagen i, Reclamo r where r.estado != ?1 and i.tipoEntidad = 'REC' and r.idReclamo = i.idPadre order by i.idPadre DESC" )
 	public List<Imagen> findAllByReclamo(String estado);
 
 }
