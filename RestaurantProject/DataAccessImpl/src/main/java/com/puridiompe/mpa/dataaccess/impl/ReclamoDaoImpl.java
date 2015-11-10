@@ -57,18 +57,22 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	@Override
 	public Integer saveReclamo(ReclamoDto request) throws SecurityException {	
 		
-		String currentImei = SecurityContextHelper.getCurrentImei();
-		Reclamo numRec = reclamoRepository.getImagesByNumRec(request.getNumRec());
+		String currentImei = SecurityContextHelper.getCurrentImei();		
 		
 		Reclamo reclamo = new Reclamo();
 		Date fechaActual = DateUtil.getCurrentDate();
 		
 		if(request.getNumRec() == null){
 			reclamo.setFecCre(fechaActual);
-			reclamo.setImei(currentImei);	
+			reclamo.setImei(currentImei);
+			reclamo.setLatitud(request.getLatitud());
+			reclamo.setLongitud(request.getLongitud());
 		}else{
+			Reclamo numRec = reclamoRepository.getImagesByNumRec(request.getNumRec());
 			reclamo.setImei(numRec.getImei());
 			reclamo.setFecCre(numRec.getFecCre());
+			reclamo.setLatitud(numRec.getLatitud());
+			reclamo.setLongitud(numRec.getLongitud());
 		}		
 		
 
