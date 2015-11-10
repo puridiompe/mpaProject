@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.puridiompe.mpa.domain.persistence.utility.PersistenceAuditableEntity;
+
 @Entity
 @Table(name = "\"TrMov_Ciudadano\"")
-public class Ciudadano {
+public class Ciudadano extends PersistenceAuditableEntity<Integer>{
 
 	@Id
 	@Column(name = "\"dni\"", unique = true, nullable = false)
@@ -30,11 +32,11 @@ public class Ciudadano {
 //	@Column(name = "\"imei\"", length = 30, unique = true, nullable = false)
 //	private String imei;
 	
-	@Column(name = "\"fecCre\"", nullable = false)
-	private Date fechaCreacion;
-	
-	@Column(name = "\"fecMod\"", nullable = true)
-	private Date fechaModificacion;
+//	@Column(name = "\"fecCre\"", nullable = false)
+//	private Date fechaCreacion;
+//	
+//	@Column(name = "\"fecMod\"", nullable = true)
+//	private Date fechaModificacion;
 	
 	/**
 	 * Default Constructor
@@ -95,20 +97,20 @@ public class Ciudadano {
 //		this.imei = imei;
 //	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
-	}
-
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
-
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
+//	public Date getFechaCreacion() {
+//		return fechaCreacion;
+//	}
+//
+//	public void setFechaCreacion(Date fechaCreacion) {
+//		this.fechaCreacion = fechaCreacion;
+//	}
+//
+//	public Date getFechaModificacion() {
+//		return fechaModificacion;
+//	}
+//
+//	public void setFechaModificacion(Date fechaModificacion) {
+//		this.fechaModificacion = fechaModificacion;
+//	}
 
 }

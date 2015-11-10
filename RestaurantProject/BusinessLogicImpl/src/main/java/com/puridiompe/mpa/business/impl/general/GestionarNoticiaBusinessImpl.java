@@ -31,4 +31,10 @@ public class GestionarNoticiaBusinessImpl implements GestionarNoticiaBusiness{
 		return noticiaDao.getLatestNews();
 	}
 
+	@Override
+	public void saveNoticia(NoticiaDto nuevaNoticia) {
+		
+		noticiaDao.saveNoticia(nuevaNoticia);
+	}
+
 }

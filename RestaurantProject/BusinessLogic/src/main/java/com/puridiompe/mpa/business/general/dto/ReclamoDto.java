@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.business.general.dto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,10 @@ public class ReclamoDto {
 	private List<ReclamoComentarioDto> reclamoComentarios;
 	
 	private ResumenImagenDto resumenImagen;
+	
+	private BigDecimal latitud;	 
+	
+	private BigDecimal longitud;
 	
 //	private List<String> reclamoComentarios;
 	
@@ -156,6 +161,26 @@ public class ReclamoDto {
 
 	public void setResumenImagen(ResumenImagenDto resumenImagen) {
 		this.resumenImagen = resumenImagen;
+	}
+
+
+	public BigDecimal getLatitud() {
+		return latitud;
+	}
+
+
+	public void setLatitud(BigDecimal latitud) {
+		this.latitud = latitud;
+	}
+
+
+	public BigDecimal getLongitud() {
+		return longitud;
+	}
+
+
+	public void setLongitud(BigDecimal longitud) {
+		this.longitud = longitud;
 	}
 
 

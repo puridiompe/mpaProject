@@ -12,5 +12,5 @@ import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 public interface CiudadanoDao {
 	
 	public CiudadanoDto getCiudadano(Integer dni);
-	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,String email);
+	public void setCiudadano(Integer dni, String apellidoPaterno, String apellidoMaterno, String nombres,String email, String estado);
 }

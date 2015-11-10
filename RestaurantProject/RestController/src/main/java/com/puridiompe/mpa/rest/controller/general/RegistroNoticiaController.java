@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarNoticiaBusiness;
 import com.puridiompe.mpa.business.general.dto.NoticiaDto;
+import com.puridiompe.mpa.business.general.dto.ReclamoDto;
+import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetNoticiasResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetNoticiaRequest;
 import com.puridiompe.mpa.rest.controller.general.validation.GetNoticiaValidator;
 
 
@@ -72,5 +76,28 @@ public class RegistroNoticiaController extends BaseController{
 		response.setBody(noticiasResponse);
 		
 		return response;		
+	}
+	
+	@RequestMapping(value = "/saveNoticia", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public void saveNoticia(@RequestBody RequestMessage<GetNoticiaRequest> request)			
+			throws BusinessException {		
+		
+		NoticiaDto toSave = request.getBody().getNoticia();
+		
+		gestionarNoticiaBusiness.saveNoticia(toSave);
+		
+		/*
+		
+		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getAllByEstado();
+		
+		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
+		
+		GetNoticiasResponse noticiasResponse = new GetNoticiasResponse();
+		
+		noticiasResponse.setNoticias(noticiasObject);
+		
+		response.setBody(noticiasResponse);
+		
+		return response;		*/
 	}
 }
