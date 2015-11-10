@@ -16,4 +16,5 @@ public interface GestionarNoticiaBusiness {
 	//@SafeMethod
 	public List<NoticiaDto> getAllByEstado();
 	public List<NoticiaDto> getLatestNews();
+	public void saveNoticia(NoticiaDto nuevaNoticia);
 }
