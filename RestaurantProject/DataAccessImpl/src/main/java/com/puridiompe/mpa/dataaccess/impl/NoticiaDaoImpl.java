@@ -74,7 +74,7 @@ public class NoticiaDaoImpl implements NoticiaDao{
 				noticiasObject.add(noticiaDtoTmp);				
 			}	
 		}else{
-			return null;
+			return null; 
 		}
 		return noticiasObject;
 	}
