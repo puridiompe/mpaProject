@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.business.impl.general;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,19 @@ public class GestionarNoticiaBusinessImpl implements GestionarNoticiaBusiness{
 	
 	@Override
 	public List<NoticiaDto> getAllByEstado() {
-		return noticiaDao.findByEstado();
+		
+		List<NoticiaDto> noticiaObject = noticiaDao.findByEstado();
+		
+		for(int i = 0; i < noticiaObject.size(); i ++){
+			
+			DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String fecha = fechaHora.format (noticiaObject.get(i).getFecPub());
+			String [] fechaAndHora = fecha.split(" ");
+			noticiaObject.get(i).setFecha(fechaAndHora[0]);
+			noticiaObject.get(i).setHora (fechaAndHora[1]);
+		}
+		
+		return noticiaObject;
 	}
 	
 	@Override

@@ -65,7 +65,7 @@ public class RegistroNoticiaController extends BaseController{
 	public @ResponseBody ResponseMessage<GetNoticiasResponse> getLatestNews()			
 			throws BusinessException {		
 		
-		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getAllByEstado();
+		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getLatestNews();
 		
 		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
 		

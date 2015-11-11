@@ -59,8 +59,8 @@ public class NoticiaDaoImpl implements NoticiaDao{
 			
 			int latestNews = 0;
 			
-			if(noticias.size() >= 10){
-				latestNews = 10;
+			if(noticias.size() >= 3){
+				latestNews = 3;
 			}else{
 				latestNews = noticias.size();
 			}

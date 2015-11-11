@@ -7,6 +7,8 @@ public class NoticiaDto {
 	private Integer idNoticia;
 	private String titulo;
 	private String contenido ;
+	private String fecha;
+	private String hora;
 	private Datetime fecPub;
 	private String fuente;
 	private String autor;
@@ -62,4 +64,21 @@ public class NoticiaDto {
 	public void setLink(String link) {
 		this.link = link;
 	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+	
 }
