@@ -37,12 +37,27 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 		HistorialReclamoDto historial = new HistorialReclamoDto();
 		
 		historial.setIdReclamo(idReclamo);
-		historial.setUsuario(Integer.toString(request.getDni()));
-		historial.setTipoUsuario(SystemRole.CIUDADANO.toString());
-		historial.setAccion(HistorialReclamoAccion.CREACION.toString());
-		historial.setDescripcion("Se ha creado un nuevo reclamo con  ID ?  ");
 		historial.setImei(SecurityContextHelper.getCurrentImei());
 		historial.setFecha(DateUtil.getCurrentDate());
+
+		if(request.getEstado() == "P"){
+			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
+			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
+			historial.setAccion(HistorialReclamoAccion.CAMBIO_ESTADO.toString());
+			historial.setDescripcion("Se ha cambiado de estado a PROCESO");
+		}
+		if(request.getEstado() == "A"){	
+			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
+			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
+			historial.setAccion(HistorialReclamoAccion.CAMBIO_ESTADO.toString());
+			historial.setDescripcion("Se ha cambiado de estado a ARCHIVADO");
+		}
+		if(request.getEstado() == "R"){
+			historial.setTipoUsuario(SystemRole.CIUDADANO.toString());
+			historial.setUsuario(Integer.toString(request.getDni()));
+			historial.setAccion(HistorialReclamoAccion.CREACION.toString());
+			historial.setDescripcion("Se ha creado un nuevo reclamo con  ID " + idReclamo);
+		}
 	
 		historialReclamoDao.setHistorialReclamo(historial);
 		
