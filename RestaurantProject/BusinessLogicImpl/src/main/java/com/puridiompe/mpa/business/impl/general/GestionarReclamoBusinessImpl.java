@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
+import com.puridiompe.mpa.business.general.dto.HistorialReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
+import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
+import com.puridiompe.mpa.common.type.HistorialReclamoAccion;
+import com.puridiompe.mpa.common.util.DateUtil;
+import com.puridiompe.mpa.dataaccess.HistorialReclamoDao;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 
 @Service
@@ -19,12 +24,27 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	@Autowired
 	private ReclamoDao reclamoDao;
 	
+	@Autowired
+	private HistorialReclamoDao historialReclamoDao;
+	
 	@Override
 	public ReclamoDto setReclamo(ReclamoDto request) throws SecurityException {		
 		
 		Integer idReclamo =  reclamoDao.saveReclamo(request);
 		
 		ResumenImagenDto resumen = new ResumenImagenDto();
+		
+		HistorialReclamoDto historial = new HistorialReclamoDto();
+		
+		historial.setIdReclamo(idReclamo);
+		historial.setUsuario(Integer.toString(request.getDni()));
+		historial.setTipoUsuario(SystemRole.CIUDADANO.toString());
+		historial.setAccion(HistorialReclamoAccion.CREACION.toString());
+		historial.setDescripcion("Se ha creado un nuevo reclamo con  ID ?  ");
+		historial.setImei(SecurityContextHelper.getCurrentImei());
+		historial.setFecha(DateUtil.getCurrentDate());
+	
+		historialReclamoDao.setHistorialReclamo(historial);
 		
 		return reclamoDao.getById(idReclamo);
 		
