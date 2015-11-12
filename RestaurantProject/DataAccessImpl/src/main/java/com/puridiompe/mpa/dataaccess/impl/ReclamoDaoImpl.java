@@ -16,6 +16,7 @@ import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
+import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
@@ -141,7 +142,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			reclamoComentario.setIdReclamo(request.getIdReclamo());
 			reclamoComentarioRepository.save(reclamoComentario);
 			
-			response.getReclamoComentarios().get(0).setFecCre(reclamoComentario.getFecCre());
+			response.getReclamoComentarios().get(0).setFecCre(new Datetime(reclamoComentario.getFecCre()));
 			return response;
 		} else {
 			return null;
@@ -268,7 +269,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 						
 						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
 						reclamoComentario.setComentario(reclamoComentarios.get(j).getComentario());
-						reclamoComentario.setFecCre(reclamoComentarios.get(j).getFecCre());
+						reclamoComentario.setFecCre(new Datetime(reclamoComentarios.get(j).getFecCre()));
 						
 						comentarios.add(reclamoComentario);
 						comentarioIndex++;						
@@ -374,7 +375,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 						
 						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
 						reclamoComentario.setComentario(reclamoComentarios.get(j).getComentario());
-						reclamoComentario.setFecCre(reclamoComentarios.get(j).getFecCre());
+						reclamoComentario.setFecCre(new Datetime(reclamoComentarios.get(j).getFecCre()));
 						
 						comentarios.add(reclamoComentario);
 						comentarioIndex++;						

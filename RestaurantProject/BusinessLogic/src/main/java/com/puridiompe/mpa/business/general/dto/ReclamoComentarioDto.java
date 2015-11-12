@@ -2,6 +2,8 @@ package com.puridiompe.mpa.business.general.dto;
 
 import java.util.Date;
 
+import com.puridiompe.mpa.common.type.Datetime;
+
 public class ReclamoComentarioDto {
 	
 	private Integer id;
@@ -10,9 +12,9 @@ public class ReclamoComentarioDto {
 
 	private String comentario;
 	
-	private Date fecCre;
+	private Datetime fecCre;
 	
-	private Date fecMod;
+	private Datetime fecMod;
 	
 	private String estado;
 	
@@ -44,19 +46,19 @@ public class ReclamoComentarioDto {
 		this.comentario = comentario;
 	}
 
-	public Date getFecCre() {
+	public Datetime getFecCre() {
 		return fecCre;
 	}
 
-	public void setFecCre(Date fecCre) {
+	public void setFecCre(Datetime fecCre) {
 		this.fecCre = fecCre;
 	}
 
-	public Date getFecMod() {
+	public Datetime getFecMod() {
 		return fecMod;
 	}
 
-	public void setFecMod(Date fecMod) {
+	public void setFecMod(Datetime fecMod) {
 		this.fecMod = fecMod;
 	}
 
