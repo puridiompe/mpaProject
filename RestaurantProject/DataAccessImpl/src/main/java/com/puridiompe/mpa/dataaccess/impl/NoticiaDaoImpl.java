@@ -92,6 +92,7 @@ public class NoticiaDaoImpl implements NoticiaDao{
 		toSave.setFecPub(fechaActual);
 		toSave.setEstado("1");
 		
+		if (nuevaNoticia.getIdNoticia() != null) toSave.setIdNoticia(nuevaNoticia.getIdNoticia());
 		if (nuevaNoticia.getFuente() != null) toSave.setFuente(nuevaNoticia.getFuente());
 		if (nuevaNoticia.getLink() != null) toSave.setLink(nuevaNoticia.getLink());
 		

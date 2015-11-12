@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "\"TrMov_HisLog\"")
+@Table(name = "\"TrMov_HisReclamo\"")
 public class HistorialReclamo {
 	
 	
