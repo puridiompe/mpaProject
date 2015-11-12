@@ -10,7 +10,7 @@ public interface GestionarReclamoBusiness {
 
 	public ReclamoDto setReclamo(ReclamoDto request) throws SecurityException;
 	
-	public ReclamoDto setReclamoComentario(ReclamoDto request);
+	public ReclamoDto setReclamoComentario(ReclamoDto request) throws SecurityException;
 	
 	public List<ReclamoDto> getReclamosFrecuentes();
 	
