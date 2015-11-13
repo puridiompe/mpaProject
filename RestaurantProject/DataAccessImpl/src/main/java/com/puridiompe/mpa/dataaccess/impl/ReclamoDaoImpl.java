@@ -142,7 +142,15 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			reclamoComentario.setIdReclamo(request.getIdReclamo());
 			reclamoComentarioRepository.save(reclamoComentario);
 			
-			response.getReclamoComentarios().get(0).setFecCre(new Datetime(reclamoComentario.getFecCre()));
+			List<ReclamoComentario> tmp = reclamoComentarioRepository.findByiDReclamo(response.getIdReclamo());
+			
+			for (int i=0 ; i<tmp.size() ; i++){
+				response.getReclamoComentarios().add(new ReclamoComentarioDto());
+				response.getReclamoComentarios().get(i).setComentario(tmp.get(i).getComentario());
+				response.getReclamoComentarios().get(i).setFecCre(new Datetime(tmp.get(i).getFecCre()));
+			}
+			
+			//response.getReclamoComentarios().get(0).setFecCre(new Datetime(reclamoComentario.getFecCre()));
 			return response;
 		} else {
 			return null;
