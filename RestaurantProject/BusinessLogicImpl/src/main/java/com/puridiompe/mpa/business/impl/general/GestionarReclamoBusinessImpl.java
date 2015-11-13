@@ -66,7 +66,19 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public ReclamoDto setReclamoComentario(ReclamoDto request){
+	public ReclamoDto setReclamoComentario(ReclamoDto request) throws SecurityException{
+		if(request.getIdReclamo() != null){
+			
+			HistorialReclamoDto historial = new HistorialReclamoDto();
+			historial.setIdReclamo(request.getIdReclamo());
+			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
+			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
+			historial.setAccion(HistorialReclamoAccion.COMENTARIO.toString());
+			historial.setDescripcion("Se ha agregago un nuevo comentario al reclamo ID "+request.getIdReclamo());
+			historial.setImei(SecurityContextHelper.getCurrentImei());
+			historial.setFecha(DateUtil.getCurrentDate());
+			historialReclamoDao.setHistorialReclamo(historial);
+		}
 		return reclamoDao.saveReclamoComentario(request);
 	}
 
