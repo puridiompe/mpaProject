@@ -70,9 +70,6 @@ public class RegistroCiudadanoController {
 	public @ResponseBody ResponseMessage<GetCiudadanoResponse> updateCiudadano(@RequestBody RequestMessage<GetCiudadanoRequest> request)
 			throws BusinessException, SecurityException {
 		
-//		String currentImei = SecurityContextHelper.getCurrentImei();	
-		
-		
 		GetCiudadanoRequest ciudadanoRequest = request.getBody();
 		CiudadanoDto ciudadanoObject = gestionarCiudadano.getCiudadano(ciudadanoRequest.getCiudadano().getDni());
 		
