@@ -6,13 +6,14 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.puridiompe.mpa.business.general.dto.CiudadanoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
-import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
@@ -20,9 +21,9 @@ import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
-import com.puridiompe.mpa.movil.domain.persistence.Ciudadano;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
+import com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano;
 import com.puridiompe.mpa.movil.domain.persistence.ReclamoComentario;
 import com.puridiompe.mpa.movil.domain.persistence.ReclamoFrecuente;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
@@ -156,6 +157,32 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			return null;
 		}
 	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public List<ReclamoDto> getAllReclamos() {
+
+		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
+
+		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByEstado("2", paging);
+
+		List<ReclamoDto> reclamoObjects = getReclamoObjects(reclamosPaging);
+
+		return reclamoObjects;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public List<ReclamoDto> getReclamosByImei(String imei) {
+
+		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
+
+		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByImei(imei, "2", paging);
+
+		List<ReclamoDto> reclamoObjects = getReclamoObjects(reclamosPaging);
+
+		return reclamoObjects;
+	}
 
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
@@ -247,246 +274,82 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		}
 	}
 
-	@Transactional(value = "movilTransactionManager", readOnly = true)
-	@Override
-	public ReclamosDto getReclamosByImei(String imei) {		
-
-		List<Reclamo> reclamos = reclamoRepository.findAvailableByImei(imei, "2"); 		
-		
-		if(!reclamos.isEmpty()){
-			
-			ReclamosDto objectReclamos = new ReclamosDto();
-			List<Ciudadano> ciudadanos = ciudadanoRepository.findByImei(imei, "2"); 
-			List<Imagen> imagenes = imagenRepository.findAllByImei(imei, "2");
-			List<ReclamoComentario> reclamoComentarios = reclamoComentarioRepository.findAllByRecImei(imei, "2");
-			
-			int comentarioIndex = 0;
-			int imagenIndex = 0;
-			
-			for(int i = 0; i < reclamos.size(); i++){
-				
-				ReclamoDto reclamoObject = new ReclamoDto();
-				CiudadanoDto ciudadanoObject = new CiudadanoDto();				
-				
-				BeanUtils.copyProperties(ciudadanos.get(i), ciudadanoObject);				
-				
-				List<ReclamoComentarioDto> comentarios = new ArrayList<ReclamoComentarioDto>();
-				
-				for(int j = comentarioIndex; j < reclamoComentarios.size(); j++){
-					if(reclamos.get(i).getIdReclamo().equals(reclamoComentarios.get(j).getIdReclamo())){
-						
-						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
-						reclamoComentario.setComentario(reclamoComentarios.get(j).getComentario());
-						reclamoComentario.setFecCre(new Datetime(reclamoComentarios.get(j).getFecCre()));
-						
-						comentarios.add(reclamoComentario);
-						comentarioIndex++;						
-					}else{
-						break;						
-					}
-				}
-				reclamoObject.setReclamoComentarios(comentarios);
-				BeanUtils.copyProperties(reclamos.get(i), reclamoObject);
-				
-				ResumenImagenDto resumenImagen = new ResumenImagenDto();
-				
-				int cantImagenes = 0;
-				for(int k = imagenIndex; k < imagenes.size(); k++){
-					if(reclamos.get(i).getIdReclamo().equals(imagenes.get(k).getIdPadre())){						
-						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho() / 1024) + " KB");
-						cantImagenes++;
-						imagenIndex++;
-					}else{
-						break;						
-					}
-				}
-				resumenImagen.setNumeroImagenes(cantImagenes);
-				
-				objectReclamos.getListReclamo().add(reclamoObject);
-				objectReclamos.getListCiudadano().add(ciudadanoObject);
-				objectReclamos.getListImagen().add(resumenImagen);
-				
-			}
-			
-			return objectReclamos;
-		}else{
-			return null;
-		}
-		
-		
-//		int contImagenes = 0;
-//		if (!reclamo.isEmpty()) {
-//
-//			for (int i = 0; i < reclamo.size(); i++) {
-//
-//				ReclamoDto objectReclamo = new ReclamoDto();
-//				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
-//
-//				CiudadanoDto objectCiudadano = new CiudadanoDto();
-//				ResumenImagenDto resumenImagen = new ResumenImagenDto();
-//
-//				for (int j = 0; j < ciudadanoAll.size(); j++) {
-//					if (reclamo.get(i).getDni().equals(ciudadanoAll.get(j).getDni())) {
-//						BeanUtils.copyProperties(ciudadanoAll.get(j), objectCiudadano);
-//						break;
-//					}
-//				}
-//
-//				int numeroImagenes = 0;
-//				while (reclamo.get(i).getIdReclamo().equals(imagenAll.get(contImagenes).getIdPadre())
-//						&& contImagenes < imagenAll.size()) {
-//					resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(contImagenes).getTamanho()));
-//					numeroImagenes++;
-//					contImagenes++;
-//				}
-//				resumenImagen.setNumeroImagenes(numeroImagenes);
-//
-//				objectReclamos.getListImagen().add(resumenImagen);
-//				objectReclamos.getListCiudadano().add(objectCiudadano);
-//				objectReclamos.getListReclamo().add(objectReclamo);
-//			}
-//
-//		} else {
-//			return null;
-//		}
-//
-//		return objectReclamos;
-	}
-
-	@Transactional(value = "movilTransactionManager", readOnly = true)
-	@Override
-	public ReclamosDto getAll() {
-
-		List<Reclamo> reclamos = reclamoRepository.findAllAvailable("2"); 		
-		
-		if(!reclamos.isEmpty()){
-			
-			ReclamosDto objectReclamos = new ReclamosDto();
-			List<Ciudadano> ciudadanos = ciudadanoRepository.findByReclamo("2"); 
-			List<Imagen> imagenes = imagenRepository.findAllByReclamo("2");
-			List<ReclamoComentario> reclamoComentarios = reclamoComentarioRepository.findAllByReclamo("2");
-			
-			int comentarioIndex = 0;
-			int imagenIndex = 0;
-			
-			for(int i = 0; i < reclamos.size(); i++){
-				
-				ReclamoDto reclamoObject = new ReclamoDto();
-				CiudadanoDto ciudadanoObject = new CiudadanoDto();				
-				
-				BeanUtils.copyProperties(ciudadanos.get(i), ciudadanoObject);				
-				
-				List<ReclamoComentarioDto> comentarios = new ArrayList<ReclamoComentarioDto>();
-				
-				for(int j = comentarioIndex; j < reclamoComentarios.size(); j++){
-					if(reclamos.get(i).getIdReclamo().equals(reclamoComentarios.get(j).getIdReclamo())){
-						
-						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
-						reclamoComentario.setComentario(reclamoComentarios.get(j).getComentario());
-						reclamoComentario.setFecCre(new Datetime(reclamoComentarios.get(j).getFecCre()));
-						
-						comentarios.add(reclamoComentario);
-						comentarioIndex++;						
-					}else{
-						break;						
-					}
-				}
-				reclamoObject.setReclamoComentarios(comentarios);
-				BeanUtils.copyProperties(reclamos.get(i), reclamoObject);
-				
-				ResumenImagenDto resumenImagen = new ResumenImagenDto();
-				
-				int cantImagenes = 0;
-				for(int k = imagenIndex; k < imagenes.size(); k++){
-					if(reclamos.get(i).getIdReclamo().equals(imagenes.get(k).getIdPadre())){						
-						resumenImagen.getPesoImagen().add(Integer.toString(imagenes.get(k).getTamanho() / 1024)+ " KB");
-						cantImagenes++;
-						imagenIndex++;
-					}else{
-						break;						
-					}
-				}
-				resumenImagen.setNumeroImagenes(cantImagenes);
-				
-				objectReclamos.getListReclamo().add(reclamoObject);
-				objectReclamos.getListCiudadano().add(ciudadanoObject);
-				objectReclamos.getListImagen().add(resumenImagen);
-				
-			}
-			
-			return objectReclamos;
-		}else{
-			return null;
-		}
-		
-		
-		//   ===================== PASADO ===================== 
-//		
-//		ReclamosDto objectReclamos = new ReclamosDto();
-//
-//		List<Reclamo> reclamo = reclamoRepository.findAllAvailable("2"); 
-//		List<Ciudadano> ciudadanoAll = ciudadanoRepository.findAllByDni();
-//		List<Imagen> imagenAll = imagenRepository.findAllByidPadre("2");
-//		List<ReclamoComentario> reclamoComentarios = reclamoComentarioRepository.findAllByiDReclamo("2");
-//																											
-//
-//		int contImagenes = 0;
-//		int contComentario = 0;
-//		if (!reclamo.isEmpty()) {
-//
-//			for (int i = 0; i < reclamo.size(); i++) {
-//
-//				ReclamoDto objectReclamo = new ReclamoDto();
-//				BeanUtils.copyProperties(reclamo.get(i), objectReclamo);
-//
-//				CiudadanoDto objectCiudadano = new CiudadanoDto();				
-//				ResumenImagenDto resumenImagen = new ResumenImagenDto();
-//
-//				for (int j = 0; j < ciudadanoAll.size(); j++) {
-//					if (reclamo.get(i).getDni().equals(ciudadanoAll.get(j).getDni())) {
-//						BeanUtils.copyProperties(ciudadanoAll.get(j), objectCiudadano);
-//						break;
-//					}
-//				}
-//				int numeroImagenes = 0;
-//				while (reclamo.get(i).getIdReclamo().equals(imagenAll.get(contImagenes).getIdPadre())
-//						&& contImagenes < imagenAll.size()) {
-//					resumenImagen.getPesoImagen().add(Integer.toString(imagenAll.get(contImagenes).getTamanho()));
-//					numeroImagenes++;
-//					contImagenes++;
-//				}
-//				resumenImagen.setNumeroImagenes(numeroImagenes);
-//
-//				List<String> arrayComentarios = new ArrayList<String>();				
-//				for (int r = 0; r < reclamoComentarios.size() && contComentario < reclamoComentarios.size(); r++) {
-//				
-//					if (reclamo.get(i).getIdReclamo().equals(reclamoComentarios.get(contComentario).getIdReclamo())) {
-//						arrayComentarios.add(reclamoComentarios.get(contComentario).getComentario());
-//						contComentario++;
-//					} else {
-//						continue;
-//					}
-//				}
-//				
-//
-//				objectReclamo.setReclamoComentarios(arrayComentarios);
-//
-//				objectReclamos.getListImagen().add(resumenImagen);
-//				objectReclamos.getListCiudadano().add(objectCiudadano);
-//				objectReclamos.getListReclamo().add(objectReclamo);
-//			}
-//
-//		} else {
-//			return null;
-//		}
-//
-//		return objectReclamos;
-	}
+	
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
 	public Integer countReclamosByImei(String imei){
 		
 		return reclamoRepository.countReclamosByImei(imei);
-	} 
+	}
+	
+	private List<ReclamoDto> getReclamoObjects(List<ReclamoCiudadano> reclamosCiudadano) {
+
+		List<ReclamoDto> reclamoObjects = new ArrayList<ReclamoDto>();
+
+		if (reclamosCiudadano != null && !reclamosCiudadano.isEmpty()) {
+			List<Integer> reclamoIds = new ArrayList<Integer>();
+
+			for (ReclamoCiudadano reclamo : reclamosCiudadano) {
+				reclamoIds.add(reclamo.getIdReclamo());
+			}
+
+			int imagenIdx = 0;
+			int comentarioIdx = 0;
+
+			List<Imagen> imagenes = imagenRepository.findByReclamo(reclamoIds, "REC", "1");
+
+			List<ReclamoComentario> comentarios = reclamoComentarioRepository.findByReclamo(reclamoIds, "1");
+
+			for (ReclamoCiudadano reclamoCiudadano : reclamosCiudadano) {
+				ReclamoDto reclamoObject = new ReclamoDto();
+
+				BeanUtils.copyProperties(reclamoCiudadano, reclamoObject);
+
+				ResumenImagenDto resumenImagen = new ResumenImagenDto();
+
+				int cantImagenes = 0;
+
+				for (int i = imagenIdx; i < imagenes.size(); i++) {
+					Imagen imagen = imagenes.get(i);
+					if (reclamoObject.getIdReclamo().equals(imagen.getIdPadre())) {
+						resumenImagen.getPesoImagen()
+								.add(Integer.toString(Math.round(imagen.getTamanho() / 1024)) + " KB");
+						cantImagenes++;
+						imagenIdx++;
+					} else {
+						break;
+					}
+				}
+
+				resumenImagen.setNumeroImagenes(cantImagenes);
+
+				reclamoObject.setResumenImagen(resumenImagen);
+
+				List<ReclamoComentarioDto> comentariosObject = new ArrayList<ReclamoComentarioDto>();
+
+				for (int j = comentarioIdx; j < comentarios.size(); j++) {
+					ReclamoComentario comentario = comentarios.get(j);
+
+					if (reclamoObject.getIdReclamo().equals(comentario.getIdReclamo())) {
+
+						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
+						reclamoComentario.setComentario(comentario.getComentario());
+						reclamoComentario.setFecCre(comentario.getFecCre());
+
+						comentariosObject.add(reclamoComentario);
+						comentarioIdx++;
+					} else {
+						break;
+					}
+				}
+				reclamoObject.setReclamoComentarios(comentariosObject);
+
+				reclamoObjects.add(reclamoObject);
+			}
+
+		}
+
+		return reclamoObjects;
+	}
 }

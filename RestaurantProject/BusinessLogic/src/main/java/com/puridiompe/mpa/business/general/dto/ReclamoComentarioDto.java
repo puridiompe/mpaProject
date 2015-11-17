@@ -12,9 +12,9 @@ public class ReclamoComentarioDto {
 
 	private String comentario;
 	
-	private Datetime fecCre;
+	private Date fecCre;
 	
-	private Datetime fecMod;
+	private Date fecMod;
 	
 	private String estado;
 	
@@ -46,19 +46,19 @@ public class ReclamoComentarioDto {
 		this.comentario = comentario;
 	}
 
-	public Datetime getFecCre() {
+	public Date getFecCre() {
 		return fecCre;
 	}
 
-	public void setFecCre(Datetime fecCre) {
+	public void setFecCre(Date fecCre) {
 		this.fecCre = fecCre;
 	}
 
-	public Datetime getFecMod() {
+	public Date getFecMod() {
 		return fecMod;
 	}
 
-	public void setFecMod(Datetime fecMod) {
+	public void setFecMod(Date fecMod) {
 		this.fecMod = fecMod;
 	}
 

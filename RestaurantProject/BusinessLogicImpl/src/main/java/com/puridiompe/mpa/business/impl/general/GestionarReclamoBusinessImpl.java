@@ -5,17 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.puridiompe.mpa.business.general.GestionarHistorialReclamoBusiness;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
-import com.puridiompe.mpa.business.general.dto.HistorialReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
-import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
-import com.puridiompe.mpa.common.security.SystemRole;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
-import com.puridiompe.mpa.common.type.HistorialReclamoAccion;
-import com.puridiompe.mpa.common.util.DateUtil;
-import com.puridiompe.mpa.dataaccess.HistorialReclamoDao;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 
 @Service
@@ -25,7 +20,7 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	private ReclamoDao reclamoDao;
 	
 	@Autowired
-	private HistorialReclamoDao historialReclamoDao;
+	private GestionarHistorialReclamoBusiness gestionarHistorialReclamo;
 	
 	@Override
 	public ReclamoDto setReclamo(ReclamoDto request) throws SecurityException {		
@@ -34,32 +29,7 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 		
 		ResumenImagenDto resumen = new ResumenImagenDto();
 		
-		HistorialReclamoDto historial = new HistorialReclamoDto();
-		
-		historial.setIdReclamo(idReclamo);
-		historial.setImei(SecurityContextHelper.getCurrentImei());
-		historial.setFecha(DateUtil.getCurrentDate());
-
-		if(request.getEstado() == "P"){
-			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
-			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
-			historial.setAccion(HistorialReclamoAccion.CAMBIO_ESTADO.toString());
-			historial.setDescripcion("Se ha cambiado de estado a PROCESO");
-		}
-		if(request.getEstado() == "A"){	
-			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
-			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
-			historial.setAccion(HistorialReclamoAccion.CAMBIO_ESTADO.toString());
-			historial.setDescripcion("Se ha cambiado de estado a ARCHIVADO");
-		}
-		if(request.getEstado() == "R"){
-			historial.setTipoUsuario(SystemRole.CIUDADANO.toString());
-			historial.setUsuario(Integer.toString(request.getDni()));
-			historial.setAccion(HistorialReclamoAccion.CREACION.toString());
-			historial.setDescripcion("Se ha creado un nuevo reclamo con  ID " + idReclamo);
-		}
-	
-		historialReclamoDao.setHistorialReclamo(historial);
+		gestionarHistorialReclamo.setHistorialReclamo(request, idReclamo);
 		
 		return reclamoDao.getById(idReclamo);
 		
@@ -67,18 +37,9 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	
 	@Override
 	public ReclamoDto setReclamoComentario(ReclamoDto request) throws SecurityException{
-		if(request.getIdReclamo() != null){
-			
-			HistorialReclamoDto historial = new HistorialReclamoDto();
-			historial.setIdReclamo(request.getIdReclamo());
-			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
-			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
-			historial.setAccion(HistorialReclamoAccion.COMENTARIO.toString());
-			historial.setDescripcion("Se ha agregago un nuevo comentario al reclamo ID "+request.getIdReclamo());
-			historial.setImei(SecurityContextHelper.getCurrentImei());
-			historial.setFecha(DateUtil.getCurrentDate());
-			historialReclamoDao.setHistorialReclamo(historial);
-		}
+		
+		gestionarHistorialReclamo.setHistorialComentario(request);
+		
 		return reclamoDao.saveReclamoComentario(request);
 	}
 
@@ -93,16 +54,16 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public ReclamosDto getAll(){
-		return reclamoDao.getAll();
+	public List<ReclamoDto> getAllReclamos(){
+		return reclamoDao.getAllReclamos();
 	}
 	
 	@Override
-	public ReclamosDto getReclamosByImei(String imei) {
+	public List<ReclamoDto> getReclamosByImei(String imei) {
 		
 //		String currentImei = SecurityContextHelper.getCurrentImei();
 		
-		ReclamosDto reclamosDto = reclamoDao.getReclamosByImei(imei); 
+		List<ReclamoDto> reclamosDto = reclamoDao.getReclamosByImei(imei); 
 		
 		return reclamosDto;
 	}

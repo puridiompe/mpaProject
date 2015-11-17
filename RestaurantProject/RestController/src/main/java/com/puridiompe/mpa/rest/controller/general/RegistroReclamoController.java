@@ -4,24 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.data.domain.Sort;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
 import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
-import com.puridiompe.mpa.business.general.dto.ReclamosDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.rest.controller.BaseController;
+import com.puridiompe.mpa.rest.controller.general.message.GetPaginacionRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamosResponse;
@@ -184,14 +188,16 @@ public class RegistroReclamoController extends BaseController{
 	}
 
 	@RequestMapping(value = "/getAllReclamo", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetReclamosResponse> getAll()
+	public @ResponseBody ResponseMessage<GetReclamosResponse> getAll(@RequestBody RequestMessage<GetPaginacionRequest> request)
 			throws BusinessException {
 
+		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
+		
 		ResponseMessage<GetReclamosResponse> response = new ResponseMessage<GetReclamosResponse>();
 
 		GetReclamosResponse reclamoResponse = new GetReclamosResponse();
 
-		ReclamosDto forResponse = gestionarReclamo.getAll();
+		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos();
 
 		reclamoResponse.setReclamos(forResponse);
 
@@ -204,10 +210,11 @@ public class RegistroReclamoController extends BaseController{
 	public @ResponseBody ResponseMessage<GetReclamosResponse> getAllByImei()
 			throws BusinessException, SecurityException{
 		
+//		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
 
 		String currentImei = SecurityContextHelper.getCurrentImei();
 //		GetReclamosRequest reclamosRequest = request.getBody();
-		ReclamosDto reclamosObject = gestionarReclamo.getReclamosByImei(currentImei);
+		List<ReclamoDto> reclamosObject = gestionarReclamo.getReclamosByImei(currentImei);
 		
 		ResponseMessage<GetReclamosResponse> response = new ResponseMessage<GetReclamosResponse>();
 		GetReclamosResponse reclamosResponse = new GetReclamosResponse();
