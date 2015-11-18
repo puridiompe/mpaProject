@@ -23,5 +23,7 @@ public interface GestionarReclamoBusiness {
 	
 	public Integer getCountReclamoByImei() throws SecurityException;
 	
+	public Integer getCountReclamo();
+	
 	public List<ReclamoDto> getReclamosByImei(String imei);
 }

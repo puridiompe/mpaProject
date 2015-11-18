@@ -187,6 +187,22 @@ public class RegistroReclamoController extends BaseController{
 
 		return response;
 	}
+	
+	@RequestMapping(value = "/getTotalReclamos", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetReclamoResponse> getTotalReclamos() throws SecurityException {
+
+		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
+
+		GetReclamoResponse numeroReclamosResponse = new GetReclamoResponse();
+		
+		Integer numeroReclamos = gestionarReclamo.getCountReclamo();
+
+		numeroReclamosResponse.setNumeroReclamos(numeroReclamos);
+
+		response.setBody(numeroReclamosResponse);
+
+		return response;
+	}
 
 	@RequestMapping(value = "/getAllReclamo", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetReclamosResponse> getAll(@RequestBody RequestMessage<GetPaginacionRequest> request)

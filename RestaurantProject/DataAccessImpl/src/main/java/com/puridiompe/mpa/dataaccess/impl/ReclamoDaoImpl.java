@@ -175,9 +175,9 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	@Override
 	public List<ReclamoDto> getReclamosByImei(String imei) {
 
-		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
+//		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
 
-		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByImei(imei, "2", paging);
+		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findAllByImei(imei);//, "2", paging);
 
 		List<ReclamoDto> reclamoObjects = getReclamoObjects(reclamosPaging);
 
@@ -281,6 +281,13 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	public Integer countReclamosByImei(String imei){
 		
 		return reclamoRepository.countReclamosByImei(imei);
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public Integer getTotalReclamos(){
+		
+		return reclamoRepository.findTotalReclmaos();
 	}
 	
 	private List<ReclamoDto> getReclamoObjects(List<ReclamoCiudadano> reclamosCiudadano) {

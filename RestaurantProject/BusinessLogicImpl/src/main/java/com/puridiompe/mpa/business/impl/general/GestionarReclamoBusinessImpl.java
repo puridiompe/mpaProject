@@ -60,13 +60,8 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public List<ReclamoDto> getReclamosByImei(String imei) {
-		
-//		String currentImei = SecurityContextHelper.getCurrentImei();
-		
-		List<ReclamoDto> reclamosDto = reclamoDao.getReclamosByImei(imei); 
-		
-		return reclamosDto;
+	public List<ReclamoDto> getReclamosByImei(String imei) {	
+		return  reclamoDao.getReclamosByImei(imei); 
 	}
 	
 	@Override
@@ -78,9 +73,15 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	
 	@Override
 	public Integer getCountReclamoByImei() throws SecurityException{
-		
+
 		String currentImei = SecurityContextHelper.getCurrentImei();
 		return reclamoDao.countReclamosByImei(currentImei);
+	}
+	
+	@Override
+	public Integer getCountReclamo(){
+
+		return reclamoDao.getTotalReclamos();
 	}
 
 }

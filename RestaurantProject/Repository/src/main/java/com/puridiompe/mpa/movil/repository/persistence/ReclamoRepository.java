@@ -38,10 +38,13 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 	@Query("select count (*) from Reclamo r where r.imei = ?1")
 	public int countReclamosByImei(String imei);
 	
+	@Query("select count (*) from Reclamo r ")
+	public int findTotalReclmaos();
+	
 	@Query("select new com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano(r.idReclamo, r.dni, r.descripcion, r.vehiculo, r.imei, r.numRec, r.fecCre, r.estado, c.apellidoPaterno, c.apellidoMaterno, c.nombres, c.email, c.estado) from  Reclamo r, Ciudadano c where r.dni = c.dni and r.estado != ?1 order by r.idReclamo desc ")
     public List<ReclamoCiudadano> findByEstado(String estado, Pageable pageable);
 
-    @Query("select new com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano(r.idReclamo, r.dni, r.descripcion, r.vehiculo, r.imei, r.numRec, r.fecCre, r.estado, c.apellidoPaterno, c.apellidoMaterno, c.nombres, c.email, c.estado) from  Reclamo r, Ciudadano c where r.dni = c.dni and r.imei = ?1 and r.estado != ?2 order by r.idReclamo desc ")
-    public List<ReclamoCiudadano> findByImei(String imei, String estado, Pageable pageable);
+    @Query("select new com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano(r.idReclamo, r.dni, r.descripcion, r.vehiculo, r.imei, r.numRec, r.fecCre, r.estado, c.apellidoPaterno, c.apellidoMaterno, c.nombres, c.email, c.estado) from  Reclamo r, Ciudadano c where r.dni = c.dni and r.imei = ?1 order by r.idReclamo desc ") //and r.estado != ?2
+    public List<ReclamoCiudadano> findAllByImei(String imei);//, String estado, Pageable pageable);
 
 }
