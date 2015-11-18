@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
@@ -200,7 +201,10 @@ public class RegistroReclamoController extends BaseController{
 
 		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos(paging);
 
-		reclamoResponse.setReclamos(forResponse);
+		reclamoResponse.setReclamos(forResponse);		
+		
+		//Devolver los ismos filtros que los que se tienen en el Request
+		reclamoResponse.setFilterList(request.getBody().getFilterList());		
 
 		response.setBody(reclamoResponse);
 

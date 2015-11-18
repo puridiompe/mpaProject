@@ -1,6 +1,9 @@
 
 package com.puridiompe.mpa.rest.controller.general.message;
 
+import java.util.List;
+
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.common.rest.message.RequestBody;
 
 public class GetPaginacionRequest extends RequestBody{
@@ -16,6 +19,8 @@ public class GetPaginacionRequest extends RequestBody{
 	private int pageCount;
 	
 	private int pagesTotal;
+	
+	private List<FilterDto> filterList;
 
 	public int getRowStart() {
 		return rowStart;
@@ -63,6 +68,14 @@ public class GetPaginacionRequest extends RequestBody{
 
 	public void setPagesTotal(int pagesTotal) {
 		this.pagesTotal = pagesTotal;
+	}
+
+	public List<FilterDto> getFilterList() {
+		return filterList;
+	}
+
+	public void setFilterList(List<FilterDto> filterList) {
+		this.filterList = filterList;
 	}
 	
 }
