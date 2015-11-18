@@ -29,19 +29,19 @@ public class GestionarHistorialReclamoBusinessImpl implements GestionarHistorial
 		historial.setImei(SecurityContextHelper.getCurrentImei());
 		historial.setFecha(DateUtil.getCurrentDate());
 
-		if(reclamo.getEstado() == "P"){
+		if(reclamo.getEstadoReclamo() == "P"){
 			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
 			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
 			historial.setAccion(HistorialReclamoAccion.CAMBIO_ESTADO.toString());
 			historial.setDescripcion("Se ha cambiado de estado a PROCESO");
 		}
-		if(reclamo.getEstado() == "A"){	
+		if(reclamo.getEstadoReclamo() == "A"){	
 			historial.setTipoUsuario(SystemRole.SUPERVISOR.toString());
 			historial.setUsuario(SecurityContextHelper.getCurrentUsername());
 			historial.setAccion(HistorialReclamoAccion.CAMBIO_ESTADO.toString());
 			historial.setDescripcion("Se ha cambiado de estado a ARCHIVADO");
 		}
-		if(reclamo.getEstado() == "R"){
+		if(reclamo.getEstadoReclamo() == "R"){
 			historial.setTipoUsuario(SystemRole.CIUDADANO.toString());
 			historial.setUsuario(Integer.toString(reclamo.getDni()));
 			historial.setAccion(HistorialReclamoAccion.CREACION.toString());

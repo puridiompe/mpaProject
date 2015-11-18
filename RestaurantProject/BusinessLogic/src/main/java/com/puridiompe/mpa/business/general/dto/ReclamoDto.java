@@ -31,12 +31,12 @@ public class ReclamoDto {
 	
 	private String imei;
 	
-	private String estado;
+//	private String estado;
 	
-//	private String estadoReclamo;
-//	
-//	private String estadoCiudadano;
-//	
+	private String estadoReclamo;
+	
+	private String estadoCiudadano;
+	
 	private String codigo;
 	
 	private BigDecimal latitud;	 
@@ -210,15 +210,29 @@ public class ReclamoDto {
 	/**
 	 * @return the estado
 	 */
-	public String getEstado() {
-		return estado;
+	public String getEstadoReclamo() {
+		return estadoReclamo;
 	}
 
 	/**
 	 * @param estado the estado to set
 	 */
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstadoReclamo(String estadoReclamo) {
+		this.estadoReclamo = estadoReclamo;
+	}
+	
+	/**
+	 * @return the estado
+	 */
+	public String getEstadoCiudadano() {
+		return estadoCiudadano;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstadoCiudadano(String estadoCiudadano) {
+		this.estadoCiudadano = estadoCiudadano;
 	}
 
 	/**

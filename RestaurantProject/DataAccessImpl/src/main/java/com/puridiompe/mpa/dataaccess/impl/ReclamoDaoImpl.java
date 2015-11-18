@@ -88,7 +88,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		reclamo.setDescripcion(request.getDescripcion());
 		reclamo.setVehiculo(request.getVehiculo());		
 		reclamo.setFecMod(fechaActual);		
-		reclamo.setEstado(request.getEstado());
+		reclamo.setEstado(request.getEstadoReclamo());
 
 		reclamoRepository.save(reclamo);
 		Integer reclamoID = reclamo.getIdReclamo();
@@ -160,9 +160,9 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
-	public List<ReclamoDto> getAllReclamos() {
+	public List<ReclamoDto> getAllReclamos(Pageable paging) {
 
-		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
+//		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
 
 		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByEstado("2", paging);
 

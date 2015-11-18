@@ -44,7 +44,7 @@ public class RegistroReclamoController extends BaseController{
 		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
 		
 		ReclamoDto toSave = request.getBody().getReclamo();
-		toSave.setEstado(ReclamoState.RECIBIDO.toString());
+		toSave.setEstadoReclamo(ReclamoState.RECIBIDO.toString());
 		
 		//If a citizen manages to send Comentarios, then null them
 		toSave.setReclamoComentarios(new ArrayList<ReclamoComentarioDto>());		
@@ -104,7 +104,7 @@ public class RegistroReclamoController extends BaseController{
 		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
 		
 		ReclamoDto toUpdate = request.getBody().getReclamo();
-		toUpdate.setEstado(ReclamoState.ENPROCESO.toString());
+		toUpdate.setEstadoReclamo(ReclamoState.ENPROCESO.toString());
 
 		ReclamoDto reclamo = gestionarReclamo.setReclamo(toUpdate);
 		
@@ -122,7 +122,7 @@ public class RegistroReclamoController extends BaseController{
 		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
 		
 		ReclamoDto toUpdate = request.getBody().getReclamo();	
-		toUpdate.setEstado(ReclamoState.ARCHIVADO.toString());
+		toUpdate.setEstadoReclamo(ReclamoState.ARCHIVADO.toString());
 
 		ReclamoDto reclamo = gestionarReclamo.setReclamo(toUpdate);
 		
@@ -190,14 +190,15 @@ public class RegistroReclamoController extends BaseController{
 	@RequestMapping(value = "/getAllReclamo", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetReclamosResponse> getAll(@RequestBody RequestMessage<GetPaginacionRequest> request)
 			throws BusinessException {
+		
 
-		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
+		Pageable paging = new PageRequest(request.getBody().getPageCount(), request.getBody().getPageSize(), Sort.Direction.ASC, "idReclamo");
 		
 		ResponseMessage<GetReclamosResponse> response = new ResponseMessage<GetReclamosResponse>();
 
 		GetReclamosResponse reclamoResponse = new GetReclamosResponse();
 
-		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos();
+		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos(paging);
 
 		reclamoResponse.setReclamos(forResponse);
 

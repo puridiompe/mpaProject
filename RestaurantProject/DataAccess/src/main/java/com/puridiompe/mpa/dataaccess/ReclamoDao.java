@@ -2,6 +2,8 @@ package com.puridiompe.mpa.dataaccess;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 
@@ -11,7 +13,7 @@ public interface ReclamoDao {
 	
 	public ReclamoDto saveReclamoComentario(ReclamoDto request);
 	
-	public List<ReclamoDto> getAllReclamos();
+	public List<ReclamoDto> getAllReclamos(Pageable paging);
 	
 	public List<ReclamoDto> getReclamosByImei(String imei); 
 	

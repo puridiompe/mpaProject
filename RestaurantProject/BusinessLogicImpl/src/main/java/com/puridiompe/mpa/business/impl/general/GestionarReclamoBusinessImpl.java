@@ -3,6 +3,7 @@ package com.puridiompe.mpa.business.impl.general;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarHistorialReclamoBusiness;
@@ -54,8 +55,8 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public List<ReclamoDto> getAllReclamos(){
-		return reclamoDao.getAllReclamos();
+	public List<ReclamoDto> getAllReclamos(Pageable paging){
+		return reclamoDao.getAllReclamos(paging);
 	}
 	
 	@Override
