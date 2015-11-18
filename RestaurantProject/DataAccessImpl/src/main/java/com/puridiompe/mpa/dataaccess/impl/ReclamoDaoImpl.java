@@ -304,9 +304,9 @@ public class ReclamoDaoImpl implements ReclamoDao {
 			int imagenIdx = 0;
 			int comentarioIdx = 0;
 
-			List<Imagen> imagenes = imagenRepository.findByReclamo(reclamoIds, "REC", "1");
+			List<Imagen> imagenes = imagenRepository.findByReclamo(reclamoIds, "REC", "2");
 
-			List<ReclamoComentario> comentarios = reclamoComentarioRepository.findByReclamo(reclamoIds, "1");
+			List<ReclamoComentario> comentarios = reclamoComentarioRepository.findByReclamo(reclamoIds, "2");
 
 			for (ReclamoCiudadano reclamoCiudadano : reclamosCiudadano) {
 				ReclamoDto reclamoObject = new ReclamoDto();
