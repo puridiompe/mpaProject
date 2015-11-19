@@ -240,6 +240,8 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		} else {
 			ReclamoDto reclamoDto = new ReclamoDto();
 			BeanUtils.copyProperties(reclamo, reclamoDto);
+			reclamoDto.setEstadoReclamo(reclamo.getEstado());
+			reclamoDto.setCodigo(reclamo.getNumRec());
 			reclamoDto.setResumenImagen(resumenImagen);
 
 			return reclamoDto;
