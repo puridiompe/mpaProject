@@ -6,12 +6,11 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
@@ -29,6 +28,7 @@ import com.puridiompe.mpa.movil.domain.persistence.ReclamoFrecuente;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
 import com.puridiompe.mpa.movil.repository.persistence.CiudadanoRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
+import com.puridiompe.mpa.movil.repository.persistence.ReclamoCiudadanoRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoComentarioRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoFrecuenteRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ReclamoRepository;
@@ -38,6 +38,9 @@ public class ReclamoDaoImpl implements ReclamoDao {
 
 	@Autowired
 	private ReclamoRepository reclamoRepository;
+	
+	@Autowired
+	private ReclamoCiudadanoRepository reclamoCiudadanoRepository;
 
 	@Autowired
 	private ReclamoFrecuenteRepository reclamofrecuenteRepository;
@@ -160,12 +163,37 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
-	public List<ReclamoDto> getAllReclamos(Pageable paging) {
+	public List<ReclamoDto> getAllReclamos(Pageable paging, List<FilterDto> filter) {
 
+		
+//		StringBuilder sb = new StringBuilder();
+		
+//		for(int i = 0; i < filter.size(); i++){
+//			if (filter.get(i).getEnabled() == true){
+//				if(filter.get(i).getType() == "TEXT"){
+//					sb.append("r.");
+//					sb.append(filter.get(i).getModel());
+//					sb.append(" = ");
+//					sb.append(filter.get(i).getValue());
+//					sb.append(" ");
+//				}
+//				if(filter.get(i).getType() == "CHECK"){
+//					sb.append("r.");
+//					sb.append(filter.get(i).getModel());
+////					for(int j = 0; j = filter.get(i).getOptionList().get(0).getOptionList().size(); j++){
+////						
+////					}
+//				}
+//			}
+//		}
+		
+		
 //		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
 
-		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByEstado("2", paging);
+//		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByEstado("2", paging);
 
+		List<ReclamoCiudadano> reclamosPaging = reclamoCiudadanoRepository.findByEstado("2", paging);
+		
 		List<ReclamoDto> reclamoObjects = getReclamoObjects(reclamosPaging);
 
 		return reclamoObjects;

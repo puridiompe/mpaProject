@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -28,6 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @PropertySource({ "file:${app.persistence.config}/persistence.properties" })
 @EnableJpaRepositories(basePackages = "com.puridiompe.mpa.movil.repository.persistence", entityManagerFactoryRef = "movilEntityManagerFactory", transactionManagerRef = "movilTransactionManager")
+@ComponentScan(value = { "com.puridiompe.mpa.movil.repository.persistence.impl" })
 public class MovilRepositoryConfiguration {
 
 	@Autowired

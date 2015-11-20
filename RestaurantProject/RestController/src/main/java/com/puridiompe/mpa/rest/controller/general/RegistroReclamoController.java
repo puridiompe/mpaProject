@@ -215,7 +215,7 @@ public class RegistroReclamoController extends BaseController{
 
 		GetReclamosResponse reclamoResponse = new GetReclamosResponse();
 
-		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos(paging);
+		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos(paging,  request.getBody().getFilterList());
 
 		reclamoResponse.setReclamos(forResponse);		
 		

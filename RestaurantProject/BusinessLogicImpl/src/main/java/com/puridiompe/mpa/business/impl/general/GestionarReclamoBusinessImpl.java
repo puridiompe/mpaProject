@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarHistorialReclamoBusiness;
 import com.puridiompe.mpa.business.general.GestionarReclamoBusiness;
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
@@ -55,8 +56,8 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public List<ReclamoDto> getAllReclamos(Pageable paging){
-		return reclamoDao.getAllReclamos(paging);
+	public List<ReclamoDto> getAllReclamos(Pageable paging, List<FilterDto> filter){
+		return reclamoDao.getAllReclamos(paging, filter);
 	}
 	
 	@Override

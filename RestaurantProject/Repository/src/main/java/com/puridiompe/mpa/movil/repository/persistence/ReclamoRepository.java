@@ -46,5 +46,6 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 
     @Query("select new com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano(r.idReclamo, r.dni, r.descripcion, r.vehiculo, r.imei, r.numRec, r.fecCre, r.estado, c.apellidoPaterno, c.apellidoMaterno, c.nombres, c.email, c.estado) from  Reclamo r, Ciudadano c where r.dni = c.dni and r.imei = ?1 order by r.idReclamo desc ") //and r.estado != ?2
     public List<ReclamoCiudadano> findAllByImei(String imei);//, String estado, Pageable pageable);
+   
 
 }
