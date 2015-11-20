@@ -18,4 +18,7 @@ public interface NoticiaRepository extends JpaRepository<Noticia, Integer>{
 
 	@Query("from Noticia p where p.estado = '1' order by p.fecMod desc")
 	public List<Noticia> findByEstado();
+	
+	@Query("select count (*) from Noticia r ")
+	public int findTotalNoticias();
 }

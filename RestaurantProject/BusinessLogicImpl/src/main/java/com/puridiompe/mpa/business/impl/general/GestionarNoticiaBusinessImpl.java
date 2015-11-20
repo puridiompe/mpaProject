@@ -65,4 +65,10 @@ public class GestionarNoticiaBusinessImpl implements GestionarNoticiaBusiness{
 		noticiaDao.saveNoticia(nuevaNoticia);
 	}
 
+	@Override
+	public Integer getCountNoticias() {
+		
+		return noticiaDao.getTotalNoticias();
+	}
+
 }

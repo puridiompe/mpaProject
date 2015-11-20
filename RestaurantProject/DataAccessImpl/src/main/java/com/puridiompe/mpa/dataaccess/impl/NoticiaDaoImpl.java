@@ -98,5 +98,11 @@ public class NoticiaDaoImpl implements NoticiaDao{
 		
 		noticiaRepository.save(toSave);
 	}
+
+	@Override
+	public Integer getTotalNoticias() {
+		
+		return noticiaRepository.findTotalNoticias();
+	}
 }
 

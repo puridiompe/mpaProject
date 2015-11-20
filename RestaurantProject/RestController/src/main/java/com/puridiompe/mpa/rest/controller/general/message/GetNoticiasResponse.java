@@ -23,5 +23,14 @@ public class GetNoticiasResponse extends ResponseBody{
 	public void setNoticias(List<NoticiaDto> noticia){
 		this.noticia = noticia;
 	}
+	
+	private Integer numeroNoticias;
 
+	public Integer getNumeroNoticias() {
+		return numeroNoticias;
+	}
+
+	public void setNumeroNoticias(Integer numeroNoticias) {
+		this.numeroNoticias = numeroNoticias;
+	}
 }

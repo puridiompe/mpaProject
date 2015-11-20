@@ -9,4 +9,5 @@ public interface NoticiaDao {
 	public List<NoticiaDto> findByEstado();
 	public List<NoticiaDto> getLatestNews();
 	public void saveNoticia(NoticiaDto nuevaNoticia);
+	public Integer getTotalNoticias();
 }

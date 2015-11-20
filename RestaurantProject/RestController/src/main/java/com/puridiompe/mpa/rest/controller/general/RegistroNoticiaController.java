@@ -21,6 +21,7 @@ import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetNoticiasResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetNoticiaRequest;
+import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetNoticiaValidator;
 
 
@@ -99,5 +100,22 @@ public class RegistroNoticiaController extends BaseController{
 		response.setBody(noticiasResponse);
 		
 		return response;		*/
+	}
+	
+	@RequestMapping(value = "/getTotalNoticia", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)	
+	public @ResponseBody ResponseMessage<GetNoticiasResponse> getTotalNoticias() throws BusinessException {		
+		
+		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
+		
+		GetNoticiasResponse numeroNoticiasResponse = new GetNoticiasResponse();
+		
+		Integer numeroNoticias = gestionarNoticiaBusiness.getCountNoticias();
+		
+		numeroNoticiasResponse.setNumeroNoticias(numeroNoticias);
+		
+		response.setBody(numeroNoticiasResponse);
+		
+		return response;
+		
 	}
 }
