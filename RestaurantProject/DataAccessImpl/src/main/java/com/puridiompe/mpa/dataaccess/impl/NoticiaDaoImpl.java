@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,10 +30,10 @@ public class NoticiaDaoImpl implements NoticiaDao{
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
-	public List<NoticiaDto> findByEstado() {
+	public List<NoticiaDto> findByEstado(Pageable paging) {
 		
 		List<NoticiaDto> noticiasObject = new ArrayList<NoticiaDto>();
-		List<Noticia> noticias = noticiaRepository.findByEstado();
+		List<Noticia> noticias = noticiaRepository.findByEstado(paging);
 		
 		if(noticias != null)	
 			for(int i = 0; i < noticias.size(); i++ ){
@@ -48,36 +49,36 @@ public class NoticiaDaoImpl implements NoticiaDao{
 		return noticiasObject;
 	}
 	
-	@Transactional(value = "movilTransactionManager", readOnly = true)
-	@Override
-	public List<NoticiaDto> getLatestNews() {
-		
-		List<NoticiaDto> noticiasObject = new ArrayList<NoticiaDto>();
-		List<Noticia> noticias = noticiaRepository.findByEstado();
-		
-		if(noticias != null){
-			
-			int latestNews = 0;
-			
-			if(noticias.size() >= 3){
-				latestNews = 3;
-			}else{
-				latestNews = noticias.size();
-			}
-			
-			for(int i = 0; i < latestNews; i++ ){
-				NoticiaDto noticiaDtoTmp = new NoticiaDto();
-				Noticia noticiatmp = noticias.get(i);
-				BeanUtils.copyProperties(noticiatmp, noticiaDtoTmp);
-				
-				noticiaDtoTmp.setFecPub(new Datetime(noticiatmp.getFecPub()));
-				noticiasObject.add(noticiaDtoTmp);				
-			}	
-		}else{
-			return null; 
-		}
-		return noticiasObject;
-	}
+//	@Transactional(value = "movilTransactionManager", readOnly = true)
+//	@Override
+//	public List<NoticiaDto> getLatestNews() {
+//		
+//		List<NoticiaDto> noticiasObject = new ArrayList<NoticiaDto>();
+//		List<Noticia> noticias = noticiaRepository.findByEstado();
+//		
+//		if(noticias != null){
+//			
+//			int latestNews = 0;
+//			
+//			if(noticias.size() >= 3){
+//				latestNews = 3;
+//			}else{
+//				latestNews = noticias.size();
+//			}
+//			
+//			for(int i = 0; i < latestNews; i++ ){
+//				NoticiaDto noticiaDtoTmp = new NoticiaDto();
+//				Noticia noticiatmp = noticias.get(i);
+//				BeanUtils.copyProperties(noticiatmp, noticiaDtoTmp);
+//				
+//				noticiaDtoTmp.setFecPub(new Datetime(noticiatmp.getFecPub()));
+//				noticiasObject.add(noticiaDtoTmp);				
+//			}	
+//		}else{
+//			return null; 
+//		}
+//		return noticiasObject;
+//	}
 
 	@Override
 	public void saveNoticia(NoticiaDto nuevaNoticia) {

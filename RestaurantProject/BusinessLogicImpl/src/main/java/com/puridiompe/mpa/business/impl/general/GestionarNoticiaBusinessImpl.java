@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarNoticiaBusiness;
@@ -27,9 +28,9 @@ public class GestionarNoticiaBusinessImpl implements GestionarNoticiaBusiness{
 	private NoticiaDao noticiaDao;
 	
 	@Override
-	public List<NoticiaDto> getAllByEstado() {
+	public List<NoticiaDto> getAllByEstado(Pageable paging) {
 		
-		List<NoticiaDto> noticiaObject = noticiaDao.findByEstado();
+		List<NoticiaDto> noticiaObject = noticiaDao.findByEstado(paging);
 		
 		for(int i = 0; i < noticiaObject.size(); i ++){
 			
@@ -43,10 +44,10 @@ public class GestionarNoticiaBusinessImpl implements GestionarNoticiaBusiness{
 		return noticiaObject;
 	}
 	
-	@Override
-	public List<NoticiaDto> getLatestNews(){
-		return noticiaDao.getLatestNews();
-	}
+//	@Override
+//	public List<NoticiaDto> getLatestNews(){
+//		return noticiaDao.getLatestNews();
+//	}
 
 	@Override
 	public void saveNoticia(NoticiaDto nuevaNoticia) {

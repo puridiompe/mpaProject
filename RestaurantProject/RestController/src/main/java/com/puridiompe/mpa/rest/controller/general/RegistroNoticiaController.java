@@ -3,6 +3,9 @@ package com.puridiompe.mpa.rest.controller.general;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,6 +23,7 @@ import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.rest.controller.BaseController;
 import com.puridiompe.mpa.rest.controller.general.message.GetNoticiasResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetPaginacionRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetNoticiaRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
 import com.puridiompe.mpa.rest.controller.general.validation.GetNoticiaValidator;
@@ -46,10 +50,12 @@ public class RegistroNoticiaController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetNoticiasResponse> getNoticias()			
-			throws BusinessException {		
+	public @ResponseBody ResponseMessage<GetNoticiasResponse> getNoticias(@RequestBody RequestMessage<GetPaginacionRequest> request)			
+			throws BusinessException {
 		
-		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getAllByEstado();
+		Pageable paging = new PageRequest(request.getBody().getPageCount(), request.getBody().getPageSize(), Sort.Direction.DESC, "fecCre");
+		
+		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getAllByEstado(paging);
 		
 		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
 		
@@ -62,22 +68,22 @@ public class RegistroNoticiaController extends BaseController{
 		return response;		
 	}
 	
-	@RequestMapping(value = "/getLatest", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetNoticiasResponse> getLatestNews()			
-			throws BusinessException {		
-		
-		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getLatestNews();
-		
-		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
-		
-		GetNoticiasResponse noticiasResponse = new GetNoticiasResponse();
-		
-		noticiasResponse.setNoticias(noticiasObject);
-		
-		response.setBody(noticiasResponse);
-		
-		return response;		
-	}
+//	@RequestMapping(value = "/getLatest", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public @ResponseBody ResponseMessage<GetNoticiasResponse> getLatestNews()			
+//			throws BusinessException {		
+//		
+//		List<NoticiaDto> noticiasObject = gestionarNoticiaBusiness.getLatestNews();
+//		
+//		ResponseMessage<GetNoticiasResponse> response = new ResponseMessage<GetNoticiasResponse>();
+//		
+//		GetNoticiasResponse noticiasResponse = new GetNoticiasResponse();
+//		
+//		noticiasResponse.setNoticias(noticiasObject);
+//		
+//		response.setBody(noticiasResponse);
+//		
+//		return response;		
+//	}
 	
 	@RequestMapping(value = "/saveNoticia", method = RequestMethod.PUT, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveNoticia(@RequestBody RequestMessage<GetNoticiaRequest> request)			
