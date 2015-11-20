@@ -2,6 +2,7 @@ package com.puridiompe.mpa.movil.repository.persistence;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,5 +18,8 @@ public interface NoticiaRepository extends JpaRepository<Noticia, Integer>{
 	 */
 
 	@Query("from Noticia p where p.estado = '1' order by p.fecMod desc")
-	public List<Noticia> findByEstado();
+	public List<Noticia> findByEstado(Pageable paging);
+	
+	@Query("select count (*) from Noticia r ")
+	public int findTotalNoticias();
 }
