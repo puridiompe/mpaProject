@@ -80,9 +80,9 @@ public class GestionarReclamoBusinessImpl implements GestionarReclamoBusiness {
 	}
 	
 	@Override
-	public Integer getCountReclamo(){
+	public Integer getCountReclamo(List<FilterDto> filter){
 
-		return reclamoDao.getTotalReclamos();
+		return reclamoDao.getTotalReclamos(filter);
 	}
 
 }

@@ -189,13 +189,14 @@ public class RegistroReclamoController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/getTotalReclamos", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetReclamoResponse> getTotalReclamos() throws SecurityException {
+	public @ResponseBody ResponseMessage<GetReclamoResponse> getTotalReclamos(@RequestBody RequestMessage<GetPaginacionRequest> request) throws SecurityException {
 
 		ResponseMessage<GetReclamoResponse> response = new ResponseMessage<GetReclamoResponse>();
 
 		GetReclamoResponse numeroReclamosResponse = new GetReclamoResponse();
 		
-		Integer numeroReclamos = gestionarReclamo.getCountReclamo();
+//		Integer numeroReclamos = gestionarReclamo.getCountReclamo();
+		Integer numeroReclamos = gestionarReclamo.getCountReclamo(request.getBody().getFilterList());
 
 		numeroReclamosResponse.setNumeroReclamos(numeroReclamos);
 
@@ -217,6 +218,8 @@ public class RegistroReclamoController extends BaseController{
 
 		List< ReclamoDto> forResponse = gestionarReclamo.getAllReclamos(paging,  request.getBody().getFilterList());
 
+//		Integer numeroReclamos = gestionarReclamo.getCountReclamo(request.getBody().getFilterList());
+		
 		reclamoResponse.setReclamos(forResponse);		
 		
 		//Devolver los ismos filtros que los que se tienen en el Request

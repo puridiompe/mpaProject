@@ -166,45 +166,106 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	@Override
 	public List<ReclamoDto> getAllReclamos(Pageable paging, List<FilterDto> filter) {
 
-		
-		StringBuilder sb = new StringBuilder();
-		
-		for(int i = 0; i < filter.size(); i++){
-			if (filter.get(i).getEnabled() == true){
-				if(filter.get(i).getType() == "TEXT"){
-					sb.append("r.");
-					sb.append(filter.get(i).getModel());
-					sb.append(" = ");
-					sb.append(filter.get(i).getValue());
-					sb.append(" ");
-				}
-				if(filter.get(i).getType() == "CHECK"){
-					sb.append("r.");
-					sb.append(filter.get(i).getModel());
-					for(int j = 0; j < filter.get(i).getOptionList().get(0).getOptionList().size(); j++){
-						if(filter.get(i).getOptionList().get(0).getOptionList().get(j).getEnabled() == true){
-							switch(filter.get(i).getOptionList().get(0).getOptionList().get(j).getLabel()){
-							case "Recibido" : sb.append(" = ");
-							sb.append(ReclamoState.RECIBIDO.toString());
-							sb.append(" ");
-							break;
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		
 //		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
 
 //		List<ReclamoCiudadano> reclamosPaging = reclamoRepository.findByEstado("2", paging);
+		
+		String query = createQuery(filter);
 
-		List<ReclamoCiudadano> reclamosPaging = reclamoCiudadanoRepository.findByEstado("2", paging);
+		List<ReclamoCiudadano> reclamosPaging = reclamoCiudadanoRepository.findByEstado("2", paging, query);
 		
 		List<ReclamoDto> reclamoObjects = getReclamoObjects(reclamosPaging);
 
 		return reclamoObjects;
+	}
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public Integer getTotalReclamos(List<FilterDto> filter){
+		
+		String query = createQuery(filter);
+		reclamoCiudadanoRepository.findTotalReclamos(query);
+		
+		return reclamoRepository.findTotalReclmaos();
+	}
+	
+	private String createQuery(List<FilterDto> filter){
+		
+		int countFilter = 0;
+		int countFilterCheck = 0;
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = 0; i < filter.size(); i++){
+			if (filter.get(i).getEnabled() == true){
+				if(filter.get(i).getType().equals("TEXT")){
+					if(countFilter > 0){
+						sb.append(" and ");
+					}
+					countFilter++;
+					sb.append("r.");
+					sb.append(filter.get(i).getModel());
+					sb.append(" = ");
+					if(filter.get(i).getModel().equals("dni")){
+						sb.append(filter.get(i).getValue());						
+					}else{
+						sb.append("'");
+						sb.append(filter.get(i).getValue()).append("'");
+					}
+				}
+				if(filter.get(i).getType().equals("CHECK")){
+					if(countFilter > 0){
+						sb.append(" and ");
+						countFilter++;
+					}
+					sb.append("(");
+					for(int j = 0; j < filter.get(i).getOptionList().get(0).getOptionList().size(); j++){
+						if(filter.get(i).getOptionList().get(0).getOptionList().get(j).getEnabled() == true){
+							
+							switch(filter.get(i).getOptionList().get(0).getOptionList().get(j).getLabel()){
+							
+								case "Recibido" : 
+									if(countFilterCheck > 0){
+										sb.append(" or ");
+									}
+									countFilterCheck++;
+									sb.append("r.");
+									sb.append(filter.get(i).getModel());
+									sb.append(" = '");
+									sb.append(ReclamoState.RECIBIDO.toString());
+									sb.append("' ");
+									break;
+								case "Archivado" :
+									if(countFilterCheck > 0){
+										sb.append(" or ");
+									}
+									countFilterCheck++;
+									sb.append("r.");
+									sb.append(filter.get(i).getModel());
+									sb.append(" = '");
+									sb.append(ReclamoState.ARCHIVADO.toString());
+									sb.append("' ");
+									break;
+								case "En Proceso" :
+									if(countFilterCheck > 0){
+										sb.append(" or ");
+									}
+									countFilterCheck++;
+									sb.append("r.");
+									sb.append(filter.get(i).getModel());
+									sb.append(" = '");
+									sb.append(ReclamoState.ENPROCESO.toString());
+									sb.append("' ");
+								default :
+									break;
+							}
+						}
+					}
+					sb.append(")");
+				}
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	@Transactional(value = "movilTransactionManager", readOnly = true)
@@ -321,12 +382,6 @@ public class ReclamoDaoImpl implements ReclamoDao {
 		return reclamoRepository.countReclamosByImei(imei);
 	}
 	
-	@Transactional(value = "movilTransactionManager", readOnly = true)
-	@Override
-	public Integer getTotalReclamos(){
-		
-		return reclamoRepository.findTotalReclmaos();
-	}
 	
 	private List<ReclamoDto> getReclamoObjects(List<ReclamoCiudadano> reclamosCiudadano) {
 

@@ -28,5 +28,5 @@ public interface ReclamoDao {
 	
 	public Integer countReclamosByImei(String imei);
 	
-	public Integer getTotalReclamos();
+	public Integer getTotalReclamos(List<FilterDto> filter);
 }
