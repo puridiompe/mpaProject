@@ -18,6 +18,7 @@ import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.common.type.ImageType;
+import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ReclamoDao;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
@@ -166,26 +167,33 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	public List<ReclamoDto> getAllReclamos(Pageable paging, List<FilterDto> filter) {
 
 		
-//		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		
-//		for(int i = 0; i < filter.size(); i++){
-//			if (filter.get(i).getEnabled() == true){
-//				if(filter.get(i).getType() == "TEXT"){
-//					sb.append("r.");
-//					sb.append(filter.get(i).getModel());
-//					sb.append(" = ");
-//					sb.append(filter.get(i).getValue());
-//					sb.append(" ");
-//				}
-//				if(filter.get(i).getType() == "CHECK"){
-//					sb.append("r.");
-//					sb.append(filter.get(i).getModel());
-////					for(int j = 0; j = filter.get(i).getOptionList().get(0).getOptionList().size(); j++){
-////						
-////					}
-//				}
-//			}
-//		}
+		for(int i = 0; i < filter.size(); i++){
+			if (filter.get(i).getEnabled() == true){
+				if(filter.get(i).getType() == "TEXT"){
+					sb.append("r.");
+					sb.append(filter.get(i).getModel());
+					sb.append(" = ");
+					sb.append(filter.get(i).getValue());
+					sb.append(" ");
+				}
+				if(filter.get(i).getType() == "CHECK"){
+					sb.append("r.");
+					sb.append(filter.get(i).getModel());
+					for(int j = 0; j < filter.get(i).getOptionList().get(0).getOptionList().size(); j++){
+						if(filter.get(i).getOptionList().get(0).getOptionList().get(j).getEnabled() == true){
+							switch(filter.get(i).getOptionList().get(0).getOptionList().get(j).getLabel()){
+							case "Recibido" : sb.append(" = ");
+							sb.append(ReclamoState.RECIBIDO.toString());
+							sb.append(" ");
+							break;
+							}
+						}
+					}
+				}
+			}
+		}
 		
 		
 //		Pageable paging = new PageRequest(2, 20, Sort.Direction.ASC, "idReclamo");
