@@ -17,7 +17,7 @@ public interface NoticiaRepository extends JpaRepository<Noticia, Integer>{
 	 * @return
 	 */
 
-	@Query("from Noticia p where p.estado = '1' order by p.fecMod desc")
+	@Query("from Noticia p where p.estado = '1' order by p.fecPub desc")
 	public List<Noticia> findByEstado(Pageable paging);
 	
 	@Query("select count (*) from Noticia r ")

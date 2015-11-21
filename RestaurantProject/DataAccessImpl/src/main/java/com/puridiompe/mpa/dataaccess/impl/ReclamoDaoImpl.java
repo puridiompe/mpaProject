@@ -435,7 +435,7 @@ public class ReclamoDaoImpl implements ReclamoDao {
 
 						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
 						reclamoComentario.setComentario(comentario.getComentario());
-						reclamoComentario.setFecCre(comentario.getFecCre());
+						reclamoComentario.setFecCre(new Datetime(comentario.getFecCre()));
 
 						comentariosObject.add(reclamoComentario);
 						comentarioIdx++;
