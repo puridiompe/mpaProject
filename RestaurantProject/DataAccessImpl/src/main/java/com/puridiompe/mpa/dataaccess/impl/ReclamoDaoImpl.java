@@ -184,9 +184,10 @@ public class ReclamoDaoImpl implements ReclamoDao {
 	public Integer getTotalReclamos(List<FilterDto> filter){
 		
 		String query = createQuery(filter);
-		reclamoCiudadanoRepository.findTotalReclamos(query);
+//		reclamoCiudadanoRepository.findTotalReclamos(query);
+		return reclamoCiudadanoRepository.findTotalReclamos(query);
 		
-		return reclamoRepository.findTotalReclmaos();
+//		return reclamoRepository.findTotalReclmaos();
 	}
 	
 	private String createQuery(List<FilterDto> filter){
@@ -202,9 +203,14 @@ public class ReclamoDaoImpl implements ReclamoDao {
 						sb.append(" and ");
 					}
 					countFilter++;
-					sb.append("r.");
+					if(filter.get(i).getModel().equals("apellidoPaterno")){
+						sb.append("c.");												
+					}else{
+						sb.append("r.");												
+					}
 					sb.append(filter.get(i).getModel());
 					sb.append(" = ");
+									
 					if(filter.get(i).getModel().equals("dni")){
 						sb.append(filter.get(i).getValue());						
 					}else{

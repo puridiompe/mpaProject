@@ -26,9 +26,9 @@ public class ReclamoCiudadanoRepositoryImpl implements ReclamoCiudadanoRepositor
     	sb.append("select new com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano(r.idReclamo, r.dni, r.descripcion, r.vehiculo, r.imei, r.numRec, r.fecCre, r.estado, c.apellidoPaterno, c.apellidoMaterno, c.nombres, c.email, c.estado) from  Reclamo r, Ciudadano c where r.dni = c.dni ");
     	if(!query.isEmpty()){
     		sb.append(" and ");
-    		sb.append(query);
-    		sb.append(" order by r.idReclamo desc ");
+    		sb.append(query);    		
     	}
+    	sb.append(" order by r.idReclamo desc ");
 //    	List<ReclamoCiudadano> reclamoCiudadano = entityManager.createQuery("select new com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano(r.idReclamo, r.dni, r.descripcion, r.vehiculo, r.imei, r.numRec, r.fecCre, r.estado, c.apellidoPaterno, c.apellidoMaterno, c.nombres, c.email, c.estado) from  Reclamo r, Ciudadano c where r.dni = c.dni and r.estado != ?1 order by r.idReclamo desc ", ReclamoCiudadano.class).setParameter(1, estado).setFirstResult(pageable.getPageNumber()*pageable.getPageSize()).setMaxResults(pageable.getPageSize()).getResultList();
     	List<ReclamoCiudadano> reclamoCiudadano = entityManager.createQuery(sb.toString(), ReclamoCiudadano.class).setFirstResult(pageable.getPageNumber()*pageable.getPageSize()).setMaxResults(pageable.getPageSize()).getResultList();
     	
@@ -45,7 +45,8 @@ public class ReclamoCiudadanoRepositoryImpl implements ReclamoCiudadanoRepositor
     		sb.append(query);
     	}
 		
-		Integer totalReclamos = entityManager.createQuery(sb.toString()).getFirstResult();
+//		Integer totalReclamos = entityManager.createQuery(sb.toString()).getFirstResult();
+		Integer totalReclamos = new Integer(entityManager.createQuery(sb.toString()).getSingleResult().toString());
 	
 		return totalReclamos;
 	}
