@@ -66,7 +66,7 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		if(flota != null){
 			BeanUtils.copyProperties(flota, flotaObject);
 			List<PermisoOperacionEspecial> permisoEspecial = permisoEspecialRepository.findByFlota(flota.getId());
-			if(permisoEspecial != null){
+			if(permisoEspecial != null && !permisoEspecial.isEmpty()){
 				permisosObject = new PermisosDto();
 				BeanUtils.copyProperties(permisoEspecial.get(0), permisoEspecialObject);
 					
