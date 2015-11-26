@@ -13,21 +13,24 @@ import com.puridiompe.mpa.business.general.dto.PermisoOperacionEscolarDto;
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionEspecialDto;
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionTurismoDto;
 import com.puridiompe.mpa.business.general.dto.PermisosDto;
-import com.puridiompe.mpa.business.general.dto.PropietarioDto;
 import com.puridiompe.mpa.dataaccess.PermisoGeneralDao;
+import com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa;
 import com.puridiompe.mpa.sistran.domain.persistence.Flota;
 import com.puridiompe.mpa.sistran.domain.persistence.PermisoOperacionEscolar;
 import com.puridiompe.mpa.sistran.domain.persistence.PermisoOperacionEspecial;
 import com.puridiompe.mpa.sistran.domain.persistence.PermisoOperacionTurismo;
-import com.puridiompe.mpa.sistran.domain.persistence.PropietarioVehiculo;
 import com.puridiompe.mpa.sistran.repository.persistence.FlotaRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.PermisoOperacionEscolarRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.PermisoOperacionEspecialRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.PermisoOperacionTurismoRepository;
+import com.puridiompe.mpa.sistran.repository.persistence.PermisoOperacionUrbanoRepository;
 
 @Component
 public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 
+	@Autowired
+	private PermisoOperacionUrbanoRepository permisoOperacionUrbanoRepository;
+	
 	@Autowired
 	private PermisoOperacionEspecialRepository permisoEspecialRepository;
 	
@@ -53,7 +56,11 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		PermisoOperacionEscolarDto permisoEscolarObject = new PermisoOperacionEscolarDto();
 		PermisoOperacionTurismoDto permisoTurismoObject = new PermisoOperacionTurismoDto();
 		
+		
 		//consulta a la DB flota
+		
+		List<PermisoUrbanoEmpresa> permisoUrbano = permisoOperacionUrbanoRepository.findUrbanoByVehiculo(placa);
+		
 		Flota flota = flotaRepository.findByVehiculo(placa);
 		
 		if(flota != null){
@@ -75,6 +82,15 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 				permisoGeneralObject.getListPermiso().add(permisosObject);
 				permisoGeneralObject.setVehiculo(placa);
 			}
+		}
+		
+		if(permisoUrbano != null && !permisoUrbano.isEmpty()){
+			permisosObject = new PermisosDto();
+			BeanUtils.copyProperties(permisoUrbano.get(0), permisosObject);
+			permisosObject.setTipoPermiso("TRANSPORTE URBANO");
+			
+			permisoGeneralObject.getListPermiso().add(permisosObject);
+			permisoGeneralObject.setVehiculo(placa);
 		}
 		
 		

@@ -6,12 +6,21 @@ import java.util.List;
 public class PermisosDto {
 
 	private String vehiculo;
+	
 	private Date fechaEmision;
+	
 	private Date fechaVencimiento;
+	
 	private String observacion;
+	
 	private String numeroExpediente;
+	
 	private Date fechaExpediente;
+	
 	private String tipoPermiso;
+	
+	private String razonSocial;
+	
 	
 	/**
 	 * Constructor
@@ -68,5 +77,13 @@ public class PermisosDto {
 	}
 	public void setTipoPermiso(String tipoPermiso) {
 		this.tipoPermiso = tipoPermiso;
+	}
+	
+	public String getRazonSocial() {
+		return razonSocial;
+	}
+	
+	public void setRazonSocial(String razonSocial) {
+		this.razonSocial = razonSocial;
 	}
 }

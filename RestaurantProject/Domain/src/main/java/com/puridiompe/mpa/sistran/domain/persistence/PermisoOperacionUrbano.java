@@ -86,7 +86,7 @@ public class PermisoOperacionUrbano {
 	private boolean original;
 	
 	@Column(name = "\"observaci\"")
-	private String obsevacion;
+	private String observacion;
 	
 	@Column(name = "\"estado\"")
 	private Integer estado;
@@ -364,14 +364,14 @@ public class PermisoOperacionUrbano {
 
 
 
-	public String getObsevacion() {
-		return obsevacion;
+	public String getObservacion() {
+		return observacion;
 	}
 
 
 
-	public void setObsevacion(String obsevacion) {
-		this.obsevacion = obsevacion;
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
 

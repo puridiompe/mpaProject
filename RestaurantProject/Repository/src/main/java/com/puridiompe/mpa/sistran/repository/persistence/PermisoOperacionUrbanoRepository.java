@@ -1,12 +1,22 @@
 package com.puridiompe.mpa.sistran.repository.persistence;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa;
 import com.puridiompe.mpa.sistran.domain.persistence.PermisoOperacionUrbano;
 
 public interface PermisoOperacionUrbanoRepository extends JpaRepository<PermisoOperacionUrbano, Integer>{
+	
+	
+	@Query("select new com.puridiompe.mpa.movil.domain.persistence.testPermiso(f.vehiculo, p.fechaEmision, p.fechaVencimiento, p.observacion, p.numero, e.razonSocial) from  PermisoOperacionUrbano p, Flota f, Empresa e  where f.empresa = e.codigo and p.flota = f.id and f.vehiculo = ?1 order by p.fechaVencimiento desc ") //and r.estado != ?2
+	public List<PermisoUrbanoEmpresa> findUrbanoByVehiculo(String vehiculo);
+	
+	
+	
 	
 	/**
 	 * find infracciones by numero
