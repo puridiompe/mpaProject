@@ -103,6 +103,17 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 			BeanUtils.copyProperties(permisoUrbano.get(0), permisosObject);
 //			permisosObject.setNumeroExpediente(permisoUrbano.get(0).getNumeroExpediente().toString());
 //			permisosObject.setFechaInicio(permisoUrbano.get(0).getFechaInicio());
+			
+			Date fechaActual = DateUtil.getCurrentDate();
+			Date fechaVencimiento = permisoUrbano.get(0).getFechaVencimiento();
+			long vencimiento = fechaVencimiento.getTime() - fechaActual.getTime();
+			
+			if(vencimiento > 0){
+				permisosObject.setEstadoPermiso("VIGENTE");
+			}else{
+				permisosObject.setEstadoPermiso("VENCIDO");
+			}
+			
 			permisosObject.setTipoPermiso("TRANSPORTE URBANO");
 			
 			permisoGeneralObject.getListPermiso().add(permisosObject);
@@ -116,6 +127,16 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		if(permisoEscolar != null){
 			permisosObject = new PermisosDto();
 			BeanUtils.copyProperties(permisoEscolar, permisoEscolarObject);
+			
+			Date fechaActual = DateUtil.getCurrentDate();
+			Date fechaVencimiento = permisoEscolar.getFechaVencimiento();
+			long vencimiento = fechaVencimiento.getTime() - fechaActual.getTime();
+			
+			if(vencimiento > 0){
+				permisosObject.setEstadoPermiso("VIGENTE");
+			}else{
+				permisosObject.setEstadoPermiso("VENCIDO");
+			}
 			
 			permisosObject.setVehiculo(placa);
 			permisosObject.setFechaEmision(permisoEscolar.getFechaEmision());
@@ -133,6 +154,16 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		if(permisoTurismo != null){
 			permisosObject = new PermisosDto();
 			BeanUtils.copyProperties(permisoTurismo, permisoTurismoObject);
+			
+			Date fechaActual = DateUtil.getCurrentDate();
+			Date fechaVencimiento = permisoTurismo.getFechaVencimiento();
+			long vencimiento = fechaVencimiento.getTime() - fechaActual.getTime();
+			
+			if(vencimiento > 0){
+				permisosObject.setEstadoPermiso("VIGENTE");
+			}else{
+				permisosObject.setEstadoPermiso("VENCIDO");
+			}
 			
 			permisosObject.setVehiculo(placa);
 			permisosObject.setFechaEmision(permisoTurismo.getFechaEmision());
