@@ -49,12 +49,14 @@ public class VehiculoDaoImpl implements VehiculoDao {
 		VehiculoDto vehiculoObject = new VehiculoDto();
 
 		Vehiculo vehiculo = vehiculoRepository.findByPlaca(placa);
-		MarcaVehiculo marcaVehiculo = marcaVehiculoRepository.findById(vehiculo.getMarca());
 
 		if (vehiculo != null) {
 
+			MarcaVehiculo marcaVehiculo = marcaVehiculoRepository.findById(vehiculo.getMarca());
 			BeanUtils.copyProperties(vehiculo, vehiculoObject);
-			vehiculoObject.setMarca(marcaVehiculo.getDenominacion());
+			if(marcaVehiculo != null){
+				vehiculoObject.setMarca(marcaVehiculo.getDenominacion());				
+			}
 
 			List<PropietarioVehiculo> propietarios = propietarioVehiculoRepository
 					.findByVehiculo(vehiculo.getIdPlaca());
