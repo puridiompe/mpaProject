@@ -6,6 +6,7 @@ package com.puridiompe.mpa.dataaccess.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +71,10 @@ public class GpsDaoImpl implements GpsDao {
 	public GpsInspectorDto getLastByUsername(String username) {
 		
 		GpsInspectorDto gpsInspectorObject = new GpsInspectorDto();
-		GpsInspector gpsInspector = gpsInspectorRepository.findLastByUsername(username);
+		List<GpsInspector> gpsInspectores = gpsInspectorRepository.findLastByUsername(username);
 		
-		if(gpsInspector != null){
+		if(gpsInspectores != null && gpsInspectores.size() > 0 ){
+			GpsInspector gpsInspector = gpsInspectores.get(0);
 			BeanUtils.copyProperties(gpsInspector, gpsInspectorObject);
 			gpsInspectorObject.setDate(new Datetime(gpsInspector.getDate()));
 		} else {
@@ -360,21 +362,27 @@ public class GpsDaoImpl implements GpsDao {
 
 		List<GpsInspectorDto> gpsInspectorObject = new ArrayList<GpsInspectorDto>();
 		
-		List<GpsInspector> gpsInspector = gpsInspectorRepository.findByRol(SystemRole.INSPECTOR.toString());
-		
-		if (gpsInspector != null) {
-
-			for (int i = 0; i < gpsInspector.size(); i++) {
-
-				GpsInspectorDto gpsInspectorDtoTmp = new GpsInspectorDto();
-
-				GpsInspector gpsInspectortmp = gpsInspector.get(i);
-
-				BeanUtils.copyProperties(gpsInspectortmp, gpsInspectorDtoTmp);
-
-				gpsInspectorDtoTmp.setDate(new Datetime(gpsInspectortmp.getDate()));
-
-				gpsInspectorObject.add(gpsInspectorDtoTmp);
+		List<GpsInspector> gpsInspectores = gpsInspectorRepository.findByRol(SystemRole.INSPECTOR.toString());
+		Date today = new Date();
+		if (gpsInspectores != null && gpsInspectores.size() > 0) {
+			
+			String currentUsername = gpsInspectores.get(0).getUsername();
+			GpsInspectorDto gpsInspectorDtoTmp = new GpsInspectorDto();
+			GpsInspector gpsInspectortmp = gpsInspectores.get(0);
+			BeanUtils.copyProperties(gpsInspectortmp, gpsInspectorDtoTmp);
+			gpsInspectorDtoTmp.setDate(new Datetime(gpsInspectortmp.getDate()));
+			gpsInspectorObject.add(gpsInspectorDtoTmp);
+			
+			for (int i = 1; i < gpsInspectores.size(); i++) { 
+				gpsInspectortmp = gpsInspectores.get(i);
+				long hours = TimeUnit.MILLISECONDS.toHours(today.getTime()-gpsInspectortmp.getDate().getTime());
+				if (!currentUsername.equals(gpsInspectortmp.getUsername()) && hours<=24){ // just bring then last 24 h
+					gpsInspectorDtoTmp = new GpsInspectorDto();
+					BeanUtils.copyProperties(gpsInspectortmp, gpsInspectorDtoTmp);
+					gpsInspectorDtoTmp.setDate(new Datetime(gpsInspectortmp.getDate()));
+					gpsInspectorObject.add(gpsInspectorDtoTmp);
+				}
+				currentUsername = gpsInspectortmp.getUsername();
 			}
 		} else {
 			return null;

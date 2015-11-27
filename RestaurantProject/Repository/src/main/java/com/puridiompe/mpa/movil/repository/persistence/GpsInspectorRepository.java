@@ -10,12 +10,12 @@ import com.puridiompe.mpa.movil.domain.persistence.GpsInspector;
 
 public interface GpsInspectorRepository extends JpaRepository<GpsInspector, Integer>{
 
-	@Query("from GpsInspector g where g.rol = ?1")
+	@Query("from GpsInspector g where g.rol = ?1 order by g.username")
 	public List<GpsInspector> findByRol(String rol);
 	
 	//@Query("from GpsInspector g where g.imei = ?1")
 	//public GpsInspector findLastByImei(String imei);
 	
 	@Query("from GpsInspector g where g.username = ?1")
-	public GpsInspector findLastByUsername(String username);
+	public List<GpsInspector> findLastByUsername(String username);
 }
