@@ -10,11 +10,13 @@ public class PermisoUrbanoEmpresa implements Serializable{
 	
 	private Date fechaEmision;
 	
+	private Date fechaInicio;
+	
 	private Date fechaVencimiento;
 	
 	private String observacion;
 	
-	private Integer numeroExpediente;
+	private Integer numeroPermiso;
 	
 	private String razonSocial;
 	
@@ -23,13 +25,15 @@ public class PermisoUrbanoEmpresa implements Serializable{
 	 * 
 	 * 
 	 */
-	public PermisoUrbanoEmpresa(String vehiculo, Date fechaEmision, Date fechaVencimiento, String observacion, Integer numeroExpediente,
+	public PermisoUrbanoEmpresa(String vehiculo, Date fechaEmision, Date fechaInicio, Date fechaVencimiento, String observacion, Integer numeroPermiso,
 						String razonSocial){
+		
 		this.vehiculo = vehiculo;
 		this.fechaEmision = fechaEmision;
+		this.fechaInicio = fechaInicio;
 		this.fechaVencimiento = fechaVencimiento;
 		this.observacion = observacion;
-		this.numeroExpediente = numeroExpediente;
+		this.numeroPermiso = numeroPermiso;
 		this.razonSocial = razonSocial;
 	}
 
@@ -40,6 +44,10 @@ public class PermisoUrbanoEmpresa implements Serializable{
 	public Date getFechaEmision() {
 		return fechaEmision;
 	}
+	
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
 
 	public Date getFechaVencimiento() {
 		return fechaVencimiento;
@@ -49,8 +57,8 @@ public class PermisoUrbanoEmpresa implements Serializable{
 		return observacion;
 	}
 
-	public Integer getNumeroExpediente() {
-		return numeroExpediente;
+	public Integer getNumeroPermiso() {
+		return numeroPermiso;
 	}
 	
 	public String getRazonSocial() {

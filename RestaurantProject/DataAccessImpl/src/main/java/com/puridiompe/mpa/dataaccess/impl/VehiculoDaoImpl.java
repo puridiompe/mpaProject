@@ -3,7 +3,6 @@
  */
 package com.puridiompe.mpa.dataaccess.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -17,8 +16,10 @@ import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.VehiculoDao;
 import com.puridiompe.mpa.movil.domain.persistence.VehiculoHistorial;
 import com.puridiompe.mpa.movil.repository.persistence.VehiculoHistorialRepository;
+import com.puridiompe.mpa.sistran.domain.persistence.MarcaVehiculo;
 import com.puridiompe.mpa.sistran.domain.persistence.PropietarioVehiculo;
 import com.puridiompe.mpa.sistran.domain.persistence.Vehiculo;
+import com.puridiompe.mpa.sistran.repository.persistence.MarcaVehiculoRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.PropietarioVehiculoRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.VehiculoRepository;
 
@@ -33,6 +34,9 @@ public class VehiculoDaoImpl implements VehiculoDao {
 	private VehiculoRepository vehiculoRepository;
 	
 	@Autowired
+	private MarcaVehiculoRepository marcaVehiculoRepository;
+	
+	@Autowired
 	private VehiculoHistorialRepository vehiculoHistorialRepository;
 
 	@Autowired
@@ -45,10 +49,12 @@ public class VehiculoDaoImpl implements VehiculoDao {
 		VehiculoDto vehiculoObject = new VehiculoDto();
 
 		Vehiculo vehiculo = vehiculoRepository.findByPlaca(placa);
+		MarcaVehiculo marcaVehiculo = marcaVehiculoRepository.findById(vehiculo.getMarca());
 
 		if (vehiculo != null) {
 
 			BeanUtils.copyProperties(vehiculo, vehiculoObject);
+			vehiculoObject.setMarca(marcaVehiculo.getDenominacion());
 
 			List<PropietarioVehiculo> propietarios = propietarioVehiculoRepository
 					.findByVehiculo(vehiculo.getIdPlaca());

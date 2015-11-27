@@ -87,6 +87,8 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		if(permisoUrbano != null && !permisoUrbano.isEmpty()){
 			permisosObject = new PermisosDto();
 			BeanUtils.copyProperties(permisoUrbano.get(0), permisosObject);
+//			permisosObject.setNumeroExpediente(permisoUrbano.get(0).getNumeroExpediente().toString());
+//			permisosObject.setFechaInicio(permisoUrbano.get(0).getFechaInicio());
 			permisosObject.setTipoPermiso("TRANSPORTE URBANO");
 			
 			permisoGeneralObject.getListPermiso().add(permisosObject);

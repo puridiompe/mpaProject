@@ -9,11 +9,15 @@ public class PermisosDto {
 	
 	private Date fechaEmision;
 	
+	private Date fechaInicio;
+	
 	private Date fechaVencimiento;
 	
 	private String observacion;
 	
 	private String numeroExpediente;
+	
+	private Integer numeroPermiso;
 	
 	private Date fechaExpediente;
 	
@@ -86,4 +90,21 @@ public class PermisosDto {
 	public void setRazonSocial(String razonSocial) {
 		this.razonSocial = razonSocial;
 	}
+
+	public Integer getNumeroPermiso() {
+		return numeroPermiso;
+	}
+
+	public void setNumeroPermiso(Integer numeroPermiso) {
+		this.numeroPermiso = numeroPermiso;
+	}
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	
 }

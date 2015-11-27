@@ -30,7 +30,7 @@ public class VehiculoDto {
 
 	private Integer clase;
 
-	private Integer marca;
+	private String marca;
 
 	private String modelo;
 
@@ -153,11 +153,11 @@ public class VehiculoDto {
 		this.clase = clase;
 	}
 
-	public Integer getMarca() {
+	public String getMarca() {
 		return marca;
 	}
 
-	public void setMarca(Integer marca) {
+	public void setMarca(String marca) {
 		this.marca = marca;
 	}
 
