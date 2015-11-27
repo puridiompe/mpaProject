@@ -25,6 +25,8 @@ public class PermisosDto {
 	
 	private String razonSocial;
 	
+	private String estadoPermiso;
+	
 	
 	/**
 	 * Constructor
@@ -43,42 +45,55 @@ public class PermisosDto {
 	public String getVehiculo() {
 		return vehiculo;
 	}
+	
 	public void setVehiculo(String vehiculo) {
 		this.vehiculo = vehiculo;
 	}
+	
 	public Date getFechaEmision() {
 		return fechaEmision;
 	}
+	
 	public void setFechaEmision(Date fechaEmision) {
 		this.fechaEmision = fechaEmision;
 	}
+	
 	public Date getFechaVencimiento() {
 		return fechaVencimiento;
 	}
+	
 	public void setFechaVencimiento(Date fechaVencimiento) {
 		this.fechaVencimiento = fechaVencimiento;
 	}
+	
 	public String getObservacion() {
 		return observacion;
 	}
+	
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
+	
 	public String getNumeroExpediente() {
 		return numeroExpediente;
 	}
+	
 	public void setNumeroExpediente(String numeroExpediente) {
 		this.numeroExpediente = numeroExpediente;
 	}
+	
 	public Date getFechaExpediente() {
 		return fechaExpediente;
 	}
+	
 	public void setFechaExpediente(Date fechaExpediente) {
 		this.fechaExpediente = fechaExpediente;
 	}
+	
 	public String getTipoPermiso() {
 		return tipoPermiso;
 	}
+	
 	public void setTipoPermiso(String tipoPermiso) {
 		this.tipoPermiso = tipoPermiso;
 	}
@@ -105,6 +120,14 @@ public class PermisosDto {
 
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
+	}
+	
+	public void setEstadoPermiso(String estadoPermiso) {
+		this.estadoPermiso = estadoPermiso;
+	}
+
+	public String getEstadoPermiso() {
+		return estadoPermiso;
 	}
 	
 }

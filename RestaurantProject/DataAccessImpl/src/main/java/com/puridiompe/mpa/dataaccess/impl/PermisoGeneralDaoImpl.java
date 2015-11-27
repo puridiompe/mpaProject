@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import com.puridiompe.mpa.business.general.dto.PermisoOperacionEscolarDto;
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionEspecialDto;
 import com.puridiompe.mpa.business.general.dto.PermisoOperacionTurismoDto;
 import com.puridiompe.mpa.business.general.dto.PermisosDto;
+import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.PermisoGeneralDao;
 import com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa;
 import com.puridiompe.mpa.sistran.domain.persistence.Flota;
@@ -66,9 +68,21 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 		if(flota != null){
 			BeanUtils.copyProperties(flota, flotaObject);
 			List<PermisoOperacionEspecial> permisoEspecial = permisoEspecialRepository.findByFlota(flota.getId());
+			
 			if(permisoEspecial != null && !permisoEspecial.isEmpty()){
+				
 				permisosObject = new PermisosDto();
 				BeanUtils.copyProperties(permisoEspecial.get(0), permisoEspecialObject);
+				
+				Date fechaActual = DateUtil.getCurrentDate();
+				Date fechaVencimiento = permisoEspecial.get(0).getFechaVencimiento();
+				long vencimiento = fechaVencimiento.getTime() - fechaActual.getTime();
+				
+				if(vencimiento > 0){
+					permisosObject.setEstadoPermiso("VIGENTE");
+				}else{
+					permisosObject.setEstadoPermiso("VENCIDO");
+				}
 					
 				permisosObject.setVehiculo(placa);
 				permisosObject.setFechaEmision(permisoEspecial.get(0).getFechaEmision());
