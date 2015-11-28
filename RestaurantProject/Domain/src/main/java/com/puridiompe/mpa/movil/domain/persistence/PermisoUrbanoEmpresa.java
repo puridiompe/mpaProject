@@ -20,13 +20,23 @@ public class PermisoUrbanoEmpresa implements Serializable{
 	
 	private String razonSocial;
 	
+	private String circuito;
+	
+	private String codigo;
+	
+	private String descripcion;
+	
+	private String recorridoIda;
+	
+	private String recorridoVuelta;
+	
 	/**
 	 * Constructor
 	 * 
 	 * 
 	 */
 	public PermisoUrbanoEmpresa(String vehiculo, Date fechaEmision, Date fechaInicio, Date fechaVencimiento, String observacion, Integer numeroPermiso,
-						String razonSocial){
+						String razonSocial, String circuito, String codigo, String descripcion, String recorridoIda, String recorridoVuelta){
 		
 		this.vehiculo = vehiculo;
 		this.fechaEmision = fechaEmision;
@@ -35,6 +45,11 @@ public class PermisoUrbanoEmpresa implements Serializable{
 		this.observacion = observacion;
 		this.numeroPermiso = numeroPermiso;
 		this.razonSocial = razonSocial;
+		this.circuito = circuito;
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.recorridoIda = recorridoIda;
+		this.recorridoVuelta = recorridoVuelta;
 	}
 
 	public String getVehiculo() {
@@ -63,6 +78,26 @@ public class PermisoUrbanoEmpresa implements Serializable{
 	
 	public String getRazonSocial() {
 		return razonSocial;
+	}
+
+	public String getCircuito() {
+		return circuito;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public String getRecorridoIda() {
+		return recorridoIda;
+	}
+
+	public String getRecorridoVuelta() {
+		return recorridoVuelta;
 	}
 	
 }

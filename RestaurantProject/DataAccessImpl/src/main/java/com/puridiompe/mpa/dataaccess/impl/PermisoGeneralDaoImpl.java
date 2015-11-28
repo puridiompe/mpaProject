@@ -110,6 +110,8 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 //			permisosObject.setNumeroExpediente(permisoUrbano.get(0).getNumeroExpediente().toString());
 //			permisosObject.setFechaInicio(permisoUrbano.get(0).getFechaInicio());
 			
+			permisosObject.setCodigoRuta(permisoUrbano.get(0).getCircuito() + permisoUrbano.get(0).getCodigo());
+			
 			Date fechaActual = DateUtil.getCurrentDate();
 			Date fechaVencimiento = permisoUrbano.get(0).getFechaVencimiento();
 			long vencimiento = fechaVencimiento.getTime() - fechaActual.getTime();

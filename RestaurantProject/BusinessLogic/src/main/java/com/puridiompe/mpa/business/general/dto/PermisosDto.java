@@ -27,6 +27,14 @@ public class PermisosDto {
 	
 	private String estadoPermiso;
 	
+	private String codigoRuta;
+	
+	private String descripcion;
+	
+	private String recorridoIda;
+	
+	private String recorridoVuelta;
+	
 	
 	/**
 	 * Constructor
@@ -129,5 +137,38 @@ public class PermisosDto {
 	public String getEstadoPermiso() {
 		return estadoPermiso;
 	}
+
+	public String getCodigoRuta() {
+		return codigoRuta;
+	}
+
+	public void setCodigoRuta(String codigoRuta) {
+		this.codigoRuta = codigoRuta;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getRecorridoIda() {
+		return recorridoIda;
+	}
+
+	public void setRecorridoIda(String recorridoIda) {
+		this.recorridoIda = recorridoIda;
+	}
+
+	public String getRecorridoVuelta() {
+		return recorridoVuelta;
+	}
+
+	public void setRecorridoVuelta(String recorridoVuelta) {
+		this.recorridoVuelta = recorridoVuelta;
+	}
+	
 	
 }

@@ -13,7 +13,7 @@ import com.puridiompe.mpa.sistran.domain.persistence.PermisoOperacionUrbano;
 public interface PermisoOperacionUrbanoRepository extends JpaRepository<PermisoOperacionUrbano, Integer>{
 	
 	
-	@Query("select new com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa(f.vehiculo, p.fechaEmision, p.fechaInicio, p.fechaVencimiento, p.observacion, p.numero, e.razonSocial) from  PermisoOperacionUrbano p, Flota f, Empresa e  where f.empresa = e.codigo and p.flota = f.id and f.vehiculo = ?1 order by p.fechaVencimiento desc ") //and r.estado != ?2
+	@Query("select new com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa(f.vehiculo, p.fechaEmision, p.fechaInicio, p.fechaVencimiento, p.observacion, p.numero, e.razonSocial, c.circuito, hr.codigo, hr.descripcion, r.recorridoIda, r.recorridoVuelta) from  PermisoOperacionUrbano p, Flota f, Empresa e, Ruta r, HisRuta hr, Circuito c  where f.empresa = e.codigo and p.flota = f.id and p.historiaRuta = r.id and r.hisRut = hr.idHis and hr.circuito = c.id and f.vehiculo = ?1 order by p.fechaVencimiento desc ") //and r.estado != ?2
 	public List<PermisoUrbanoEmpresa> findUrbanoByVehiculo(String vehiculo);
 	
 //	@Query("select new com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa(f.vehiculo, p.fechaEmision, p.fechaInicio, p.fechaVencimiento, p.observacion, p.numero, e.razonSocial) from  PermisoOperacionUrbano p, Flota f, Empresa e  where f.empresa = e.codigo and p.flota = f.id and f.vehiculo = ?1 order by p.fechaVencimiento desc ") //and r.estado != ?2
