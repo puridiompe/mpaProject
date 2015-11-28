@@ -90,6 +90,7 @@ public class PermisoGeneralDaoImpl implements PermisoGeneralDao {
 				permisosObject.setObservacion(permisoEspecial.get(0).getObservacion());
 				permisosObject.setFechaEmision(permisoEspecial.get(0).getFechaEmision());
 				permisosObject.setNumeroExpediente(permisoEspecial.get(0).getNumeroExpediente());
+				permisosObject.setNumeroPermiso(permisoEspecial.get(0).getNumeroPermisoOperacion());
 				permisosObject.setFechaExpediente(permisoEspecial.get(0).getFechaExpiracion());
 				permisosObject.setTipoPermiso("SETARE"); // traer de la base de datos
 				
