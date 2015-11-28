@@ -3,6 +3,7 @@ package com.puridiompe.mpa.sistran.repository.persistence;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,7 +16,8 @@ public interface PermisoOperacionUrbanoRepository extends JpaRepository<PermisoO
 	@Query("select new com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa(f.vehiculo, p.fechaEmision, p.fechaInicio, p.fechaVencimiento, p.observacion, p.numero, e.razonSocial) from  PermisoOperacionUrbano p, Flota f, Empresa e  where f.empresa = e.codigo and p.flota = f.id and f.vehiculo = ?1 order by p.fechaVencimiento desc ") //and r.estado != ?2
 	public List<PermisoUrbanoEmpresa> findUrbanoByVehiculo(String vehiculo);
 	
-	
+//	@Query("select new com.puridiompe.mpa.movil.domain.persistence.PermisoUrbanoEmpresa(f.vehiculo, p.fechaEmision, p.fechaInicio, p.fechaVencimiento, p.observacion, p.numero, e.razonSocial) from  PermisoOperacionUrbano p, Flota f, Empresa e  where f.empresa = e.codigo and p.flota = f.id and f.vehiculo = ?1 order by p.fechaVencimiento desc ") //and r.estado != ?2
+//	public PermisoUrbanoEmpresa test(String vehiculo, Pageable pageable);
 	
 	
 	/**
