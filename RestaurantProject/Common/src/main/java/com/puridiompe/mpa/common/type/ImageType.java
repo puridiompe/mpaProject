@@ -6,7 +6,7 @@ package com.puridiompe.mpa.common.type;
  *
  */
 public enum ImageType {
-	RECLAMO("REC"), NOTICIA("NOT");
+	RECLAMO("REC"), NOTICIA("NOT"), ACTA("ACT");
 	
 	private final String typeValue;
 	
