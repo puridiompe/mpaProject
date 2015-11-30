@@ -33,6 +33,8 @@ public class VehiculoDto {
 	private String marca;
 
 	private String modelo;
+	
+	private String color;
 
 	private Integer anioFabricacion;
 
@@ -167,6 +169,14 @@ public class VehiculoDto {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	public Integer getAnioFabricacion() {

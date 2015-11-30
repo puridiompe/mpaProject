@@ -14,11 +14,13 @@ import com.puridiompe.mpa.business.general.dto.PropietarioDto;
 import com.puridiompe.mpa.business.general.dto.VehiculoDto;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.VehiculoDao;
+import com.puridiompe.mpa.movil.domain.persistence.VehiculoColorDetalle;
 import com.puridiompe.mpa.movil.domain.persistence.VehiculoHistorial;
 import com.puridiompe.mpa.movil.repository.persistence.VehiculoHistorialRepository;
 import com.puridiompe.mpa.sistran.domain.persistence.MarcaVehiculo;
 import com.puridiompe.mpa.sistran.domain.persistence.PropietarioVehiculo;
 import com.puridiompe.mpa.sistran.domain.persistence.Vehiculo;
+import com.puridiompe.mpa.sistran.repository.persistence.ColorRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.MarcaVehiculoRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.PropietarioVehiculoRepository;
 import com.puridiompe.mpa.sistran.repository.persistence.VehiculoRepository;
@@ -37,6 +39,9 @@ public class VehiculoDaoImpl implements VehiculoDao {
 	private MarcaVehiculoRepository marcaVehiculoRepository;
 	
 	@Autowired
+	private ColorRepository colorRepository;
+	
+	@Autowired
 	private VehiculoHistorialRepository vehiculoHistorialRepository;
 
 	@Autowired
@@ -53,9 +58,15 @@ public class VehiculoDaoImpl implements VehiculoDao {
 		if (vehiculo != null) {
 
 			MarcaVehiculo marcaVehiculo = marcaVehiculoRepository.findById(vehiculo.getMarca());
+			VehiculoColorDetalle vehiculoColor = colorRepository.findColorByVehiculo(placa);
+			
 			BeanUtils.copyProperties(vehiculo, vehiculoObject);
+			
 			if(marcaVehiculo != null){
 				vehiculoObject.setMarca(marcaVehiculo.getDenominacion());				
+			}
+			if(vehiculoColor != null){
+				vehiculoObject.setColor(vehiculoColor.getDenominacion() +" "+ vehiculoColor.getDetalleColor());
 			}
 
 			List<PropietarioVehiculo> propietarios = propietarioVehiculoRepository
