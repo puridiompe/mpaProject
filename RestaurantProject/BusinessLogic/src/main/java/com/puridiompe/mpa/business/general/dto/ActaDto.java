@@ -1,6 +1,7 @@
 package com.puridiompe.mpa.business.general.dto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActaDto {
@@ -18,6 +19,8 @@ public class ActaDto {
 	private List<String> imagenesBase64;
 	
 	private ResumenImagenDto resumenImagen;
+	
+	private Date fecCre;
 	
 	private String estado;
 	
@@ -88,5 +91,14 @@ public class ActaDto {
 	public void setResumenImagen(ResumenImagenDto resumenImagen) {
 		this.resumenImagen = resumenImagen;
 	}
+
+	public Date getFecCre() {
+		return fecCre;
+	}
+
+	public void setFecCre(Date fecCre) {
+		this.fecCre = fecCre;
+	}
+	
 	
 }
