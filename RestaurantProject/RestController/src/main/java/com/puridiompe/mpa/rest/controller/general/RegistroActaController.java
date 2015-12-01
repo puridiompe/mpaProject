@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.rest.controller.general;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
 import com.puridiompe.mpa.common.security.exception.SecurityException;
 import com.puridiompe.mpa.common.type.ReclamoState;
+import com.puridiompe.mpa.rest.controller.general.message.GetActaByUsernameResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaResponse;
 
@@ -43,6 +46,22 @@ public class RegistroActaController {
 		response.setBody(actaResponse);
 		
 		return response;
+	}
+	
+	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaByUsernameResponse>  getActa()
+			throws BusinessException, SecurityException {		
+			
+		ResponseMessage<GetActaByUsernameResponse> responseActa = new ResponseMessage<GetActaByUsernameResponse>();
+		
+		List<ActaDto> actaDto = gestionarActaBusiness.getActa(SecurityContextHelper.getCurrentUsername());
+		
+		
+		GetActaByUsernameResponse actaResponse = new GetActaByUsernameResponse();
+		actaResponse.setActaUsername(actaDto);
+		responseActa.setBody(actaResponse);
+		
+		return responseActa;
 	}
 	
 }

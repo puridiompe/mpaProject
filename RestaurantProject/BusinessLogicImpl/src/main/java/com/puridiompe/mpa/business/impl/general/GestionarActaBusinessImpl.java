@@ -1,5 +1,7 @@
 package com.puridiompe.mpa.business.impl.general;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 	public ActaDto setActa(ActaDto actaRequest) {
 		
 		return acta.setActa(actaRequest);
+	}
+	
+	@Override
+	public List<ActaDto> getActa(String username){
+		
+		return acta.getActaByUsername(username);
 	}
 
 }

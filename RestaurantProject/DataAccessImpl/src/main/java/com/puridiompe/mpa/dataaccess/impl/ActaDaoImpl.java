@@ -1,5 +1,6 @@
 package com.puridiompe.mpa.dataaccess.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -90,6 +91,29 @@ public class ActaDaoImpl implements ActaDao {
 		}else{
 			return null;
 		}
+	}
+	
+	@Override
+	public List<ActaDto> getActaByUsername(String username){
+		
+		List<Acta> actas = actaRepository.findByUsername(username);
+		List<ActaDto> actasDto =  new ArrayList();
+		
+		
+		if(actas != null && !actas.isEmpty()){
+			for(int i = 0; i < actas.size(); i++){
+				ActaDto actaObject = new ActaDto();
+				BeanUtils.copyProperties(actas.get(i), actaObject);
+				
+				actasDto.add(actaObject);
+			}
+			return actasDto;
+			
+		}else{
+			return null;
+			
+		}
+		
 	}
 
 }
