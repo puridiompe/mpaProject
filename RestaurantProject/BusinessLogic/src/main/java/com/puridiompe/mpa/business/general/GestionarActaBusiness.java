@@ -9,4 +9,6 @@ public interface GestionarActaBusiness {
 	public ActaDto setActa(ActaDto acta);
 	
 	public List<ActaDto> getActa(String username);
+	
+	public Integer getTotalActas(String username);
 }

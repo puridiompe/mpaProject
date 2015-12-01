@@ -9,4 +9,6 @@ public interface ActaDao {
 	public ActaDto setActa(ActaDto acta);
 	
 	public List<ActaDto> getActaByUsername(String username);
+	
+	public Integer getTotalActas(String username);
 }

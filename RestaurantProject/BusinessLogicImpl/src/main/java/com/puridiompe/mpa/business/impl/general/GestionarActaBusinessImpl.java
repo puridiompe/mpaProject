@@ -26,5 +26,11 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 		
 		return acta.getActaByUsername(username);
 	}
+	
+	@Override
+	public Integer getTotalActas(String username){
+		
+		return acta.getTotalActas(username);
+	}
 
 }

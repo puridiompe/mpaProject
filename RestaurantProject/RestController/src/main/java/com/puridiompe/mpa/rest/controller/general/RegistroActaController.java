@@ -64,4 +64,21 @@ public class RegistroActaController {
 		return responseActa;
 	}
 	
+	@RequestMapping(value = "/getTotal", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaResponse>  getTotalActas()
+			throws BusinessException, SecurityException {
+		
+		ResponseMessage<GetActaResponse> response = new ResponseMessage<GetActaResponse>();
+		
+		Integer total = gestionarActaBusiness.getTotalActas(SecurityContextHelper.getCurrentUsername());
+		
+		GetActaResponse getActaResponse = new GetActaResponse();
+		
+		getActaResponse.setNumeroActas(total);
+		
+		response.setBody(getActaResponse);
+		
+		return response;
+	}
+	
 }

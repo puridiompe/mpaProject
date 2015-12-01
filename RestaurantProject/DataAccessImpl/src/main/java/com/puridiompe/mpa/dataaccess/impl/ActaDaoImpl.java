@@ -195,6 +195,11 @@ public class ActaDaoImpl implements ActaDao {
 
 		return actaObjects;
 	}
+
+	public Integer getTotalActas (String username){
+		
+		return actaRepository.findTotalActas(username);
+	}
 }
 
 
