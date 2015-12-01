@@ -17,6 +17,8 @@ public class ActaDto {
 	
 	private List<String> imagenesBase64;
 	
+	private ResumenImagenDto resumenImagen;
+	
 	private String estado;
 	
 	public ActaDto(){
@@ -78,6 +80,13 @@ public class ActaDto {
 	public void setImagenesBase64(List<String> imagenesBase64) {
 		this.imagenesBase64 = imagenesBase64;
 	}
-	
+
+	public ResumenImagenDto getResumenImagen() {
+		return resumenImagen;
+	}
+
+	public void setResumenImagen(ResumenImagenDto resumenImagen) {
+		this.resumenImagen = resumenImagen;
+	}
 	
 }
