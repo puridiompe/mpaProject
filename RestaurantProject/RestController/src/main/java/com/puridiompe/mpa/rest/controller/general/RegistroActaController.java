@@ -56,7 +56,6 @@ public class RegistroActaController {
 		
 		List<ActaDto> actaDto = gestionarActaBusiness.getActa(SecurityContextHelper.getCurrentUsername());
 		
-		
 		GetActaByUsernameResponse actaResponse = new GetActaByUsernameResponse();
 		actaResponse.setActaUsername(actaDto);
 		responseActa.setBody(actaResponse);
@@ -75,6 +74,23 @@ public class RegistroActaController {
 		GetActaResponse getActaResponse = new GetActaResponse();
 		
 		getActaResponse.setNumeroActas(total);
+		
+		response.setBody(getActaResponse);
+		
+		return response;
+	}
+	
+	@RequestMapping(value = "/getInfraccionesFrecuentes", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaResponse>  getInfraccionesFrecuentes()
+			throws BusinessException, SecurityException {
+		
+		ResponseMessage<GetActaResponse> response = new ResponseMessage<GetActaResponse>();
+		
+		List<ActaDto> infraccionesFrecuentes = gestionarActaBusiness.getInfraccionesFrecuentes();
+		
+		GetActaResponse getActaResponse = new GetActaResponse();
+		
+		getActaResponse.setInfraccionesFrecuentes(infraccionesFrecuentes);;
 		
 		response.setBody(getActaResponse);
 		

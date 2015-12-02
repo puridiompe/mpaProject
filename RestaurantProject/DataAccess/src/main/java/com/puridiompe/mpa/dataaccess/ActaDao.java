@@ -11,4 +11,6 @@ public interface ActaDao {
 	public List<ActaDto> getActaByUsername(String username);
 	
 	public Integer getTotalActas(String username);
+	
+	public List<ActaDto> getInfraccionesFrecuentes();
 }

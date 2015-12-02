@@ -15,7 +15,7 @@ public interface ActaRepository extends JpaRepository<Acta, Integer>{
 	@Query("from Acta a where a.idActa = ?1")
 	public Acta findByIdActa(Integer idActa);
 	
-	@Query("from Acta a where a.username = ?1")
+	@Query("from Acta a where a.username = ?1 order by a.idActa DESC")
 	public List<Acta> findByUsername(String username);
 	
 	@Query("select count (*) from Acta a where a.username = ?1")

@@ -11,4 +11,7 @@ public interface GestionarActaBusiness {
 	public List<ActaDto> getActa(String username);
 	
 	public Integer getTotalActas(String username);
+	
+	public List<ActaDto> getInfraccionesFrecuentes();
+	
 }

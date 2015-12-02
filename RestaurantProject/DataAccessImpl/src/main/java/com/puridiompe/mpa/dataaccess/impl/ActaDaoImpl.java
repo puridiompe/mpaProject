@@ -7,22 +7,21 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ActaDto;
-import com.puridiompe.mpa.business.general.dto.ReclamoComentarioDto;
 import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
-import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ActaDao;
 import com.puridiompe.mpa.movil.domain.persistence.Acta;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
-import com.puridiompe.mpa.movil.domain.persistence.ReclamoCiudadano;
-import com.puridiompe.mpa.movil.domain.persistence.ReclamoComentario;
+import com.puridiompe.mpa.movil.domain.persistence.InfraccionFrecuente;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ActaRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
+import com.puridiompe.mpa.movil.repository.persistence.InfraccionFrecuenteRepository;
 
 @Component
 public class ActaDaoImpl implements ActaDao {
@@ -35,6 +34,9 @@ public class ActaDaoImpl implements ActaDao {
 	
 	@Autowired
 	private ImagenRepository imagenRepository;
+	
+	@Autowired
+	private InfraccionFrecuenteRepository infraccionFrecuenteRepository;
 	
 	@Override
 	public ActaDto setActa(ActaDto actaRequest) {
@@ -91,8 +93,28 @@ public class ActaDaoImpl implements ActaDao {
 		
 		/**** end set Image ****/
 		
+		/**** get Resumen Image ****/
+		
+		List<Imagen> imagen = imagenRepository.findByidPadre(acta.getIdActa());
+		
+		ResumenImagenDto resumenImagen =  new ResumenImagenDto();
+		
+		if(imagen == null){
+			resumenImagen = null;			
+		}else{
+			List<String> pesos = new ArrayList<String>(); 
+			for(int i = 0; i < imagen.size(); i++){
+				pesos.add(Integer.toString(imagen.get(i).getTamanho() / 1024) + " KB");
+			}
+			resumenImagen.setNumeroImagenes(imagen.size());
+			resumenImagen.setPesoImagen(pesos);
+		}
+	
+		/**** end Resumen Image ****/
+		
 		if(actaResponse != null){
 			BeanUtils.copyProperties(actaResponse, actaDto);
+			actaDto.setResumenImagen(resumenImagen);
 			return actaDto;
 		}else{
 			return null;
@@ -108,22 +130,6 @@ public class ActaDaoImpl implements ActaDao {
 		
 		return actaObjects;
 		
-//		List<ActaDto> actasDto =  new ArrayList<ActaDto>();
-//		
-//		
-//		if(actas != null && !actas.isEmpty()){
-//			for(int i = 0; i < actas.size(); i++){
-//				ActaDto actaObject = new ActaDto();
-//				BeanUtils.copyProperties(actas.get(i), actaObject);
-//				
-//				actasDto.add(actaObject);
-//			}
-//			return actasDto;
-//			
-//		}else{
-//			return null;
-//			
-//		}
 	}
 	
 	private List<ActaDto> getActaObjects(List<Acta> actas) {
@@ -200,6 +206,25 @@ public class ActaDaoImpl implements ActaDao {
 		
 		return actaRepository.findTotalActas(username);
 	}
+
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public List<ActaDto> getInfraccionesFrecuentes() {
+		List<ActaDto> infraccionesFrecuentesObject = new ArrayList<ActaDto>();
+		List<InfraccionFrecuente> infraccionesFrecuentes = infraccionFrecuenteRepository.findAll();
+
+		if (infraccionesFrecuentes != null && !infraccionesFrecuentes.isEmpty())
+			for (int i = 0; i < infraccionesFrecuentes.size(); i++) {
+				ActaDto actaDto = new ActaDto();
+				BeanUtils.copyProperties(infraccionesFrecuentes.get(i), actaDto);
+				infraccionesFrecuentesObject.add(actaDto);
+			}
+		else
+			return null;
+
+		return infraccionesFrecuentesObject;
+	}
+
 }
 
 

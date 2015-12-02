@@ -32,5 +32,11 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 		
 		return acta.getTotalActas(username);
 	}
+	
+	@Override
+	public List<ActaDto> getInfraccionesFrecuentes(){
+		
+		return acta.getInfraccionesFrecuentes();
+	}
 
 }
