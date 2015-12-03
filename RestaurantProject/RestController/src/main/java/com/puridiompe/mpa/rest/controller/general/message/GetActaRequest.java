@@ -6,6 +6,7 @@ import com.puridiompe.mpa.common.rest.message.RequestBody;
 public class GetActaRequest extends RequestBody{
 
 	private ActaDto acta;
+	private Integer idActa; 
 
 	public ActaDto getActa() {
 		return acta;
@@ -14,4 +15,14 @@ public class GetActaRequest extends RequestBody{
 	public void setActa(ActaDto acta) {
 		this.acta = acta;
 	}
+
+	public Integer getIdActa() {
+		return idActa;
+	}
+
+	public void setIdActa(Integer idActa) {
+		this.idActa = idActa;
+	}
+	
+	
 }

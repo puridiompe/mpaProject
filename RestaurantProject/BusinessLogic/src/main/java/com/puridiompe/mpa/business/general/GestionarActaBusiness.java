@@ -14,4 +14,6 @@ public interface GestionarActaBusiness {
 	
 	public List<ActaDto> getInfraccionesFrecuentes();
 	
+	public ActaDto getImages(Integer idActa);
+	
 }

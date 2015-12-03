@@ -13,4 +13,6 @@ public interface ActaDao {
 	public Integer getTotalActas(String username);
 	
 	public List<ActaDto> getInfraccionesFrecuentes();
+	
+	public ActaDto getImagesByIdActa (Integer idActa);
 }

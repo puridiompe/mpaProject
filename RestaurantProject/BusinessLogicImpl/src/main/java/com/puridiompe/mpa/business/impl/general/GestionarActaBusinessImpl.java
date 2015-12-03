@@ -39,4 +39,9 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 		return acta.getInfraccionesFrecuentes();
 	}
 
+	@Override
+	public ActaDto getImages(Integer idActa) {
+		return acta.getImagesByIdActa(idActa);
+	}
+
 }

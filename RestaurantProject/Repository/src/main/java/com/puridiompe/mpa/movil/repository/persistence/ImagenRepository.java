@@ -8,6 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 
 public interface ImagenRepository extends JpaRepository<Imagen, Integer> {
+	
+	
+	@Query("from Imagen i where i.tipoEntidad = ?1 and i.idPadre = ?2 ")
+	public List<Imagen> findAllByTipoIdPadre(String tipoEntidad,Integer idPadre);
 
 	@Query("from Imagen i where i.tipo = ?1")
 	public List<Imagen> findByTipo(String tipo);

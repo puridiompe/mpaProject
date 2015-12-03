@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarActaBusiness;
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
@@ -21,6 +22,8 @@ import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaByUsernameResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetReclamoRequest;
+import com.puridiompe.mpa.rest.controller.general.message.GetReclamoResponse;
 
 @RestController
 @RequestMapping("/transportes/acta")
@@ -96,5 +99,21 @@ public class RegistroActaController {
 		
 		return response;
 	}
+	
+	@RequestMapping(value = "/getImages", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaResponse> getImagesByIdActa(
+			@RequestBody RequestMessage<GetActaRequest> request) throws BusinessException, SecurityException {
+
+		Integer  idActa = request.getBody().getIdActa();
+		
+		ActaDto actaObject = gestionarActaBusiness.getImages(idActa);
+		
+		ResponseMessage<GetActaResponse> response = new ResponseMessage<GetActaResponse>();
+		GetActaResponse actaResponse = new GetActaResponse();
+		
+		actaResponse.setActa(actaObject);
+		response.setBody(actaResponse);
+		return response;
+	}	
 	
 }

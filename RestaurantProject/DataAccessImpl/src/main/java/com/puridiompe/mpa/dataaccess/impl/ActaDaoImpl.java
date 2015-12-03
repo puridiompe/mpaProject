@@ -18,6 +18,7 @@ import com.puridiompe.mpa.dataaccess.ActaDao;
 import com.puridiompe.mpa.movil.domain.persistence.Acta;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.InfraccionFrecuente;
+import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ActaRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
@@ -206,6 +207,8 @@ public class ActaDaoImpl implements ActaDao {
 		
 		return actaRepository.findTotalActas(username);
 	}
+	
+	
 
 	@Transactional(value = "movilTransactionManager", readOnly = true)
 	@Override
@@ -223,6 +226,28 @@ public class ActaDaoImpl implements ActaDao {
 			return null;
 
 		return infraccionesFrecuentesObject;
+	}
+	
+	
+	@Transactional(value = "movilTransactionManager", readOnly = true)
+	@Override
+	public ActaDto getImagesByIdActa(Integer idActa) {
+		
+		List<Imagen> imagen = imagenRepository.findAllByTipoIdPadre("ACT",idActa);
+		String imagenCodificada = new String();
+
+		int imagenesSize = imagen.size();
+
+		ActaDto actaDto = new ActaDto();
+			
+		for (int i = 0; i < imagenesSize; i++) {
+			imagenCodificada = fileRepository.getBase64(imagen.get(i).getNombre());
+
+			actaDto.getImagenesBase64().add(imagenCodificada);
+		}
+		
+		return actaDto;
+	
 	}
 
 }
