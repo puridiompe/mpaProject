@@ -46,7 +46,6 @@ public class GestionarUserRightsBusinessImpl implements
 				case INFRACCIONES:return true;
 				case PAPELETAS:return true;
 				case GEO_LOCALIZACION:return true;
-				case RECLAMOS:return true;
 				default: return false;
 				}
 			case SUPERVISOR:
