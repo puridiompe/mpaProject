@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarActaBusiness;
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 import com.puridiompe.mpa.dataaccess.ActaDao;
 
 @Service
@@ -38,6 +39,12 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 		
 		return acta.getInfraccionesFrecuentes();
 	}
+	
+	@Override
+	public UsuarioActaDto getNumeroActa(){
+		
+		return acta.getNumeroActa();
+	};
 
 	@Override
 	public ActaDto getImages(Integer idActa) {

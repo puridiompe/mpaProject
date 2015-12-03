@@ -50,5 +50,14 @@ public class ReclamoCiudadanoRepositoryImpl implements ReclamoCiudadanoRepositor
 	
 		return totalReclamos;
 	}
+	
+	@Override
+	public String nextValNumAct(){
+		
+//		String nextVal = entityManager.createNativeQuery("SELECT to_char(nextval('TrMov_Acta_numAct_seq'::regclass), 'FMRE000000'::text)").getSingleResult().toString();
+		String nextVal = entityManager.createNativeQuery("SELECT to_char(nextval('trmov_acta_numact_seq'), 'FMRE000000')").getSingleResult().toString();
+		return nextVal;
+	} 
+	
     
 }

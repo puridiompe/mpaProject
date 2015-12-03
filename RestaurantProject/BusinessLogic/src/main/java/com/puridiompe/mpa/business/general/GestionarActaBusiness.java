@@ -3,6 +3,7 @@ package com.puridiompe.mpa.business.general;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 
 public interface GestionarActaBusiness {
 
@@ -13,7 +14,9 @@ public interface GestionarActaBusiness {
 	public Integer getTotalActas(String username);
 	
 	public List<ActaDto> getInfraccionesFrecuentes();
-	
+
 	public ActaDto getImages(Integer idActa);
+
+	public UsuarioActaDto getNumeroActa();
 	
 }

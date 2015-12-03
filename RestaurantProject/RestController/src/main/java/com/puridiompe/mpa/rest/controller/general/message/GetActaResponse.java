@@ -3,6 +3,7 @@ package com.puridiompe.mpa.rest.controller.general.message;
 import java.util.List;
 
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 import com.puridiompe.mpa.common.rest.message.ResponseBody;
 
 public class GetActaResponse extends ResponseBody {
@@ -12,6 +13,8 @@ public class GetActaResponse extends ResponseBody {
 	private Integer numeroActas;
 	
 	private List<ActaDto> infraccionesFrecuentes;
+	
+	private UsuarioActaDto usuarioActa;
 
 	public ActaDto getActa() {
 		return acta;
@@ -35,6 +38,14 @@ public class GetActaResponse extends ResponseBody {
 
 	public void setInfraccionesFrecuentes(List<ActaDto> infraccionesFrecuentes) {
 		this.infraccionesFrecuentes = infraccionesFrecuentes;
+	}
+
+	public UsuarioActaDto getUsuarioActa() {
+		return usuarioActa;
+	}
+
+	public void setUsuarioActa(UsuarioActaDto usuarioActa) {
+		this.usuarioActa = usuarioActa;
 	}
 	
 }
