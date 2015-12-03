@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ActaDto;
-import com.puridiompe.mpa.business.general.dto.ReclamoDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
+import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ActaDao;
@@ -22,6 +22,7 @@ import com.puridiompe.mpa.movil.repository.file.FileRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ActaRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
 import com.puridiompe.mpa.movil.repository.persistence.InfraccionFrecuenteRepository;
+import com.puridiompe.mpa.movil.repository.persistence.ReclamoCiudadanoRepository;
 
 @Component
 public class ActaDaoImpl implements ActaDao {
@@ -37,6 +38,9 @@ public class ActaDaoImpl implements ActaDao {
 	
 	@Autowired
 	private InfraccionFrecuenteRepository infraccionFrecuenteRepository;
+	
+	@Autowired
+	private ReclamoCiudadanoRepository reclamoCiudadanoRepository;
 	
 	@Override
 	public ActaDto setActa(ActaDto actaRequest) {
@@ -225,6 +229,17 @@ public class ActaDaoImpl implements ActaDao {
 		return infraccionesFrecuentesObject;
 	}
 
+	public UsuarioActaDto getNumeroActa(){
+		
+		UsuarioActaDto usuarioActa =  new UsuarioActaDto();
+		
+		String nexVal = reclamoCiudadanoRepository.nextValNumAct();
+		
+		usuarioActa.setFecha(DateUtil.getCurrentDate());
+		usuarioActa.setNumActa(nexVal);
+		
+		return usuarioActa;
+	}
 }
 
 

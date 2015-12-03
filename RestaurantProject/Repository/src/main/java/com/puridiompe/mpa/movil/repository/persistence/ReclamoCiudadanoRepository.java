@@ -12,4 +12,6 @@ public interface ReclamoCiudadanoRepository {
     
     public Integer findTotalReclamos(String query);
     
+    public String nextValNumAct();
+    
 }

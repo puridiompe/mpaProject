@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.puridiompe.mpa.business.exception.BusinessException;
 import com.puridiompe.mpa.business.general.GestionarActaBusiness;
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 import com.puridiompe.mpa.common.rest.message.RequestMessage;
 import com.puridiompe.mpa.common.rest.message.ResponseMessage;
 import com.puridiompe.mpa.common.security.SecurityContextHelper;
@@ -91,6 +92,24 @@ public class RegistroActaController {
 		GetActaResponse getActaResponse = new GetActaResponse();
 		
 		getActaResponse.setInfraccionesFrecuentes(infraccionesFrecuentes);;
+		
+		response.setBody(getActaResponse);
+		
+		return response;
+	}
+	
+	@RequestMapping(value = "/getNumeroActa", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaResponse>  getNumeroActa()
+			throws BusinessException, SecurityException {
+		
+		ResponseMessage<GetActaResponse> response = new ResponseMessage<GetActaResponse>();
+		
+		UsuarioActaDto usuarioActa = gestionarActaBusiness.getNumeroActa();
+		usuarioActa.setUsername(SecurityContextHelper.getCurrentUsername());
+		
+		GetActaResponse getActaResponse = new GetActaResponse();
+		
+		getActaResponse.setUsuarioActa(usuarioActa);;
 		
 		response.setBody(getActaResponse);
 		
