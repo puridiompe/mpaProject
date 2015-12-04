@@ -50,6 +50,7 @@ public class ActaDaoImpl implements ActaDao {
 		Acta acta = new Acta();
 		
 		acta.setUsername(actaRequest.getUsername());
+		acta.setNumAct(actaRequest.getNumAct());
 		acta.setVehiculo(actaRequest.getVehiculo());
 		acta.setDescripcion(actaRequest.getDescripcion());
 		acta.setEstado(actaRequest.getEstado());
