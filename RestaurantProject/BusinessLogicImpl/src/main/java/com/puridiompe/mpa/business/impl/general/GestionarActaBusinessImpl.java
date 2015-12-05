@@ -3,6 +3,7 @@ package com.puridiompe.mpa.business.impl.general;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarActaBusiness;
@@ -23,9 +24,9 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 	}
 	
 	@Override
-	public List<ActaDto> getActa(String username){
+	public List<ActaDto> getActa(Pageable paging, String username){
 		
-		return acta.getActaByUsername(username);
+		return acta.getActaByUsername(paging, username);
 	}
 	
 	@Override

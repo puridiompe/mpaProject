@@ -3,6 +3,9 @@ package com.puridiompe.mpa.rest.controller.general;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,7 @@ import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaByUsernameResponse;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaRequest;
 import com.puridiompe.mpa.rest.controller.general.message.GetActaResponse;
+import com.puridiompe.mpa.rest.controller.general.message.GetPaginacionRequest;
 
 @RestController
 @RequestMapping("/transportes/acta")
@@ -50,12 +54,14 @@ public class RegistroActaController {
 	}
 	
 	@RequestMapping(value = "/get", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseMessage<GetActaByUsernameResponse>  getActa()
+	public @ResponseBody ResponseMessage<GetActaByUsernameResponse>  getActa(@RequestBody RequestMessage<GetPaginacionRequest> request)
 			throws BusinessException, SecurityException {		
 			
+		Pageable paging = new PageRequest(request.getBody().getPageCount(), request.getBody().getPageSize(), Sort.Direction.ASC, "idActa");
+		
 		ResponseMessage<GetActaByUsernameResponse> responseActa = new ResponseMessage<GetActaByUsernameResponse>();
 		
-		List<ActaDto> actaDto = gestionarActaBusiness.getActa(SecurityContextHelper.getCurrentUsername());
+		List<ActaDto> actaDto = gestionarActaBusiness.getActa(paging, SecurityContextHelper.getCurrentUsername());
 		
 		GetActaByUsernameResponse actaResponse = new GetActaByUsernameResponse();
 		actaResponse.setActaUsername(actaDto);

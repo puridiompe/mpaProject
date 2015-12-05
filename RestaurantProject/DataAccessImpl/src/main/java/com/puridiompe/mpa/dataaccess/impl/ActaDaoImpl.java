@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -128,9 +129,9 @@ public class ActaDaoImpl implements ActaDao {
 	}
 	
 	@Override
-	public List<ActaDto> getActaByUsername(String username){
+	public List<ActaDto> getActaByUsername(Pageable paging, String username){
 		
-		List<Acta> actas = actaRepository.findByUsername(username);
+		List<Acta> actas = actaRepository.findByUsername(username, paging);
 		
 		List<ActaDto> actaObjects = getActaObjects(actas);
 		
