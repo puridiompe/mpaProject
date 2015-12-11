@@ -51,7 +51,15 @@ public class ActaDaoImpl implements ActaDao {
 		Acta acta = new Acta();
 		
 		acta.setUsername(actaRequest.getUsername());
-		acta.setNumAct(actaRequest.getNumAct());
+		
+		if (actaRequest.getNumAct() != null){
+			acta.setNumAct(actaRequest.getNumAct());
+		}
+		else{
+			String nexVal = reclamoCiudadanoRepository.nextValNumAct();
+			acta.setNumAct(nexVal);
+		}
+		
 		acta.setVehiculo(actaRequest.getVehiculo());
 		acta.setDescripcion(actaRequest.getDescripcion());
 		acta.setEstado(actaRequest.getEstado());
