@@ -13,7 +13,11 @@ public interface ActaDao {
 	
 	public List<ActaDto> getActaByUsername(Pageable paging, String username);
 	
+	public List<ActaDto> findAllActas(Pageable paging);
+	
 	public Integer getTotalActas(String username);
+	
+	public Integer getAllTotalActas();
 	
 	public List<ActaDto> getInfraccionesFrecuentes();
 

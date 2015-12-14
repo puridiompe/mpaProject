@@ -30,9 +30,20 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 	}
 	
 	@Override
+	public List<ActaDto> getAllActas(Pageable paging){
+		return acta.findAllActas(paging);
+	}
+	
+	@Override
 	public Integer getTotalActas(String username){
 		
 		return acta.getTotalActas(username);
+	}
+	
+	@Override
+	public Integer getAllTotalActas() {
+	
+		return acta.getAllTotalActas();
 	}
 	
 	@Override
@@ -51,5 +62,7 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 	public ActaDto getImages(Integer idActa) {
 		return acta.getImagesByIdActa(idActa);
 	}
+
+
 
 }

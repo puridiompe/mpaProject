@@ -70,6 +70,22 @@ public class RegistroActaController {
 		return responseActa;
 	}
 	
+	@RequestMapping(value = "/getAll", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaByUsernameResponse>  getAllActas(@RequestBody RequestMessage<GetPaginacionRequest> request)
+			 {		
+			
+		Pageable paging = new PageRequest(request.getBody().getPageCount(), request.getBody().getPageSize(), Sort.Direction.ASC, "idActa");
+		ResponseMessage<GetActaByUsernameResponse> responseActa = new ResponseMessage<GetActaByUsernameResponse>();
+		
+		List<ActaDto> actaDto = gestionarActaBusiness.getAllActas(paging);
+		
+		GetActaByUsernameResponse actaResponse = new GetActaByUsernameResponse();
+		actaResponse.setActaUsername(actaDto);
+		responseActa.setBody(actaResponse);
+		
+		return responseActa;
+	}
+	
 	@RequestMapping(value = "/getTotal", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseMessage<GetActaResponse>  getTotalActas()
 			throws BusinessException, SecurityException {
@@ -77,6 +93,23 @@ public class RegistroActaController {
 		ResponseMessage<GetActaResponse> response = new ResponseMessage<GetActaResponse>();
 		
 		Integer total = gestionarActaBusiness.getTotalActas(SecurityContextHelper.getCurrentUsername());
+		
+		GetActaResponse getActaResponse = new GetActaResponse();
+		
+		getActaResponse.setNumeroActas(total);
+		
+		response.setBody(getActaResponse);
+		
+		return response;
+	}
+	
+	@RequestMapping(value = "/getAllTotal", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseMessage<GetActaResponse>  getAllTotalActas()
+			 {
+		
+		ResponseMessage<GetActaResponse> response = new ResponseMessage<GetActaResponse>();
+		
+		Integer total = gestionarActaBusiness.getAllTotalActas();
 		
 		GetActaResponse getActaResponse = new GetActaResponse();
 		

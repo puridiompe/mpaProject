@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.puridiompe.mpa.business.general.dto.ActaDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
+import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.common.type.ImageType;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ActaDao;
@@ -147,6 +148,17 @@ public class ActaDaoImpl implements ActaDao {
 		
 	}
 	
+	@Override
+	public List<ActaDto> findAllActas(Pageable paging){
+		
+		List<Acta> actas = actaRepository.findAllActas(paging);
+		
+		List<ActaDto> actaObjects = getActaObjects(actas);
+		
+		return actaObjects;
+		
+	}
+	
 	private List<ActaDto> getActaObjects(List<Acta> actas) {
 
 		List<ActaDto> actaObjects = new ArrayList<ActaDto>();
@@ -222,6 +234,10 @@ public class ActaDaoImpl implements ActaDao {
 		return actaRepository.findTotalActas(username);
 	}
 	
+	public Integer getAllTotalActas (){
+		
+		return actaRepository.findAllTotalActas();
+	}
 	
 
 	@Transactional(value = "movilTransactionManager", readOnly = true)
@@ -270,7 +286,7 @@ public class ActaDaoImpl implements ActaDao {
 		
 		String nexVal = reclamoCiudadanoRepository.nextValNumAct();
 		
-		usuarioActa.setFecha(DateUtil.getCurrentDate());
+		usuarioActa.setFecha(new Datetime(DateUtil.getCurrentDate()));
 		usuarioActa.setNumActa(nexVal);
 		
 		return usuarioActa;

@@ -13,7 +13,11 @@ public interface GestionarActaBusiness {
 	
 	public List<ActaDto> getActa(Pageable paging,String username);
 	
+	public List<ActaDto> getAllActas(Pageable paging);
+	
 	public Integer getTotalActas(String username);
+	
+	public Integer getAllTotalActas();
 	
 	public List<ActaDto> getInfraccionesFrecuentes();
 
