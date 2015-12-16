@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.puridiompe.mpa.business.general.GestionarActaBusiness;
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 import com.puridiompe.mpa.dataaccess.ActaDao;
 
@@ -30,8 +31,8 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 	}
 	
 	@Override
-	public List<ActaDto> getAllActas(Pageable paging){
-		return acta.findAllActas(paging);
+	public List<ActaDto> getAllActas(Pageable paging,List<FilterDto> filter){
+		return acta.findAllActas(paging,filter);
 	}
 	
 	@Override
@@ -41,9 +42,9 @@ public class GestionarActaBusinessImpl implements GestionarActaBusiness{
 	}
 	
 	@Override
-	public Integer getAllTotalActas() {
+	public Integer getAllTotalActas(List<FilterDto> filter) {
 	
-		return acta.getAllTotalActas();
+		return acta.getAllTotalActas(filter);
 	}
 	
 	@Override

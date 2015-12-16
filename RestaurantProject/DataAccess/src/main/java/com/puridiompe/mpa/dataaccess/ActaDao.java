@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 
 public interface ActaDao {
@@ -13,11 +14,11 @@ public interface ActaDao {
 	
 	public List<ActaDto> getActaByUsername(Pageable paging, String username);
 	
-	public List<ActaDto> findAllActas(Pageable paging);
+	public List<ActaDto> findAllActas(Pageable paging,List<FilterDto> filter);
 	
 	public Integer getTotalActas(String username);
 	
-	public Integer getAllTotalActas();
+	public Integer getAllTotalActas(List<FilterDto> filter);
 	
 	public List<ActaDto> getInfraccionesFrecuentes();
 

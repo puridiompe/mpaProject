@@ -18,13 +18,8 @@ public interface ActaRepository extends JpaRepository<Acta, Integer>{
 	
 	@Query("from Acta a where a.username = ?1 order by a.idActa DESC")
 	public List<Acta> findByUsername(String username, Pageable pageable);
-	
-	@Query("from Acta a order by a.idActa DESC")
-	public List<Acta> findAllActas(Pageable pageable);
-	
+		
 	@Query("select count (*) from Acta a where a.username = ?1")
 	public Integer findTotalActas(String username);
 	
-	@Query("select count (*) from Acta")
-	public Integer findAllTotalActas();
 }

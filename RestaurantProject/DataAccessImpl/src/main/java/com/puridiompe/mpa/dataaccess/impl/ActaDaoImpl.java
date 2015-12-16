@@ -11,17 +11,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.puridiompe.mpa.business.general.dto.ActaDto;
+import com.puridiompe.mpa.business.general.dto.FilterDto;
 import com.puridiompe.mpa.business.general.dto.ResumenImagenDto;
 import com.puridiompe.mpa.business.general.dto.UsuarioActaDto;
 import com.puridiompe.mpa.common.type.Datetime;
 import com.puridiompe.mpa.common.type.ImageType;
+import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ActaDao;
 import com.puridiompe.mpa.movil.domain.persistence.Acta;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.InfraccionFrecuente;
-import com.puridiompe.mpa.movil.domain.persistence.Reclamo;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
+import com.puridiompe.mpa.movil.repository.persistence.ActaInspectorRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ActaRepository;
 import com.puridiompe.mpa.movil.repository.persistence.ImagenRepository;
 import com.puridiompe.mpa.movil.repository.persistence.InfraccionFrecuenteRepository;
@@ -44,6 +46,10 @@ public class ActaDaoImpl implements ActaDao {
 	
 	@Autowired
 	private ReclamoCiudadanoRepository reclamoCiudadanoRepository;
+	
+	@Autowired
+	private ActaInspectorRepository actaInspectorRepository;
+	
 	
 	@Override
 	public ActaDto setActa(ActaDto actaRequest) {
@@ -149,9 +155,14 @@ public class ActaDaoImpl implements ActaDao {
 	}
 	
 	@Override
-	public List<ActaDto> findAllActas(Pageable paging){
+	public List<ActaDto> findAllActas(Pageable paging ,List<FilterDto> filter){
 		
-		List<Acta> actas = actaRepository.findAllActas(paging);
+		String query = createQuery(filter);
+		System.out.println("*****************************************************************************");
+		System.out.println(query);
+		System.out.println("*****************************************************************************");
+		//List<Acta> actas = actaRepository.findAllActas(paging);
+		List<Acta> actas = actaInspectorRepository.findAllActas(paging,query);
 		
 		List<ActaDto> actaObjects = getActaObjects(actas);
 		
@@ -234,9 +245,14 @@ public class ActaDaoImpl implements ActaDao {
 		return actaRepository.findTotalActas(username);
 	}
 	
-	public Integer getAllTotalActas (){
+	public Integer getAllTotalActas(List<FilterDto> filter){
 		
-		return actaRepository.findAllTotalActas();
+		String query = createQuery(filter);
+		System.out.println("*****************************************************************************");
+		System.out.println(query);
+		System.out.println("*****************************************************************************");
+		//return actaRepository.findAllTotalActas(query);
+		return actaInspectorRepository.findAllTotalActas(query);
 	}
 	
 
@@ -291,6 +307,30 @@ public class ActaDaoImpl implements ActaDao {
 		
 		return usuarioActa;
 	}
+	
+	private String createQuery(List<FilterDto> filter){
+		
+		int countFilter = 0;
+		int countFilterCheck = 0;
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i = 0; i < filter.size(); i++){
+			if (filter.get(i).getEnabled() == true){
+				if(filter.get(i).getType().equals("TEXT")){
+					if(countFilter > 0){
+						sb.append(" and ");
+					}
+					countFilter++;
+					sb.append("a.");												
+					sb.append(filter.get(i).getModel());
+					sb.append(" = ");
+					sb.append("'");
+					sb.append(filter.get(i).getValue()).append("'");
+				}
+			}
+		}
+		
+		return sb.toString();
+	}
 }
-
 
