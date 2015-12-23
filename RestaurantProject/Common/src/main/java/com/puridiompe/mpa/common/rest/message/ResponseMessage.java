@@ -10,7 +10,7 @@ package com.puridiompe.mpa.common.rest.message;
 public class ResponseMessage<T extends ResponseBody> {
 
 	private ResponseHeader header;
-
+	
 	private T body;
 
 	/**

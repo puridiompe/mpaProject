@@ -75,15 +75,18 @@ public class RegistroActaController {
 			 {		
 			
 		Pageable paging = new PageRequest(request.getBody().getPageCount(), request.getBody().getPageSize(), Sort.Direction.ASC, "idActa");
-		ResponseMessage<GetActaByUsernameResponse> responseActa = new ResponseMessage<GetActaByUsernameResponse>();
+		ResponseMessage<GetActaByUsernameResponse> response = new ResponseMessage<GetActaByUsernameResponse>();
 		
 		List<ActaDto> actaDto = gestionarActaBusiness.getAllActas(paging,request.getBody().getFilterList());
 		
 		GetActaByUsernameResponse actaResponse = new GetActaByUsernameResponse();
 		actaResponse.setActaUsername(actaDto);
-		responseActa.setBody(actaResponse);
+		response.setBody(actaResponse);
 		
-		return responseActa;
+		actaResponse.setFilterList(request.getBody().getFilterList());
+		//responseActa.setFilterList(request.getBody().getFilterList());	
+		
+		return response;
 	}
 	
 	@RequestMapping(value = "/getTotal", method = RequestMethod.POST, headers = "Accept=application/json", produces = MediaType.APPLICATION_JSON_VALUE)
