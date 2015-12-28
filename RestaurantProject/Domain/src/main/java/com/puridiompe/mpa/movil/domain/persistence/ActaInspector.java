@@ -1,102 +1,85 @@
-package com.puridiompe.mpa.business.general.dto;
+package com.puridiompe.mpa.movil.domain.persistence;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-public class ActaDto {
-
+@SuppressWarnings("serial")
+public class ActaInspector implements Serializable {
+	
 	private Integer idActa;
-	
 	private String numAct;
-	
 	private String username;
-	
 	private String vehiculo;
-	
 	private String descripcion;
-	
-	private List<String> imagenesBase64;
-	
-	private ResumenImagenDto resumenImagen;
-	
+	private String nombres;
+	private String apellidoPaterno;
+	private String apellidoMaterno;
 	private Date fecCre;
 	
-	private String estado;
-	
-	private String nombres;
-	
-	private String apellidoPaterno;
-	
-	private String apellidoMaterno;
-	
-	
-	public ActaDto(){
-		this.imagenesBase64 = new ArrayList<String>();
+	public ActaInspector(Integer idActa, String numAct, String username, String vehiculo, String descripcion,Date fecCre,
+			String nombres, String apellidoPaterno, String apellidoMaterno) {
+		
+		this.idActa = idActa;
+		this.numAct = numAct;
+		this.username = username;
+		this.vehiculo = vehiculo;
+		this.descripcion = descripcion;
+		this.nombres = nombres;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.fecCre = fecCre;
 	}
-
+	
+	/**
+	 * @return the idActa
+	 */
 	public Integer getIdActa() {
 		return idActa;
 	}
-
 	public void setIdActa(Integer idActa) {
 		this.idActa = idActa;
 	}
-
 	public String getNumAct() {
 		return numAct;
 	}
-
 	public void setNumAct(String numAct) {
 		this.numAct = numAct;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getVehiculo() {
 		return vehiculo;
 	}
-
 	public void setVehiculo(String vehiculo) {
 		this.vehiculo = vehiculo;
 	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public String getEstado() {
-		return estado;
+	public String getNombres() {
+		return nombres;
 	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
-
-	public List<String> getImagenesBase64() {
-		return imagenesBase64;
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
 	}
-
-	public void setImagenesBase64(List<String> imagenesBase64) {
-		this.imagenesBase64 = imagenesBase64;
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
 	}
-
-	public ResumenImagenDto getResumenImagen() {
-		return resumenImagen;
+	public String getApellidoMaterno() {
+		return apellidoMaterno;
 	}
-
-	public void setResumenImagen(ResumenImagenDto resumenImagen) {
-		this.resumenImagen = resumenImagen;
+	public void setApellidoMaterno(String apellidoMaterno) {
+		this.apellidoMaterno = apellidoMaterno;
 	}
 
 	public Date getFecCre() {
@@ -107,29 +90,7 @@ public class ActaDto {
 		this.fecCre = fecCre;
 	}
 
-	public String getNombres() {
-		return nombres;
-	}
-
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-
-	public String getApellidoPaterno() {
-		return apellidoPaterno;
-	}
-
-	public void setApellidoPaterno(String apellidoPaterno) {
-		this.apellidoPaterno = apellidoPaterno;
-	}
-
-	public String getApellidoMaterno() {
-		return apellidoMaterno;
-	}
-
-	public void setApellidoMaterno(String apellidoMaterno) {
-		this.apellidoMaterno = apellidoMaterno;
-	}
+	
 	
 	
 }

@@ -20,6 +20,7 @@ import com.puridiompe.mpa.common.type.ReclamoState;
 import com.puridiompe.mpa.common.util.DateUtil;
 import com.puridiompe.mpa.dataaccess.ActaDao;
 import com.puridiompe.mpa.movil.domain.persistence.Acta;
+import com.puridiompe.mpa.movil.domain.persistence.ActaInspector;
 import com.puridiompe.mpa.movil.domain.persistence.Imagen;
 import com.puridiompe.mpa.movil.domain.persistence.InfraccionFrecuente;
 import com.puridiompe.mpa.movil.repository.file.FileRepository;
@@ -162,22 +163,72 @@ public class ActaDaoImpl implements ActaDao {
 		System.out.println(query);
 		System.out.println("*****************************************************************************");
 		//List<Acta> actas = actaRepository.findAllActas(paging);
-		List<Acta> actas = actaInspectorRepository.findAllActas(paging,query);
+		List<ActaInspector> actas = actaInspectorRepository.findAllActas(paging,query);
 		
-		List<ActaDto> actaObjects = getActaObjects(actas);
+		List<ActaDto> actaObjects = getActaInspectorObjects(actas);
 		
 		return actaObjects;
 		
 	}
 	
+	
 	private List<ActaDto> getActaObjects(List<Acta> actas) {
+
+			List<ActaDto> actaObjects = new ArrayList<ActaDto>();
+
+			if (actas != null && !actas.isEmpty()) {
+				List<Integer> actaIds = new ArrayList<Integer>();
+
+				for (Acta acta : actas) {
+					actaIds.add(acta.getIdActa());
+				}
+
+				int imagenIdx = 0;
+//				int comentarioIdx = 0;
+
+				List<Imagen> imagenes = imagenRepository.findByReclamo(actaIds, "ACT", "2");
+
+//				List<ReclamoComentario> comentarios = reclamoComentarioRepository.findByReclamo(reclamoIds, "2");
+
+				for (Acta acta : actas) {
+					ActaDto actaObject = new ActaDto();
+
+					BeanUtils.copyProperties(acta, actaObject);
+
+					ResumenImagenDto resumenImagen = new ResumenImagenDto();
+
+					int cantImagenes = 0;
+
+					for (int i = imagenIdx; i < imagenes.size(); i++) {
+						Imagen imagen = imagenes.get(i);
+						if (actaObject.getIdActa().equals(imagen.getIdPadre())) {
+							resumenImagen.getPesoImagen()
+									.add(Integer.toString(Math.round(imagen.getTamanho() / 1024)) + " KB");
+							cantImagenes++;
+							imagenIdx++;
+						} else {
+							break;
+						}
+					}
+
+					resumenImagen.setNumeroImagenes(cantImagenes);
+					actaObject.setResumenImagen(resumenImagen);
+					actaObjects.add(actaObject);
+				}
+
+			}
+
+			return actaObjects;
+		}
+	
+	private List<ActaDto> getActaInspectorObjects(List<ActaInspector> actas) {
 
 		List<ActaDto> actaObjects = new ArrayList<ActaDto>();
 
 		if (actas != null && !actas.isEmpty()) {
 			List<Integer> actaIds = new ArrayList<Integer>();
 
-			for (Acta acta : actas) {
+			for (ActaInspector acta : actas) {
 				actaIds.add(acta.getIdActa());
 			}
 
@@ -188,7 +239,7 @@ public class ActaDaoImpl implements ActaDao {
 
 //			List<ReclamoComentario> comentarios = reclamoComentarioRepository.findByReclamo(reclamoIds, "2");
 
-			for (Acta acta : actas) {
+			for (ActaInspector acta : actas) {
 				ActaDto actaObject = new ActaDto();
 
 				BeanUtils.copyProperties(acta, actaObject);
@@ -212,25 +263,6 @@ public class ActaDaoImpl implements ActaDao {
 				resumenImagen.setNumeroImagenes(cantImagenes);
 
 				actaObject.setResumenImagen(resumenImagen);
-
-//				List<ReclamoComentarioDto> comentariosObject = new ArrayList<ReclamoComentarioDto>();
-//
-//				for (int j = comentarioIdx; j < comentarios.size(); j++) {
-//					ReclamoComentario comentario = comentarios.get(j);
-//
-//					if (reclamoObject.getIdReclamo().equals(comentario.getIdReclamo())) {
-//
-//						ReclamoComentarioDto reclamoComentario = new ReclamoComentarioDto();
-//						reclamoComentario.setComentario(comentario.getComentario());
-//						reclamoComentario.setFecCre(new Datetime(comentario.getFecCre()));
-//
-//						comentariosObject.add(reclamoComentario);
-//						comentarioIdx++;
-//					} else {
-//						break;
-//					}
-//				}
-//				actaObject.setReclamoComentarios(comentariosObject);
 
 				actaObjects.add(actaObject);
 			}
@@ -321,8 +353,17 @@ public class ActaDaoImpl implements ActaDao {
 						sb.append(" and ");
 					}
 					countFilter++;
-					sb.append("a.");												
-					sb.append(filter.get(i).getModel());
+					if (filter.get(i).getModel().equals("nombres") || filter.get(i).getModel().equals("apellidoPaterno") ){
+						filter.get(i).setValue(filter.get(i).getValue().toLowerCase());
+						sb.append(" lower (");
+						sb.append("u.");
+						sb.append(filter.get(i).getModel());
+						sb.append(")");
+					}else {
+						sb.append("a.");
+						sb.append(filter.get(i).getModel());
+					}												
+					
 					sb.append(" = ");
 					sb.append("'");
 					sb.append(filter.get(i).getValue()).append("'");
