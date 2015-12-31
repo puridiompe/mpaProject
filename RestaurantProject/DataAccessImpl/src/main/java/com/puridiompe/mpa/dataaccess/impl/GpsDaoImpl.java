@@ -364,18 +364,23 @@ public class GpsDaoImpl implements GpsDao {
 		
 		List<GpsInspector> gpsInspectores = gpsInspectorRepository.findByRol(SystemRole.INSPECTOR.toString());
 		Date today = new Date();
+		GpsInspectorDto gpsInspectorDtoTmp;
+		
 		if (gpsInspectores != null && gpsInspectores.size() > 0) {
 			
 			String currentUsername = gpsInspectores.get(0).getUsername();
-			GpsInspectorDto gpsInspectorDtoTmp = new GpsInspectorDto();
 			GpsInspector gpsInspectortmp = gpsInspectores.get(0);
-			BeanUtils.copyProperties(gpsInspectortmp, gpsInspectorDtoTmp);
-			gpsInspectorDtoTmp.setDate(new Datetime(gpsInspectortmp.getDate()));
-			gpsInspectorObject.add(gpsInspectorDtoTmp);
+			long hours = TimeUnit.MILLISECONDS.toHours(today.getTime()-gpsInspectortmp.getDate().getTime());
+			if (hours<=24){ // just bring then last 24 h
+				gpsInspectorDtoTmp = new GpsInspectorDto();
+				BeanUtils.copyProperties(gpsInspectortmp, gpsInspectorDtoTmp);
+				gpsInspectorDtoTmp.setDate(new Datetime(gpsInspectortmp.getDate()));
+				gpsInspectorObject.add(gpsInspectorDtoTmp);
+			}
 			
 			for (int i = 1; i < gpsInspectores.size(); i++) { 
 				gpsInspectortmp = gpsInspectores.get(i);
-				long hours = TimeUnit.MILLISECONDS.toHours(today.getTime()-gpsInspectortmp.getDate().getTime());
+				hours = TimeUnit.MILLISECONDS.toHours(today.getTime()-gpsInspectortmp.getDate().getTime());
 				if (!currentUsername.equals(gpsInspectortmp.getUsername()) && hours<=24){ // just bring then last 24 h
 					gpsInspectorDtoTmp = new GpsInspectorDto();
 					BeanUtils.copyProperties(gpsInspectortmp, gpsInspectorDtoTmp);
